@@ -46,7 +46,7 @@ function ScrollManager() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ScrollManager />
       <Suspense fallback={null}>
         <Routes>

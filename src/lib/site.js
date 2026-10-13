@@ -10,6 +10,9 @@ export function waLink(text) {
   return "https://wa.me/" + WA_NUMBER + "?text=" + text;
 }
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+export const asset = (p) => BASE + p;
+
 export const NAV_LINKS = [
   { href: "#planos", label: "Planos" },
   { href: "#empresas", label: "Para empresas" },

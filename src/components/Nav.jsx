@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NAV_LINKS } from "../lib/site.js";
+import { NAV_LINKS, asset } from "../lib/site.js";
 
 export default function Nav({ minimal = false }) {
   const [open, setOpen] = useState(false);
@@ -120,7 +120,7 @@ export default function Nav({ minimal = false }) {
           >
             <img
               className="brand-logo"
-              src={scrolled ? "/logo_light.png" : "/logo_dark.png"}
+              src={scrolled ? asset("/logo_light.png") : asset("/logo_dark.png")}
               alt="Nexa Seguros"
               width="400"
               height="214"

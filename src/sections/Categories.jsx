@@ -1,4 +1,5 @@
 import ImgSlot from "../components/ImgSlot.jsx";
+import { asset } from "../lib/site.js";
 
 export default function Categories() {
   return (
@@ -16,7 +17,7 @@ export default function Categories() {
             <ImgSlot>
               <img
                 className="cat-img"
-                src="/img/plano-saude.webp"
+                src={asset("/img/plano-saude.webp")}
                 alt="Atendimento de saúde e cuidado com o paciente"
                 width="640"
                 height="400"
@@ -49,7 +50,7 @@ export default function Categories() {
             <ImgSlot>
               <img
                 className="cat-img"
-                src="/img/plano-odontologico.webp"
+                src={asset("/img/plano-odontologico.webp")}
                 alt="Consulta e cuidado odontológico"
                 width="640"
                 height="400"
@@ -82,7 +83,7 @@ export default function Categories() {
             <ImgSlot>
               <img
                 className="cat-img"
-                src="/img/planos-empresariais.webp"
+                src={asset("/img/planos-empresariais.webp")}
                 alt="Equipe de trabalho em ambiente corporativo"
                 width="640"
                 height="400"

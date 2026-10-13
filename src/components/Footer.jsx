@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FOOTER_INST_LINKS, FOOTER_PLAN_LINKS, WA_NUMBER, YEAR } from "../lib/site.js";
+import { FOOTER_INST_LINKS, FOOTER_PLAN_LINKS, WA_NUMBER, YEAR, asset } from "../lib/site.js";
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer-brand">
           <img
             className="brand-logo"
-            src="/logo_dark.png"
+            src={asset("/logo_dark.png")}
             alt="Nexa Seguros"
             width="400"
             height="214"

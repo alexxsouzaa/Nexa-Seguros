@@ -163,9 +163,9 @@ main:focus, section:focus { outline: none; box-shadow: none; }
   position: fixed; top: var(--nav-offset); left: 0; right: 0; z-index: 100;
   width: min(1200px, 100% - 24px); margin-inline: auto;
   height: var(--nav-h);
-  border-radius: 18px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--pill);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: none;
   animation: nav-in 0.48s var(--ease-motion) both;
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -201,7 +201,7 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .mobile-menu {
   position: fixed; top: calc(var(--nav-offset) + var(--nav-h) + 8px); left: 12px; right: 12px; z-index: 99;
   background: var(--surface);
-  border: 1px solid var(--border); border-radius: 18px;
+  border: 1px solid var(--border); border-radius: var(--pill);
   box-shadow: 0 16px 44px rgba(38, 71, 60, 0.2);
   padding: 14px 22px 24px;
 }

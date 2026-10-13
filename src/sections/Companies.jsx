@@ -1,4 +1,5 @@
 import { CheckIcon } from "../components/icons.jsx";
+import { asset } from "../lib/site.js";
 
 const ITEMS = [
   "Diagnóstico do perfil da equipe antes da indicação",
@@ -33,7 +34,7 @@ export default function Companies() {
 
         <div className="inst-photo r">
           <img
-            src="/img/empresas.webp"
+            src={asset("/img/empresas.webp")}
             alt="Equipe corporativa em reunião de trabalho"
             width="1100"
             height="825"

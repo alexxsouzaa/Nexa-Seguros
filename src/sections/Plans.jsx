@@ -1,3 +1,5 @@
+import { asset } from "../lib/site.js";
+
 const PLANS = [
   {
     od: "plano-saude",
@@ -67,7 +69,7 @@ function PlanCard({ plan }) {
             <div className="plan-op-head">
               <img
                 className="plan-logo"
-                src={group.logo}
+                src={asset(group.logo)}
                 alt=""
                 width="34"
                 height="34"
