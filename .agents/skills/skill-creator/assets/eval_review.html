@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trigger Eval Set Review — __SKILL_NAME_PLACEHOLDER__</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.3rem; }
+  .desc { background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; padding: .75rem; font-size: .85rem; margin-bottom: 1.5rem; }
+  .desc b { display: block; margin-bottom: .25rem; }
+  .item { display: flex; gap: .75rem; align-items: flex-start; border: 1px solid #ddd; border-radius: 8px; padding: .75rem; margin-bottom: .5rem; }
+  .item textarea { flex: 1; min-height: 60px; font: inherit; padding: .5rem; border: 1px solid #ccc; border-radius: 6px; }
+  .toggle { display: flex; flex-direction: column; align-items: center; gap: .25rem; }
+  .toggle label { font-size: .75rem; color: #666; }
+  .toggle input { transform: scale(1.3); }
+  .actions { display: flex; gap: .5rem; margin-top: 1.25rem; align-items: center; }
+  .actions button { padding: .55rem 1rem; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font: inherit; }
+  .actions .primary { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+  .hint { color: #666; font-size: .8rem; }
+</style>
+</head>
+<body>
+<h1>Trigger Eval Set — <span id="skill-name">__SKILL_NAME_PLACEHOLDER__</span></h1>
+<div class="desc"><b>Current skill description:</b><span id="skill-desc">__SKILL_DESCRIPTION_PLACEHOLDER__</span></div>
+<p class="hint">Edit the queries, toggle whether each should trigger the skill, add or remove entries, then click "Export Eval Set". The file downloads to your Downloads folder.</p>
+<div id="items"></div>
+<div class="actions">
+  <button class="primary" onclick="exportEvalSet()">Export Eval Set</button>
+  <button onclick="addItem()">+ Add query</button>
+  <span class="hint" id="stats"></span>
+</div>
+
+<script>
+window.__EVAL_DATA__ = __EVAL_DATA_PLACEHOLDER__;
+let items = JSON.parse(JSON.stringify(window.__EVAL_DATA__ || []));
+if (!items.length) { items = [{query: '', should_trigger: true}]; }
+
+function render() {
+  const container = document.getElementById('items');
+  container.innerHTML = '';
+  items.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'item';
+    row.innerHTML = `
+      <div class="toggle">
+        <input type="checkbox" id="tg-${i}" ${item.should_trigger ? 'checked' : ''}>
+        <label for="tg-${i}">should<br>trigger</label>
+      </div>
+      <textarea id="q-${i}" placeholder="User prompt">${item.query.replace(/</g, '&lt;')}</textarea>
+      <button onclick="removeItem(${i})">×</button>`;
+    container.appendChild(row);
+  });
+  const stats = document.getElementById('stats');
+  stats.textContent = `${items.length} queries`;
+}
+function readAll() {
+  items = items.map((item, i) => ({
+    query: document.getElementById('q-' + i).value,
+    should_trigger: document.getElementById('tg-' + i).checked
+  }));
+}
+function addItem() { readAll(); items.push({query: '', should_trigger: true}); render(); }
+function removeItem(i) { readAll(); items.splice(i, 1); render(); }
+function exportEvalSet() {
+  readAll();
+  const clean = items.filter(x => x.query.trim());
+  const blob = new Blob([JSON.stringify(clean, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'eval_set.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+render();
+</script>
+</body>
+</html>

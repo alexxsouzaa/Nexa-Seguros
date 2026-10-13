@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skill Review — __SKILL_NAME__</title>
+<style>
+  :root { --border:#ddd; --muted:#666; --accent:#1a73e8; --pass:#1e8e3e; --fail:#d93025; }
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; margin: 0; color: #1f1f1f; }
+  header { padding: 1rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1.5rem; }
+  header h1 { font-size: 1.25rem; margin: 0; }
+  nav { display: flex; gap: .25rem; }
+  nav button { border: 1px solid var(--border); background:#fff; padding: .4rem .8rem; cursor: pointer; border-radius: 6px; }
+  nav button.active { background: var(--accent); color:#fff; border-color: var(--accent); }
+  main { max-width: 1100px; margin: 1.5rem auto; padding: 0 1.5rem; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .eval-nav { display: flex; gap: .5rem; margin-bottom: 1rem; align-items:center; flex-wrap: wrap; }
+  .eval-nav button { border:1px solid var(--border); background:#fff; padding:.35rem .7rem; cursor:pointer; border-radius:6px; }
+  .eval-nav button.active { background:#222; color:#fff; }
+  .card { border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; margin-bottom:1.25rem; }
+  .card h2 { font-size:1rem; margin: 0 0 .75rem; }
+  .prompt { background:#f8f9fa; padding:.75rem; border-radius:6px; white-space:pre-wrap; margin-bottom:1rem; }
+  .run { margin-bottom: 1.25rem; }
+  .run h3 { font-size:.9rem; margin: 0 0 .5rem; color: var(--muted); font-weight:600; text-transform:capitalize; }
+  .file { border:1px solid var(--border); border-radius:6px; margin-bottom:.5rem; overflow:hidden; }
+  .file summary { padding:.5rem .75rem; cursor:pointer; font-family:monospace; font-size:.85rem; background:#fafafa; }
+  .file pre { margin:0; padding:.75rem; max-height:480px; overflow:auto; white-space:pre-wrap; word-break:break-word; font-size:.8rem; }
+  .grade { font-size:.85rem; margin:.25rem 0 .75rem; }
+  .expectation { padding:.3rem .5rem; margin:.2rem 0; border-radius:4px; font-size:.82rem; }
+  .expectation.pass { background:#e6f4ea; color:var(--pass); }
+  .expectation.fail { background:#fce8e6; color:var(--fail); }
+  .badge { display:inline-block; padding:.15rem .5rem; border-radius:999px; font-size:.75rem; margin-left:.5rem; }
+  .badge.pass { background:#e6f4ea; color:var(--pass); }
+  .badge.fail { background:#fce8e6; color:var(--fail); }
+  textarea { width:100%; min-height:80px; font: inherit; padding:.5rem; border:1px solid var(--border); border-radius:6px; }
+  .actions { display:flex; gap:.5rem; align-items:center; }
+  .actions button { border:1px solid var(--border); background:#fff; padding:.5rem .9rem; cursor:pointer; border-radius:6px; }
+  .actions .primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  details.prev { border:1px dashed var(--border); border-radius:6px; padding:.5rem .75rem; margin:.75rem 0; }
+  details.prev summary { cursor:pointer; color:var(--muted); font-size:.85rem; }
+  table.bench { border-collapse:collapse; width:100%; font-size:.85rem; }
+  table.bench th, table.bench td { border:1px solid var(--border); padding:.5rem .75rem; text-align:left; }
+  table.bench th { background:#f8f9fa; }
+  .empty { color:var(--muted); font-style:italic; }
+  .toast { position:fixed; bottom:1rem; right:1rem; background:#222; color:#fff; padding:.6rem 1rem; border-radius:6px; opacity:0; transition:opacity .3s; }
+  .toast.show { opacity:1; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Skill Review — __SKILL_NAME__</h1>
+  <nav>
+    <button id="tab-outputs" class="active" onclick="showTab('outputs')">Outputs</button>
+    <button id="tab-bench" onclick="showTab('bench')">Benchmark</button>
+  </nav>
+</header>
+<main>
+  <section id="panel-outputs" class="panel active">
+    <div class="eval-nav" id="eval-nav"></div>
+    <div id="eval-display"></div>
+    <div class="actions">
+      <button class="primary" onclick="submitReviews()">Submit All Reviews</button>
+      <span class="empty" id="save-hint"></span>
+    </div>
+  </section>
+  <section id="panel-bench" class="panel">
+    <div id="bench-display"></div>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = __DATA__;
+const evals = DATA.evals || [];
+let current = 0;
+
+function $(id){ return document.getElementById(id); }
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderEvalNav(){
+  const nav = $('eval-nav');
+  nav.innerHTML = evals.map((e,i)=>
+    `<button class="${i===current?'active':''}" onclick="selectEval(${i})">${esc(e.name)}${gradeBadge(e)}</button>`
+  ).join('');
+}
+function gradeBadge(e){
+  const r = e.runs && e.runs.with_skill;
+  if(!r || !r.grade || !r.grade.total) return '';
+  const cls = r.grade.passed === r.grade.total ? 'pass':'fail';
+  return `<span class="badge ${cls}">${r.grade.passed}/${r.grade.total}</span>`;
+}
+function selectEval(i){ current=i; renderEvalNav(); renderEval(evals[i]); }
+
+function renderRun(e, runName){
+  const r = e.runs[runName];
+  if(!r) return '';
+  let html = `<div class="run"><h3>${esc(runName.replace(/_/g,' '))}</h3>`;
+  if(r.timing && (r.timing.total_tokens || r.timing.duration_ms)){
+    html += `<div class="grade">tokens: ${r.timing.total_tokens ?? 'n/a'} · ${(r.timing.duration_ms/1000).toFixed(1)}s</div>`;
+  }
+  if(r.grade && r.grade.total){
+    html += `<div class="grade">grade: ${r.grade.passed}/${r.grade.total} passed</div>`;
+    r.expectations.forEach(ex=>{
+      const cls = ex.passed ? 'pass':'fail';
+      html += `<div class="expectation ${cls}">${ex.passed?'✓':'✗'} ${esc(ex.text)}</div>`;
+    });
+  }
+  if(!r.files.length){ html += `<div class="empty">no outputs</div>`; }
+  r.files.forEach(f=>{
+    if(f.kind === 'text'){
+      html += `<details class="file"><summary>${esc(f.name)}</summary><pre>${esc(f.text)}</pre></details>`;
+    } else {
+      html += `<details class="file"><summary>${esc(f.name)}</summary><div style="padding:.75rem"><a href="#" onclick="return false" class="empty">binary — see workspace</a></div></details>`;
+    }
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderEval(e){
+  const d = $('eval-display');
+  const runs = ['with_skill','without_skill','old_skill'].filter(rn=>e.runs[rn]);
+  let html = `<div class="card"><h2>${esc(e.name)}</h2>`;
+  html += `<div class="prompt">${esc(e.prompt)}</div>`;
+  if(e.previous){
+    const p = e.previous;
+    html += `<details class="prev"><summary>Previous iteration (${p.files.length} outputs)</summary>`;
+    p.files.forEach(f=>{ if(f.kind==='text'){ html += `<details class="file"><summary>${esc(f.name)}</summary><pre>${esc(f.text)}</pre></details>`; } });
+    html += `</details>`;
+  }
+  runs.forEach(rn=>{ html += renderRun(e, rn); });
+  const key = 'feedback-' + DATA.workspace.replace(/[^a-zA-Z0-9]/g,'-') + '-' + e.name;
+  const saved = localStorage.getItem(key) || '';
+  html += `<label><strong>Feedback</strong></label><textarea id="fb-${esc(e.name)}" oninput="saveFeedback('${esc(e.name)}')">${esc(saved)}</textarea>`;
+  html += `</div>`;
+  d.innerHTML = html;
+}
+function saveFeedback(name){
+  const el = document.getElementById('fb-'+name);
+  if(!el) return;
+  const key = 'feedback-' + DATA.workspace.replace(/[^a-zA-Z0-9]/g,'-') + '-' + name;
+  localStorage.setItem(key, el.value);
+  $('save-hint').textContent = 'saved';
+}
+function submitReviews(){
+  const reviews = evals.map(e=>({
+    run_id: e.name + '-with_skill',
+    feedback: localStorage.getItem('feedback-' + DATA.workspace.replace(/[^a-zA-Z0-9]/g,'-') + '-' + e.name) || ''
+  }));
+  const payload = JSON.stringify({reviews, status:'complete'}, null, 2);
+  const blob = new Blob([payload], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'feedback.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('feedback.json downloaded');
+}
+
+function renderBench(){
+  const d = $('bench-display');
+  const b = DATA.benchmark;
+  if(!b || !b.configs || !b.configs.length){ d.innerHTML = `<p class="empty">No benchmark data. Run aggregate_benchmark first.</p>`; return; }
+  let html = `<h2>Benchmark — ${esc(b.skill_name)}</h2><table class="bench"><thead><tr>`;
+  html += `<th>Config</th><th>Pass rate</th><th>Passed/Total</th><th>Tokens (mean ± std)</th><th>Duration ms (mean ± std)</th></tr></thead><tbody>`;
+  b.configs.forEach(c=>{
+    const fmt = (m,s)=> (m==null?'n/a':m.toFixed(0) + (s!=null?(' ± '+s.toFixed(0)):''));
+    html += `<tr><td>${esc(c.name)}</td><td>${c.pass_rate==null?'n/a':(c.pass_rate*100).toFixed(1)+'%'}</td><td>${c.passed}/${c.total}</td>`;
+    html += `<td>${fmt(c.tokens.mean, c.tokens.stddev)}</td><td>${fmt(c.duration_ms.mean, c.duration_ms.stddev)}</td></tr>`;
+  });
+  html += `</tbody></table>`;
+  d.innerHTML = html;
+}
+
+function showTab(name){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('#tab-outputs,#tab-bench').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='bench') renderBench();
+}
+
+window.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'){ selectEval(Math.min(current+1, evals.length-1)); }
+  if(e.key==='ArrowLeft'){ selectEval(Math.max(current-1, 0)); }
+});
+
+renderEvalNav();
+if(evals.length) renderEval(evals[0]);
+</script>
+</body>
+</html>
