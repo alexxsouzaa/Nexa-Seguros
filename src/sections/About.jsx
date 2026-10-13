@@ -1,4 +1,5 @@
 import ImgSlot from "../components/ImgSlot.jsx";
+import { asset } from "../lib/site.js";
 
 const POINTS = [
   {
@@ -20,7 +21,16 @@ export default function About() {
     <section className="section" id="sobre" data-od-id="secao-sobre">
       <div className="container split">
         <div className="split-media r">
-          <ImgSlot label="Imagem sobre a Nexa" />
+          <ImgSlot label="Imagem sobre a Nexa" decorative={false}>
+            <img
+              src={asset("/img/sobre.jpg")}
+              alt="Consultora da Nexa Seguros atendendo um cliente em uma conversa sobre planos de saúde"
+              width="1400"
+              height="1045"
+              loading="lazy"
+              decoding="async"
+            />
+          </ImgSlot>
         </div>
 
         <div className="split-copy r">

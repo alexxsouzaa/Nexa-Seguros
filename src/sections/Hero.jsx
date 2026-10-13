@@ -1,4 +1,5 @@
 import ImgSlot from "../components/ImgSlot.jsx";
+import { asset } from "../lib/site.js";
 
 export default function Hero() {
   return (
@@ -22,7 +23,16 @@ export default function Hero() {
         </div>
 
         <div className="hero-media r">
-          <ImgSlot label="Imagem principal" />
+          <ImgSlot label="Imagem principal" decorative={false}>
+            <img
+              src={asset("/img/hero.jpg")}
+              alt="Consultora da Nexa Seguros orientando uma cliente na escolha do plano de saúde"
+              width="1400"
+              height="1045"
+              decoding="async"
+              fetchPriority="high"
+            />
+          </ImgSlot>
         </div>
       </div>
     </section>
