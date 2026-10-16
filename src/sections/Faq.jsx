@@ -46,6 +46,21 @@ const FAQS = [
     id: "9",
     q: "E se eu já tiver um plano?",
     a: "Podemos avaliar seu plano atual, comparar com outras opções e indicar se vale a pena migrar. Sem custo e sem compromisso de troca."
+  },
+  {
+    id: "10",
+    q: "O que é coparticipação?",
+    a: "É um valor que você pode pagar cada vez que usar determinado serviço, como consulta ou exame. Nem todo plano tem coparticipação, e o percentual varia conforme a operadora e o tipo de procedimento."
+  },
+  {
+    id: "11",
+    q: "O que é rede credenciada?",
+    a: "É o conjunto de hospitais, laboratórios, clínicas e profissionais que têm acordo com a operadora. Quanto maior e mais próxima a rede, mais fácil é usar o plano no dia a dia."
+  },
+  {
+    id: "12",
+    q: "Quais modalidades de plano existem?",
+    a: "As mais comuns são individual/familiar (para você ou sua família) e empresarial (contratada pela empresa para a equipe). Cada uma tem regras, valores e coberturas diferentes. Na cotação, indicamos a que faz sentido para o seu perfil."
   }
 ];
 

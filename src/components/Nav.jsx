@@ -107,13 +107,14 @@ export default function Nav({ minimal = false }) {
       <header className="nav" id="nav">
         <div className="nav-inner">
           <a className="brand" href={minimal ? "/" : "#inicio"} aria-label="Nexa Seguros, início">
-            <img
-              className="brand-logo"
-              src={asset("/logo_light.png")}
-              alt="Nexa Seguros"
-              width="400"
-              height="214"
-            />
+              <img
+                className="brand-logo"
+                src={asset("/logo_light.png")}
+                alt="Nexa Seguros"
+                width="400"
+                height="214"
+                decoding="async"
+              />
           </a>
 
           {!minimal && (
@@ -185,7 +186,7 @@ export default function Nav({ minimal = false }) {
           <div className="sheet-backdrop" onClick={() => setOpen(false)} />
           <div ref={sheetRef} className="sheet" id="mobileSheet" role="dialog" aria-modal="true">
             <div className="sheet-head">
-              <img className="brand-logo" src={asset("/logo_light.png")} alt="Nexa Seguros" width="400" height="214" />
+              <img className="brand-logo" src={asset("/logo_light.png")} alt="Nexa Seguros" width="400" height="214" decoding="async" />
               <button className="sheet-close" onClick={() => setOpen(false)} aria-label="Fechar menu">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M18 6L6 18M6 6l12 12" />

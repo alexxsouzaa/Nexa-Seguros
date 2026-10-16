@@ -4,17 +4,14 @@ import Nav from "../components/Nav.jsx";
 import Footer from "../components/Footer.jsx";
 import WhatsAppFloat from "../components/WhatsAppFloat.jsx";
 import Hero from "../sections/Hero.jsx";
-import ProductTabs from "../sections/ProductTabs.jsx";
-import Logos from "../sections/Logos.jsx";
 import Categories from "../sections/Categories.jsx";
-import ValueProps from "../sections/ValueProps.jsx";
+import Logos from "../sections/Logos.jsx";
 import Simulator from "../sections/Simulator.jsx";
-import QuestionAccordion from "../sections/QuestionAccordion.jsx";
+import ValueProps from "../sections/ValueProps.jsx";
 import Roles from "../sections/Roles.jsx";
+import Faq from "../sections/Faq.jsx";
 import Testimonials from "../sections/Testimonials.jsx";
 import Pricing from "../sections/Pricing.jsx";
-import HelpCenter from "../sections/HelpCenter.jsx";
-import Faq from "../sections/Faq.jsx";
 import CtaFinal from "../sections/CtaFinal.jsx";
 
 export default function Home() {
@@ -33,18 +30,28 @@ export default function Home() {
       <Nav />
 
       <main id="conteudo" tabIndex={-1}>
+        {/* Apresentação */}
         <Hero />
-        <ProductTabs />
-        <Logos />
-        <ValueProps />
+
+        {/* Soluções */}
         <Categories />
+        <Logos />
+
+        {/* Processo */}
         <Simulator />
-        <QuestionAccordion />
+
+        {/* Diferenciais */}
+        <ValueProps />
         <Roles />
-        <Testimonials />
-        <Pricing />
-        <HelpCenter />
+
+        {/* FAQ / Conteúdo educativo */}
         <Faq />
+        <Testimonials />
+
+        {/* Preços */}
+        <Pricing />
+
+        {/* Contato */}
         <CtaFinal />
       </main>
 
