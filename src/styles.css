@@ -705,6 +705,11 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .footer-bottom a:hover { color: var(--white); }
 .to-top { display: inline-flex; align-items: center; gap: 8px; }
 
+.footer-contacts { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 13px; color: var(--white-60); margin-bottom: 10px; }
+.footer-contacts a { color: var(--white-80); text-decoration: none; font-weight: 500; }
+.footer-contacts a:hover { color: var(--white); text-decoration: underline; }
+.footer-contacts span { color: var(--white-40); }
+
 /* ---------- 17. SIMULADOR / FORM ---------- */
 .field { border: 0; padding: 0; margin: 0 0 18px; display: block; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }

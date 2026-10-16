@@ -33,16 +33,16 @@ export default function Hero() {
           </div>
 
           <h1 className="r">
-            O plano de saúde certo para você<span className="hidden-mobile"> e sua família</span>.
+            O plano de saúde certo para você, sua família ou empresa.
           </h1>
 
           <p className="lead r">
-            Economia real, atendimento humano e as melhores operadoras de saúde do mercado em um só lugar.
+            Compare opções de planos de saúde e odontológicos com orientação personalizada, de acordo com suas necessidades e seu orçamento.
           </p>
 
           <div className="hero-ctas r">
-            <a className="btn btn-primary btn-slide" href="#simulador">
-              Simular grátis
+            <a className="btn btn-primary btn-slide" href="#cotacao">
+              Solicitar cotação gratuita
               <span className="btn-slide-ic" aria-hidden="true"><ArrowIcon /></span>
             </a>
             <a className="btn btn-ghost" href={waLink("Olá, quero ajuda para escolher meu plano")} target="_blank" rel="noopener">

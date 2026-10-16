@@ -279,6 +279,7 @@ export default function Simulator() {
       "Nome: " + encodeURIComponent((data.get("nome") || "").toString()) + "%0A" +
       "WhatsApp: " + encodeURIComponent((data.get("whatsapp") || "").toString()) + "%0A" +
       "Cidade: " + encodeURIComponent((data.get("cidade") || "").toString()) + "%0A" +
+      "Quantidade de pessoas: " + encodeURIComponent((data.get("quantidade") || "").toString()) + "%0A" +
       "Idade: " + encodeURIComponent((data.get("idade") || "").toString()) + "%0A" +
       "Tipo: " + encodeURIComponent((data.get("tipo") || "").toString()) + "%0A" +
       "Perfil: " + encodeURIComponent((data.get("perfil") || "").toString());
@@ -385,10 +386,24 @@ export default function Simulator() {
                     required
                   />
                 </div>
+                <div className="field">
+                  <label htmlFor="quantidade">Quantidade de pessoas beneficiárias</label>
+                  <input
+                    type="number"
+                    id="quantidade"
+                    name="quantidade"
+                    inputMode="numeric"
+                    min="1"
+                    max="100"
+                    placeholder="Ex.: 4"
+                    maxLength="3"
+                    required
+                  />
+                </div>
               </div>
 
               <div className="field">
-                <label htmlFor="idade">Idade</label>
+                <label htmlFor="idade">Idade do titular / média dos beneficiários</label>
                 <input
                   type="number"
                   id="idade"
