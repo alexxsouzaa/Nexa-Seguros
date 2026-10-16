@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Building2, Heart, ShieldCheck, Smile, Moon, Sun } from "lucide-react";
+import { ChevronDown, Building2, Heart, ShieldCheck, Smile } from "lucide-react";
 import { PRODUCT_LINKS, asset } from "../lib/site.js";
 
 const ICONS = {
@@ -13,7 +13,6 @@ export default function Nav({ minimal = false }) {
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
   const [mmProd, setMmProd] = useState(false);
-  const [theme, setTheme] = useState("light");
   const dropRef = useRef(null);
   const sheetRef = useRef(null);
 
@@ -29,23 +28,6 @@ export default function Nav({ minimal = false }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [minimal]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("nexa-theme");
-    const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    const next = stored || prefers;
-    setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
-    document.documentElement.setAttribute("color-scheme", next);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    document.documentElement.setAttribute("color-scheme", theme);
-    localStorage.setItem("nexa-theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
 
   useEffect(() => {
     if (minimal) return;
@@ -175,18 +157,6 @@ export default function Nav({ minimal = false }) {
           <div className="nav-right">
             {!minimal && (
               <div className="nav-actions">
-                <button
-                  type="button"
-                  className="btn btn-ghost theme-toggle"
-                  onClick={toggleTheme}
-                  aria-label={theme === "light" ? "Ativar tema escuro" : "Ativar tema claro"}
-                >
-                  {theme === "light" ? (
-                    <Moon width={18} height={18} strokeWidth={1.8} />
-                  ) : (
-                    <Sun width={18} height={18} strokeWidth={1.8} />
-                  )}
-                </button>
                 <a className="btn btn-primary" href="#simulador">{minimal ? "Simular agora" : "Criar conta grátis"}</a>
               </div>
             )}
@@ -240,9 +210,6 @@ export default function Nav({ minimal = false }) {
               <a href="#precos" onClick={() => setOpen(false)}>Preços</a>
               <a href="#duvidas" onClick={() => setOpen(false)}>Dúvidas</a>
               <div className="mm-actions">
-                <button type="button" className="btn btn-ghost theme-toggle" onClick={toggleTheme} aria-label={theme === "light" ? "Ativar tema escuro" : "Ativar tema claro"}>
-                  {theme === "light" ? "Tema escuro" : "Tema claro"}
-                </button>
                 <a className="btn btn-ghost" href="#contato" onClick={() => setOpen(false)}>Entrar</a>
                 <a className="btn btn-primary" href="#simulador" onClick={() => setOpen(false)}>Criar conta grátis</a>
               </div>
