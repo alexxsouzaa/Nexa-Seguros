@@ -15,6 +15,7 @@ export default function Nav({ minimal = false }) {
   const [mmProd, setMmProd] = useState(false);
   const [theme, setTheme] = useState("light");
   const dropRef = useRef(null);
+  const sheetRef = useRef(null);
 
   useEffect(() => {
     if (minimal) return;
@@ -80,6 +81,44 @@ export default function Nav({ minimal = false }) {
     body.style.overflow = "hidden";
     return () => { body.style.overflow = ""; };
   }, [open, minimal]);
+
+  useEffect(() => {
+    if (minimal) return;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    let startX = 0;
+    let startY = 0;
+    let isTracking = false;
+    const onTouchStart = (e) => {
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+      isTracking = true;
+    };
+    const onTouchMove = (e) => {
+      if (!isTracking) return;
+      const t = e.touches[0];
+      const dx = t.clientX - startX;
+      const dy = Math.abs(t.clientY - startY);
+      if (dx < -30 && dy < 80) {
+        sheet.style.transform = `translateX(${Math.max(dx, -120)}px)`;
+        sheet.style.transition = "none";
+      }
+    };
+    const onTouchEnd = () => {
+      isTracking = false;
+      sheet.style.transition = "";
+      sheet.style.transform = "";
+    };
+    sheet.addEventListener("touchstart", onTouchStart, { passive: true });
+    sheet.addEventListener("touchmove", onTouchMove, { passive: true });
+    sheet.addEventListener("touchend", onTouchEnd);
+    return () => {
+      sheet.removeEventListener("touchstart", onTouchStart);
+      sheet.removeEventListener("touchmove", onTouchMove);
+      sheet.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [minimal]);
 
   return (
     <>
@@ -174,7 +213,7 @@ export default function Nav({ minimal = false }) {
       {!minimal && open && (
         <>
           <div className="sheet-backdrop" onClick={() => setOpen(false)} />
-          <div className="sheet" id="mobileSheet" role="dialog" aria-modal="true">
+          <div ref={sheetRef} className="sheet" id="mobileSheet" role="dialog" aria-modal="true">
             <div className="sheet-head">
               <img className="brand-logo" src={asset("/logo_light.png")} alt="Nexa Seguros" width="400" height="214" />
               <button className="sheet-close" onClick={() => setOpen(false)} aria-label="Fechar menu">

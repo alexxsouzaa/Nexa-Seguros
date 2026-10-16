@@ -1099,3 +1099,28 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
 }
 .theme-toggle:hover { background: var(--bg-2); border-color: var(--fg-muted); }
 .theme-toggle svg { display: block; }
+
+/* ---------- 25. MOBILE BASE ---------- */
+body { overflow-x: hidden; }
+* { -webkit-tap-highlight-color: transparent; }
+
+a, button, [role="button"], input, select, textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+input, select, textarea { font-size: 16px; }
+
+/* espacamento extra em telas muito estreitas */
+@media (max-width: 374px) {
+  .container, .container-narrow { width: 100% - 24px; }
+  .hero { padding-inline: 12px; }
+  .nav-inner { padding-inline: 12px; }
+  .footer { padding-inline: 12px; }
+  .sim-panel, .sim-content { padding-inline: 12px; }
+}
+
+/* reduz padding do simulador mobile em telas pequenas */
+@media (max-width: 479px) {
+  .sim-panel { width: min(400px, 100% - 24px); }
+}
