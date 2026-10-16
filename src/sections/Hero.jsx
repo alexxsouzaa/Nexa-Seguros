@@ -1,4 +1,5 @@
 import { waLink } from "../lib/site.js";
+import { trackCtaClick, trackWhatsAppOpen } from "../lib/analytics.js";
 
 function ArrowIcon() {
   return (
@@ -41,11 +42,21 @@ export default function Hero() {
           </p>
 
           <div className="hero-ctas r">
-            <a className="btn btn-primary btn-slide" href="#cotacao">
+            <a
+              className="btn btn-primary btn-slide"
+              href="#cotacao"
+              onClick={() => trackCtaClick("cta_hero_principal", "#cotacao")}
+            >
               Solicitar cotação gratuita
               <span className="btn-slide-ic" aria-hidden="true"><ArrowIcon /></span>
             </a>
-            <a className="btn btn-ghost" href={waLink("Olá, quero ajuda para escolher meu plano")} target="_blank" rel="noopener">
+            <a
+              className="btn btn-ghost"
+              href={waLink("Olá, quero ajuda para escolher meu plano")}
+              target="_blank"
+              rel="noopener"
+              onClick={() => trackWhatsAppOpen("hero")}
+            >
               Falar no WhatsApp
             </a>
           </div>

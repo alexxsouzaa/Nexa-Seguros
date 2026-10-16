@@ -1,5 +1,6 @@
 import { WA_FLOAT_TEXT, waLink } from "../lib/site.js";
 import { WhatsAppIcon } from "./icons.jsx";
+import { trackWhatsAppOpen } from "../lib/analytics.js";
 
 export default function WhatsAppFloat() {
   return (
@@ -11,6 +12,7 @@ export default function WhatsAppFloat() {
         rel="noopener"
         aria-label="Falar com a Nexa no WhatsApp"
         data-od-id="whatsapp-flutuante"
+        onClick={() => trackWhatsAppOpen("flutuante")}
       >
         <WhatsAppIcon />
       </a>

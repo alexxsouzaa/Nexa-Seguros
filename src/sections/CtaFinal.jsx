@@ -1,4 +1,5 @@
 import { WA_CTA_TEXT, waLink } from "../lib/site.js";
+import { trackCtaClick, trackWhatsAppOpen } from "../lib/analytics.js";
 
 export default function CtaFinal() {
   return (
@@ -11,10 +12,20 @@ export default function CtaFinal() {
               Fale com a Nexa e receba um comparativo com as melhores opções para o seu perfil — ainda hoje.
             </p>
             <div className="cta-actions">
-              <a className="btn btn-light btn-lg" href="#simulador">
+              <a
+                className="btn btn-light btn-lg"
+                href="#simulador"
+                onClick={() => trackCtaClick("cta_final_simular", "#simulador")}
+              >
                 Simular grátis
               </a>
-              <a className="btn btn-outline-light btn-lg" href={waLink(WA_CTA_TEXT)} target="_blank" rel="noopener">
+              <a
+                className="btn btn-outline-light btn-lg"
+                href={waLink(WA_CTA_TEXT)}
+                target="_blank"
+                rel="noopener"
+                onClick={() => trackWhatsAppOpen("cta_final")}
+              >
                 Falar no WhatsApp
               </a>
             </div>

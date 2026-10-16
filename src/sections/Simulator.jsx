@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { asset, WA_NUMBER } from "../lib/site.js";
+import { trackQuoteStart, trackQuoteSubmit, trackWhatsAppOpen } from "../lib/analytics.js";
 import {
   Sparkles, Plus, MessageCircle, ArrowUp, Check, FileText, Link2,
   LayoutList, Banknote, MessageSquareText, Brain, UserCheck
@@ -120,7 +121,7 @@ function Quote() {
           <span>Pronto para enviar</span>
           <span>Para você, no WhatsApp</span>
         </span>
-        <a className="sim-send-btn" href="#cotacao" tabIndex={-1}>
+        <a className="sim-send-btn" href="#cotacao" tabIndex={-1} onClick={() => trackCtaClick("cta_aprovar_enviar", "#cotacao")}>
           <span className="sim-send-ic"><Check size={20} strokeWidth={2.5} /></span>
           <span className="sim-send-label">Aprovar e enviar</span>
         </a>
@@ -214,10 +215,15 @@ function Demo() {
 
 export default function Simulator() {
   const [error, setError] = useState("");
+  const [quoteStarted, setQuoteStarted] = useState(false);
   useFrameScale();
 
   function handleFormChange(e) {
     const el = e.target;
+    if (!quoteStarted) {
+      setQuoteStarted(true);
+      trackQuoteStart();
+    }
     el.removeAttribute("aria-invalid");
     el.removeAttribute("aria-describedby");
     const fs = el.closest && el.closest("fieldset");
@@ -274,6 +280,13 @@ export default function Simulator() {
     }
 
     const data = new FormData(form);
+    trackQuoteSubmit({
+      tipo: data.get("tipo") || "",
+      perfil: data.get("perfil") || "",
+      cidade: data.get("cidade") || "",
+      quantidade: data.get("quantidade") || "",
+    });
+
     const msg =
       "Olá, Nexa! Quero receber opções de plano.%0A%0A" +
       "Nome: " + encodeURIComponent((data.get("nome") || "").toString()) + "%0A" +
