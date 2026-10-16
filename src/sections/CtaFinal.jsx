@@ -2,19 +2,30 @@ import { WA_CTA_TEXT, waLink } from "../lib/site.js";
 
 export default function CtaFinal() {
   return (
-    <section className="section cta-final" id="contato" data-od-id="secao-cta-final">
-      <div className="container cta-inner r">
-        <div>
-          <h2>Vamos encontrar o plano certo para você?</h2>
-          <p>Converse com a Nexa e receba orientação para escolher uma opção adequada ao seu perfil.</p>
-        </div>
-        <div className="cta-actions">
-          <a className="btn btn-light btn-lg" href={waLink(WA_CTA_TEXT)} target="_blank" rel="noopener">
-            Falar com a Nexa
-          </a>
-          <a className="btn btn-outline-light btn-lg" href="#simulador">
-            Solicitar cotação
-          </a>
+    <section className="section" id="contato">
+      <div className="container">
+        <div className="cta-final r">
+          <div className="cta-inner">
+            <h2>Comece pela sua próxima cotação.</h2>
+            <p>
+              Fale com a Nexa e receba um comparativo com as melhores opções para o seu perfil — ainda hoje.
+            </p>
+            <div className="cta-actions">
+              <a className="btn btn-light btn-lg" href="#simulador">
+                Simular grátis
+              </a>
+              <a className="btn btn-outline-light btn-lg" href={waLink(WA_CTA_TEXT)} target="_blank" rel="noopener">
+                Falar no WhatsApp
+              </a>
+            </div>
+            <div className="cta-badges">
+              <span>4,9 no Google</span>
+              <span aria-hidden="true">·</span>
+              <span>Atendimento humano</span>
+              <span aria-hidden="true">·</span>
+              <span>Sem compromisso</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -24,12 +24,27 @@ const FAQS = [
   {
     id: "5",
     q: "O valor depende da idade?",
-    a: "Sim. A idade é um dos fatores que influenciam o valor, junto com a região, o tipo de plano e o perfil (individual ou empresarial). Por isso trabalhamos com cotação por pessoa, não com preço fixo."
+    a: "Sim. A idade é um dos fatores que influenciam no valor, junto com a região, o tipo de plano e o perfil (individual ou empresarial). Por isso trabalhamos com cotação por pessoa, não com preço fixo."
   },
   {
     id: "6",
     q: "Vocês atendem empresas?",
     a: "Atendemos. Fazemos o diagnóstico do perfil da equipe, apresentamos alternativas comparáveis e acompanhamos a implantação junto ao RH ou à gestão da empresa."
+  },
+  {
+    id: "7",
+    q: "Quanto tempo leva para receber as opções?",
+    a: "Na maioria dos casos, no mesmo dia. Depois de enviar seus dados, nossa equipe monta o comparativo e retorna pelo WhatsApp com as opções que fazem sentido para o seu perfil."
+  },
+  {
+    id: "8",
+    q: "Meus dados ficam seguros?",
+    a: "Sim. Usamos seus dados apenas para montar a cotação e não compartilhamos com terceiros fora do processo de contratação. Você pode solicitar a exclusão quando quiser."
+  },
+  {
+    id: "9",
+    q: "E se eu já tiver um plano?",
+    a: "Podemos avaliar seu plano atual, comparar com outras opções e indicar se vale a pena migrar. Sem custo e sem compromisso de troca."
   }
 ];
 
@@ -37,41 +52,40 @@ export default function Faq() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="section section-alt" id="duvidas" data-od-id="secao-faq">
-      <div className="container faq-wrap">
-        <div className="section-head r">
-          <h2>Perguntas que todo mundo faz</h2>
+    <section className="section" id="duvidas">
+      <div className="container">
+        <div className="section-head center r">
+          <h2>Perguntas frequentes</h2>
         </div>
 
-        <div className="faq r" data-od-id="accordion-faq">
-          {FAQS.map((item) => {
-            const expanded = open === item.id;
-            return (
-              <div className="faq-item" key={item.id}>
-                <h3>
-                  <button
-                    className="faq-q"
-                    type="button"
-                    aria-expanded={expanded}
-                    id={`faq-q${item.id}`}
-                    aria-controls={`faq-a${item.id}`}
-                    onClick={() => setOpen(expanded ? null : item.id)}
-                  >
-                    {item.q}
-                    <span className="faq-ic" aria-hidden="true"></span>
-                  </button>
-                </h3>
-                <div
-                  className={expanded ? "faq-a open" : "faq-a"}
-                  id={`faq-a${item.id}`}
-                  aria-labelledby={`faq-q${item.id}`}
-                  role="region"
-                >
-                  <p>{item.a}</p>
+        <div className="acc-wrap">
+          <div className="acc r">
+            {FAQS.map((item) => {
+              const expanded = open === item.id;
+              return (
+                <div className="acc-item" key={item.id}>
+                  <h3 style={{ margin: 0, fontSize: "1rem" }}>
+                    <button
+                      className="acc-q"
+                      type="button"
+                      aria-expanded={expanded}
+                      id={`faq-q${item.id}`}
+                      aria-controls={`faq-a${item.id}`}
+                      onClick={() => setOpen(expanded ? null : item.id)}
+                    >
+                      {item.q}
+                      <span className="acc-ic" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div className={expanded ? "acc-a open" : "acc-a"} id={`faq-a${item.id}`} role="region" aria-labelledby={`faq-q${item.id}`}>
+                    <div>
+                      <p>{item.a}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

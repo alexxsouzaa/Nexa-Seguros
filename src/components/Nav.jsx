@@ -1,126 +1,76 @@
 import { useEffect, useRef, useState } from "react";
-import { NAV_LINKS, asset } from "../lib/site.js";
+import { ChevronDown, Building2, Heart, ShieldCheck, Smile } from "lucide-react";
+import { PRODUCT_LINKS, asset } from "../lib/site.js";
+
+const ICONS = {
+  saude: Heart,
+  odonto: Smile,
+  empresa: Building2,
+  operadoras: ShieldCheck,
+};
 
 export default function Nav({ minimal = false }) {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(Boolean(minimal));
-  const burgerRef = useRef(null);
+  const [drop, setDrop] = useState(false);
+  const [mmProd, setMmProd] = useState(false);
+  const dropRef = useRef(null);
 
-  /* Navbar transparente no topo e sólida ao rolar: IntersectionObserver no #navSentinel.
-     Na página legal (sem sentinel) a nav permanece sólida. */
   useEffect(() => {
+    if (minimal) return;
     const nav = document.getElementById("nav");
-    if (!nav || minimal) return;
-
-    const sentinel = document.getElementById("navSentinel");
-    if (!sentinel || !("IntersectionObserver" in window)) {
-      nav.classList.add("scrolled");
-      setScrolled(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        const onScroll = !entries[0].isIntersecting;
-        nav.classList.toggle("scrolled", onScroll);
-        setScrolled(onScroll);
-      },
-      { threshold: 0 }
-    );
-    io.observe(sentinel);
-    return () => io.disconnect();
+    if (!nav) return;
+    const onScroll = () => {
+      const on = window.scrollY > 8;
+      nav.classList.toggle("scrolled", on);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [minimal]);
 
-  /* Seção ativa: destaca o link do menu correspondente. */
   useEffect(() => {
     if (minimal) return;
-    const links = [...document.querySelectorAll(".nav-links a[href^='#']")];
-    const targets = links
-      .map((a) => document.querySelector(a.getAttribute("href")))
-      .filter(Boolean);
-    if (!targets.length || !("IntersectionObserver" in window)) return;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const id = "#" + entry.target.id;
-          links.forEach((a) => {
-            const on = a.getAttribute("href") === id;
-            a.classList.toggle("active", on);
-            if (on) a.setAttribute("aria-current", "true");
-            else a.removeAttribute("aria-current");
-          });
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-    );
-    targets.forEach((t) => io.observe(t));
-    return () => io.disconnect();
-  }, [minimal]);
-
-  /* Menu mobile */
-  useEffect(() => {
-    if (minimal) return;
-
     function onKey(e) {
-      if (e.key === "Escape" && open) {
-        setOpen(false);
-        if (burgerRef.current) burgerRef.current.focus();
+      if (e.key === "Escape") {
+        if (open) setOpen(false);
+        setDrop(false);
       }
     }
-    function onResize() {
-      if (window.innerWidth > 1080) setOpen(false);
+    function onClick(e) {
+      if (drop && dropRef.current && !dropRef.current.contains(e.target)) setDrop(false);
     }
-
+    function onResize() {
+      if (window.innerWidth > 767) setOpen(false);
+    }
     document.addEventListener("keydown", onKey);
+    document.addEventListener("click", onClick);
     window.addEventListener("resize", onResize);
     return () => {
       document.removeEventListener("keydown", onKey);
+      document.removeEventListener("click", onClick);
       window.removeEventListener("resize", onResize);
     };
-  }, [open, minimal]);
+  }, [open, drop, minimal]);
 
-  /* Menu aberto: trava o scroll da página atrás do painel. */
   useEffect(() => {
     if (minimal) return;
     const body = document.body;
     if (!open) {
       body.style.overflow = "";
-      body.style.paddingRight = "";
       return;
     }
-    const sw = window.innerWidth - document.documentElement.clientWidth;
     body.style.overflow = "hidden";
-    if (sw > 0) body.style.paddingRight = sw + "px";
-    return () => {
-      body.style.overflow = "";
-      body.style.paddingRight = "";
-    };
+    return () => { body.style.overflow = ""; };
   }, [open, minimal]);
-
-  const ids = minimal
-    ? { nav: "navbar-legal", logo: "logo-legal", cta: "nav-cta-legal" }
-    : { nav: "navbar", logo: "logo", cta: "nav-cta" };
 
   return (
     <>
-      {!minimal && <div id="navSentinel" aria-hidden="true" />}
-
-      <header
-        className={minimal ? "nav scrolled" : "nav"}
-        id="nav"
-        data-od-id={ids.nav}
-      >
-        <div className="nav-inner container">
-          <a
-            className="brand"
-            href={minimal ? "/" : "#inicio"}
-            aria-label="Nexa Seguros, início"
-            data-od-id={ids.logo}
-          >
+      <header className="nav" id="nav">
+        <div className="nav-inner">
+          <a className="brand" href={minimal ? "/" : "#inicio"} aria-label="Nexa Seguros, início">
             <img
               className="brand-logo"
-              src={scrolled ? asset("/logo_light.png") : asset("/logo_dark.png")}
+              src={asset("/logo_light.png")}
               alt="Nexa Seguros"
               width="400"
               height="214"
@@ -128,70 +78,106 @@ export default function Nav({ minimal = false }) {
           </a>
 
           {!minimal && (
-            <nav className="nav-links" aria-label="Navegação principal">
-              {NAV_LINKS.map((link) => (
-                <a key={link.href} href={link.href}>
-                  {link.label}
-                </a>
-              ))}
+            <nav className="nav-links" aria-label="Principal">
+              <a href="#inicio">Início</a>
+              <div className="nav-drop" ref={dropRef}>
+                <button
+                  type="button"
+                  aria-expanded={drop}
+                  aria-haspopup="true"
+                  onMouseEnter={() => setDrop(true)}
+                  onMouseLeave={() => setDrop(false)}
+                  onClick={() => setDrop((v) => !v)}
+                >
+                  Produtos
+                  <ChevronDown className="chev" />
+                </button>
+                {drop && (
+                  <div className="nav-drop-panel" role="menu">
+                    {PRODUCT_LINKS.map((p) => {
+                      const Icon = ICONS[p.key] || Heart;
+                      return (
+                        <a key={p.href} href={p.href} role="menuitem" onClick={() => setDrop(false)}>
+                          <span className="dd-ic" aria-hidden="true">
+                            <Icon width={18} height={18} strokeWidth={1.8} />
+                          </span>
+                          <span>
+                            <strong>{p.label}</strong>
+                          </span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              <a href="#precos">Preços</a>
+              <a href="#duvidas">Dúvidas</a>
             </nav>
           )}
 
-          <div className="nav-actions">
+          <div className="nav-right">
             {!minimal && (
-              <a
-                className="btn btn-ghost nav-login"
-                href="#login"
-                data-od-id={ids.login}
-              >
-                Entrar
-              </a>
+              <div className="nav-actions">
+                <a className="btn btn-ghost" href="#contato">Entrar</a>
+                <a className="btn btn-primary" href="#simulador">{minimal ? "Simular agora" : "Criar conta grátis"}</a>
+              </div>
             )}
-            <a
-              className="btn btn-primary nav-cta"
-              href={minimal ? "/#simulador" : "#simulador"}
-              data-od-id={ids.cta}
-            >
-              Criar conta grátis
-            </a>
-
             {!minimal && (
               <button
-                ref={burgerRef}
                 className="nav-burger"
                 type="button"
-                id="navBurger"
                 onClick={() => setOpen((v) => !v)}
                 aria-label={open ? "Fechar menu" : "Abrir menu"}
                 aria-expanded={open}
-                aria-controls="mobileMenu"
-                data-od-id="menu-hamburger"
+                aria-controls="mobileSheet"
               >
-                <span></span>
-                <span></span>
-                <span></span>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" color="currentColor" aria-hidden="true">
+                  <path d="M4 5L16 5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                  <path d="M4 12L20 12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                  <path d="M4 19L12 19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                </svg>
               </button>
             )}
           </div>
         </div>
       </header>
 
-      {!minimal && (
-        <div className="mobile-menu" id="mobileMenu" hidden={!open}>
-          <nav aria-label="Navegação móvel">
-            {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
-                {link.label}
-              </a>
-            ))}
-            <a className="btn btn-ghost" href="#login" onClick={() => setOpen(false)}>
-              Entrar
-            </a>
-            <a className="btn btn-primary" href="#simulador" onClick={() => setOpen(false)}>
-              Criar conta grátis
-            </a>
-          </nav>
-        </div>
+      {!minimal && open && (
+        <>
+          <div className="sheet-backdrop" onClick={() => setOpen(false)} />
+          <div className="sheet" id="mobileSheet" role="dialog" aria-modal="true">
+            <div className="sheet-head">
+              <img className="brand-logo" src={asset("/logo_light.png")} alt="Nexa Seguros" width="400" height="214" />
+              <button className="sheet-close" onClick={() => setOpen(false)} aria-label="Fechar menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <nav aria-label="Navegação móvel">
+              <a href="#inicio" onClick={() => setOpen(false)}>Início</a>
+              <button type="button" className="mm-btn" aria-expanded={mmProd} onClick={() => setMmProd((v) => !v)}>
+                Produtos
+                <ChevronDown style={{ width: "14px", height: "14px", transform: mmProd ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }} />
+              </button>
+              {mmProd && (
+                <div className="mm-sub">
+                  {PRODUCT_LINKS.map((p) => (
+                    <a key={p.href} href={p.href} onClick={() => setOpen(false)}>
+                      {p.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+              <a href="#precos" onClick={() => setOpen(false)}>Preços</a>
+              <a href="#duvidas" onClick={() => setOpen(false)}>Dúvidas</a>
+              <div className="mm-actions">
+                <a className="btn btn-ghost" href="#contato" onClick={() => setOpen(false)}>Entrar</a>
+                <a className="btn btn-primary" href="#simulador" onClick={() => setOpen(false)}>Criar conta grátis</a>
+              </div>
+            </nav>
+          </div>
+        </>
       )}
     </>
   );

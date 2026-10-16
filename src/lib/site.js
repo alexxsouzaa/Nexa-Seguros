@@ -20,31 +20,32 @@ export const NAV_LINKS = [
   { href: "#duvidas", label: "Dúvidas" }
 ];
 
+/* Produtos (dropdown do menu) */
+export const PRODUCT_LINKS = [
+  { key: "saude", href: "#solucoes", label: "Planos de Saúde" },
+  { key: "odonto", href: "#odontologico", label: "Planos Odontológicos" },
+  { key: "empresa", href: "#empresas", label: "Planos Empresariais" },
+  { key: "operadoras", href: "#operadoras", label: "Operadoras" }
+];
+
 export const FOOTER_PRODUCT_LINKS = [
-  { href: "#cotador", label: "Cotador" },
-  { href: "#crm", label: "CRM" },
-  { href: "#koterzap", label: "WhatsApp" },
-  { href: "#gestao", label: "Gestão" }
+  { href: "#solucoes", label: "Planos de Saúde" },
+  { href: "#odontologico", label: "Planos Odontológicos" },
+  { href: "#empresas", label: "Planos Empresariais" },
+  { href: "#operadoras", label: "Operadoras" },
+  { href: "#simulador", label: "Simulador" }
 ];
 
 export const FOOTER_PLAN_LINKS = [
-  { href: "#solucoes", label: "Saúde" },
-  { href: "#odontologico", label: "Odontológico" },
-  { href: "#empresas", label: "Empresarial" },
-  { href: "#planos", label: "Operadoras" }
-];
-
-export const FOOTER_INST_LINKS = [
-  { href: "#sobre", label: "Sobre" },
   { href: "#depoimentos", label: "Avaliações" },
+  { href: "#precos", label: "Preços" },
   { href: "#duvidas", label: "Dúvidas" },
-  { href: "#contato", label: "Contato" },
   { href: "#ajuda", label: "Central de ajuda" }
 ];
 
 export const FOOTER_LEGAL_LINKS = [
-  { href: "/legal.html#privacidade", label: "Termos de Uso" },
-  { href: "/legal.html#termos", label: "Política de Privacidade" }
+  { href: "/legal.html#termos", label: "Termos de Uso" },
+  { href: "/legal.html#privacidade", label: "Política de Privacidade" }
 ];
 
 export const YEAR = new Date().getFullYear();

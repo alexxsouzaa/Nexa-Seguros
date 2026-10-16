@@ -4,17 +4,16 @@ import Nav from "../components/Nav.jsx";
 import Footer from "../components/Footer.jsx";
 import WhatsAppFloat from "../components/WhatsAppFloat.jsx";
 import Hero from "../sections/Hero.jsx";
-import QuickLinks from "../sections/QuickLinks.jsx";
+import Logos from "../sections/Logos.jsx";
 import Categories from "../sections/Categories.jsx";
-import Process from "../sections/Process.jsx";
-import Companies from "../sections/Companies.jsx";
-import Plans from "../sections/Plans.jsx";
+import ValueProps from "../sections/ValueProps.jsx";
 import Simulator from "../sections/Simulator.jsx";
-import About from "../sections/About.jsx";
-import Faq from "../sections/Faq.jsx";
-import Features from "../sections/Features.jsx";
-import Pricing from "../sections/Pricing.jsx";
+import QuestionAccordion from "../sections/QuestionAccordion.jsx";
+import Roles from "../sections/Roles.jsx";
 import Testimonials from "../sections/Testimonials.jsx";
+import Pricing from "../sections/Pricing.jsx";
+import HelpCenter from "../sections/HelpCenter.jsx";
+import Faq from "../sections/Faq.jsx";
 import CtaFinal from "../sections/CtaFinal.jsx";
 
 export default function Home() {
@@ -34,16 +33,15 @@ export default function Home() {
 
       <main id="conteudo" tabIndex={-1}>
         <Hero />
-        <QuickLinks />
+        <Logos />
+        <ValueProps />
         <Categories />
-        <Process />
-        <Companies />
-        <Plans />
         <Simulator />
-        <About />
-        <Features />
-        <Pricing />
+        <QuestionAccordion />
+        <Roles />
         <Testimonials />
+        <Pricing />
+        <HelpCenter />
         <Faq />
         <CtaFinal />
       </main>

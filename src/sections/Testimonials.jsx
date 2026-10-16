@@ -1,78 +1,66 @@
-const TESTIMONIALS = [
-  {
-    name: "Jade Lima",
-    text: "Melhor app de cotação do Brasil!",
-    source: "Avaliação no Google",
-    rating: 5,
-  },
-  {
-    name: "Gabi Marques",
-    text: "Melhor plataforma de cotação! Recomendo demais!",
-    source: "Avaliação no Google",
-    rating: 5,
-  },
-  {
-    name: "Beatriz David",
-    text: "Top demais!",
-    source: "Avaliação no Google",
-    rating: 5,
-  },
-  {
-    name: "Ian Almeida",
-    text: "Sistema bem prático e dinâmico, facilitou muito a minha rotina.",
-    source: "Avaliação no Google",
-    rating: 5,
-  },
-  {
-    name: "Igor Peneluc",
-    text: "App de solução empresarial muito boa!",
-    source: "Avaliação no Google",
-    rating: 5,
-  },
-  {
-    name: "Vandeilson Figueiredo",
-    text: "Excelente aplicativo para quem quer realizar cotação de seguros.",
-    source: "Avaliação no Google",
-    rating: 5,
-  },
+const REVIEWS = [
+  { text: "Melhor assessoria que já contratei! Acharam um plano que caberia no meu bolso.", name: "Jade Lima" },
+  { text: "Atendimento rápido e sem enrolação. Recomendo demais!", name: "Gabi Marques" },
+  { text: "Simples e prático, me ajudaram a entender cada detalhe do plano.", name: "Beatriz David" },
+  { text: "Processo bem simples e dinâmico, facilitou muito a minha decisão.", name: "Ian Almeida" },
+  { text: "Solução empresarial muito boa! Cuidaram de toda a equipe.", name: "Igor Peneluc" },
+  { text: "Excelente consultoria para quem quer contratar um bom plano de saúde.", name: "Vandeilson Figueiredo" },
+  { text: "Melhor atendimento do mercado! Explicaram tudo com paciência.", name: "Isabella Guimarães" },
+  { text: "Não consigo imaginar contratar plano sem a Nexa, tornou tudo mais fácil.", name: "Wesley Gama" },
+  { text: "Equipe incrível, recomendo para todos que precisam de plano de saúde.", name: "Raissa Chaves" }
 ];
+
+function Stars() {
+  return (
+    <div className="stars" aria-label="5 estrelas de 5">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M13.73 3.44l1.76 3.55c.24.5.88.97 1.42 1.06l3.19.53c2.04.34 2.52 1.83 1.05 3.3l-2.48 2.5c-.42.43-.65 1.24-.52 1.83l.71 3.1c.56 2.45-.73 3.4-2.88 2.12l-3-1.79c-.54-.32-1.43-.32-1.98 0l-3 1.79c-2.14 1.28-3.44.33-2.88-2.12l.71-3.1c.13-.6-.1-1.4-.52-1.83l-2.48-2.5c-1.46-1.47-.99-2.96 1.05-3.3l3.19-.53c.54-.09 1.18-.56 1.42-1.06l1.76-3.55c.96-1.93 2.52-1.93 3.48 0Z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
 
 export default function Testimonials() {
   return (
-    <section className="section section-alt" id="depoimentos" data-od-id="testimonials">
+    <section className="section" id="depoimentos">
       <div className="container">
-        <div className="section-head r">
-          <h2>O que dizem os corretores que usam a Nexa</h2>
+        <div className="section-head center r" style={{ maxWidth: 640 }}>
+          <h2>4,9 no Google.</h2>
           <p className="section-sub">
-            Corretores ativos: 4.500+ · Avaliação no Google: 4,9
+            O que dizem os clientes que confiaram na Nexa para escolher o plano certo.
           </p>
         </div>
 
-        <div className="testimonial-grid r">
-          {TESTIMONIALS.map((t) => (
-            <article key={t.name} className="testimonial-card r">
-              <div className="testimonial-stars">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <span key={i} aria-hidden="true">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <p className="testimonial-text">
-                “{t.text}”
-              </p>
-              <div className="testimonial-author">
-                <span className="testimonial-name">{t.name}</span>
-                <span className="testimonial-source">{t.source}</span>
-              </div>
-            </article>
-          ))}
-        </div>
+        <dl className="stat-grid r">
+          <div className="stat">
+            <dt>Clientes atendidos</dt>
+            <dd>3.500+</dd>
+          </div>
+          <div className="stat">
+            <dt>Cotações por mês</dt>
+            <dd>1.200+</dd>
+          </div>
+          <div className="stat">
+            <dt>Avaliação no Google</dt>
+            <dd>4,9</dd>
+          </div>
+        </dl>
 
-        <div className="testimonial-cta r">
-          <a className="btn btn-primary btn-block" href="#simulador">
-            Ver todas as avaliações no Google
-          </a>
+        <div className="marquee-wrap r">
+          <div className="marquee">
+            {[...REVIEWS, ...REVIEWS].map((r, i) => (
+              <article className="review-card" key={i} aria-hidden={i >= REVIEWS.length}>
+                <Stars />
+                <p>“{r.text}”</p>
+                <div>
+                  <div className="r-author">{r.name}</div>
+                  <div className="r-src">Avaliação no Google</div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
