@@ -4,6 +4,7 @@ import Nav from "../components/Nav.jsx";
 import Footer from "../components/Footer.jsx";
 import WhatsAppFloat from "../components/WhatsAppFloat.jsx";
 import Hero from "../sections/Hero.jsx";
+import ProductTabs from "../sections/ProductTabs.jsx";
 import Logos from "../sections/Logos.jsx";
 import Categories from "../sections/Categories.jsx";
 import ValueProps from "../sections/ValueProps.jsx";
@@ -33,6 +34,7 @@ export default function Home() {
 
       <main id="conteudo" tabIndex={-1}>
         <Hero />
+        <ProductTabs />
         <Logos />
         <ValueProps />
         <Categories />

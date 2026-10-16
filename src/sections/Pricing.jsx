@@ -1,69 +1,80 @@
-const FEATURES = [
-  "Cotação em várias operadoras",
-  "Comparativo de cobertura e rede",
-  "Atendimento humano pelo WhatsApp",
-  "Suporte após a contratação"
-];
+import {
+  UserRoundPlus,
+  ArrowRight,
+  CalendarDays,
+  Smile,
+  Building2,
+  UserRound,
+  Plus
+} from "lucide-react";
+import { WA_CTA_TEXT, waLink } from "../lib/site.js";
+
+function ArrowIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M18.5 12L4.99997 12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+      <path d="M13 18C13 18 19 13.5811 19 12C19 10.4188 13 6 13 6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+    </svg>
+  );
+}
 
 const ADDONS = [
-  { name: "Odontológico", desc: "Consultas, exames e procedimentos", price: "a partir de R$ 19,90" },
-  { name: "Empresarial", desc: "Condições para a sua equipe", price: "sob consulta" },
-  { name: "Pessoa física", desc: "Planos individuais e familiares", price: "sob consulta" }
+  { name: "Odontológico", desc: "Consultas, exames e procedimentos", price: "a partir de R$ 19,90", Icon: Smile },
+  { name: "Empresarial", desc: "Condições para a sua equipe", price: "sob consulta", Icon: Building2 },
+  { name: "Pessoa física", desc: "Planos individuais e familiares", price: "sob consulta", Icon: UserRound }
 ];
 
 export default function Pricing() {
   return (
-    <section className="section section-alt" id="precos">
+    <section className="section" id="precos">
       <div className="container">
         <div className="section-head center r">
+          <div className="cot-icons" aria-hidden="true">
+            <span className="qa-ic-lg"><UserRoundPlus size={24} strokeWidth={1.5} /></span>
+            <span className="qa-ic-mid"><ArrowRight size={18} strokeWidth={2} /></span>
+            <span className="qa-ic-lg"><CalendarDays size={24} strokeWidth={1.5} /></span>
+          </div>
           <h2>Sua primeira cotação hoje.</h2>
-          <p className="section-sub">
-            Gratuita e sem compromisso. Você recebe as opções e decide com calma.
-          </p>
         </div>
 
-        <div className="grid-2" style={{ maxWidth: 900, marginInline: "auto", alignItems: "start" }}>
-          <article className="price-card featured r">
-            <span className="tag">Mais procurado</span>
-            <h3>Consultoria de planos</h3>
-            <p className="p-desc">Para você, sua família ou sua empresa.</p>
-            <div className="price-amount">
-              <span className="cur">R$</span>
-              <span className="val">0</span>
-              <span className="per">/cotação</span>
+        <div className="cot-grid r">
+          <article className="cot-main">
+            <div>
+              <span className="cot-main-ic"><CalendarDays size={20} strokeWidth={1.5} /></span>
+              <h3 className="cot-main-h">Consultoria de planos</h3>
+              <p className="cot-main-sub">Inclui cotação e comparativo.</p>
             </div>
-            <ul className="price-features">
-              {FEATURES.map((f) => (
-                <li key={f}>
-                  <svg className="pf-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
-                  {f}
+            <p className="cot-price">R$ 0<span>/cotação</span></p>
+          </article>
+
+          <div className="cot-add">
+            <p className="cot-add-lead">Adicione quando precisar</p>
+            <ul className="cot-list">
+              {ADDONS.map((a) => (
+                <li className="cot-row" key={a.name}>
+                  <span className="cot-row-ic"><a.Icon size={18} strokeWidth={1.5} /></span>
+                  <span className="cot-name">
+                    {a.name}
+                    <span className="cot-name-sub">{a.desc}</span>
+                  </span>
+                  <span className="cot-val">
+                    <Plus size={14} strokeWidth={1.5} />
+                    {a.price}
+                  </span>
                 </li>
               ))}
             </ul>
-            <a className="btn btn-primary btn-lg btn-block" href="#simulador" style={{ marginTop: "auto" }}>
-              Quero minha cotação
-            </a>
-          </article>
-
-          <div className="r">
-            <p className="eyebrow" style={{ marginBottom: 12 }}>Adicione quando precisar</p>
-            <div className="addons">
-              {ADDONS.map((a) => (
-                <div className="addon" key={a.name}>
-                  <div>
-                    <div className="a-name">{a.name}</div>
-                    <div className="a-desc">{a.desc}</div>
-                  </div>
-                  <div className="a-price">{a.price}</div>
-                </div>
-              ))}
-            </div>
-            <a className="btn btn-ghost btn-block" href="#contato" style={{ marginTop: 16 }}>
-              Falar no WhatsApp
-            </a>
           </div>
+        </div>
+
+        <div className="cot-cta r">
+          <a className="btn btn-primary btn-slide" href="#simulador">
+            Quero minha cotação
+            <span className="btn-slide-ic" aria-hidden="true"><ArrowIcon /></span>
+          </a>
+          <a className="btn btn-ghost" href={waLink(WA_CTA_TEXT)} target="_blank" rel="noopener">
+            Falar no WhatsApp
+          </a>
         </div>
       </div>
     </section>

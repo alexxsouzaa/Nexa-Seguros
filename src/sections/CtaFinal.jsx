@@ -19,7 +19,7 @@ export default function CtaFinal() {
               </a>
             </div>
             <div className="cta-badges">
-              <span>4,9 no Google</span>
+              <span>4,9 de satisfação</span>
               <span aria-hidden="true">·</span>
               <span>Atendimento humano</span>
               <span aria-hidden="true">·</span>

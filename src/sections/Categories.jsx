@@ -1,33 +1,80 @@
-import { asset } from "../lib/site.js";
-import { Heart, Smile, Building2, ArrowRight } from "lucide-react";
+import { Heart, Smile, Building2, UserRound, Users, Plus, MessageCircle, Hospital, FlaskConical, Stethoscope, Check } from "lucide-react";
 
 const CARDS = [
   {
     id: "solucoes",
-    img: "/img/plano-saude.webp",
-    alt: "Atendimento de saúde e cuidado com o paciente",
+    Icon: Heart,
     title: "Plano de Saúde",
     desc: "Para cuidar da sua saúde com mais segurança e tranquilidade, com rede e cobertura que fazem sentido para você.",
-    href: "#simulador",
-    Icon: Heart
+    Mock: () => (
+      <div className="cat-mock cat-mock--phone">
+        <span className="cat-handle" />
+        <p className="cat-m-label">Seu comparativo</p>
+        <p className="cat-m-value">3 opções</p>
+        <p className="cat-m-sub">atualizado hoje</p>
+        <div className="cat-m-row">
+          <span className="cat-m-av"><MessageCircle size={14} strokeWidth={1.5} /></span>
+          <span className="cat-m-txt">
+            <span className="cat-m-t1">Comparativo enviado</span>
+            <span className="cat-m-t2">pelo WhatsApp</span>
+          </span>
+        </div>
+      </div>
+    )
   },
   {
     id: "odontologico",
-    img: "/img/plano-odontologico.webp",
-    alt: "Consulta e cuidado odontológico",
+    Icon: Smile,
     title: "Plano Odontológico",
     desc: "Cuidados odontológicos para você, sua família ou sua empresa, com preços acessíveis e cobertura completa.",
-    href: "#simulador",
-    Icon: Smile
+    Mock: () => (
+      <div className="cat-mock">
+        <div className="cat-m-top">
+          <p className="cat-m-title">Rede credenciada</p>
+          <p className="cat-m-cap">Cobertura</p>
+        </div>
+        <ul className="cat-m-bars">
+          {[
+            { n: 1, label: "Hospitais", pct: 100, Icon: Hospital },
+            { n: 2, label: "Laboratórios", pct: 100, Icon: FlaskConical },
+            { n: 3, label: "Clínicas", pct: 80, Icon: Stethoscope }
+          ].map((r) => (
+            <li key={r.label}>
+              <span className="cat-m-num">{r.n}</span>
+              <span className="cat-m-av"><r.Icon size={14} strokeWidth={1.5} /></span>
+              <span className="cat-m-bar"><span style={{ width: `${r.pct}%` }} /></span>
+              <span className="cat-m-count">{r.pct}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
   },
   {
     id: "empresas",
-    img: "/img/planos-empresariais.webp",
-    alt: "Equipe de trabalho em ambiente corporativo",
+    Icon: Building2,
     title: "Planos Empresariais",
     desc: "Soluções para empresas que querem cuidar das pessoas que fazem parte do negócio, do diagnóstico ao pós-venda.",
-    href: "#simulador",
-    Icon: Building2
+    Mock: () => (
+      <div className="cat-mock">
+        <p className="cat-m-title">Implantação da equipe</p>
+        <div className="cat-m-checklist">
+          <div className="cat-m-chip">
+            <span className="cat-m-chip-l">
+              <span className="cat-m-chip-ic cat-m-check"><Check size={10} strokeWidth={3} /></span>Cadastradas
+            </span>
+            <span className="cat-m-chip-v">42</span>
+          </div>
+          <div className="cat-m-chip">
+            <span className="cat-m-chip-l">
+              <span className="cat-m-chip-ic cat-m-ring" />Pendências
+            </span>
+            <span className="cat-m-chip-v">3</span>
+          </div>
+        </div>
+        <span className="cat-m-btn">Acompanhar</span>
+      </div>
+    )
   }
 ];
 
@@ -36,43 +83,39 @@ export default function Categories() {
     <section className="section">
       <div className="container">
         <div className="section-head center r">
-          <p className="eyebrow">Soluções</p>
+          <div className="cat-icons" aria-hidden="true">
+            <span className="qa-ic-lg"><UserRound size={24} strokeWidth={1.5} /></span>
+            <span className="qa-ic-mid"><Plus size={18} strokeWidth={2} /></span>
+            <span className="qa-ic-lg"><Users size={24} strokeWidth={1.5} /></span>
+          </div>
           <h2>Um plano para cada momento</h2>
           <p className="section-sub">
             Saúde, odontológico ou empresarial: veja as opções de cada caminho.
           </p>
         </div>
 
-        <div className="grid-3">
-          {CARDS.map((c) => {
+        <ul className="cat-grid">
+          {CARDS.map((c, i) => {
             const Icon = c.Icon;
+            const Mock = c.Mock;
             return (
-              <article className="card r" id={c.id} key={c.id} style={{ padding: 0, overflow: "hidden" }}>
-                <div style={{ position: "relative" }}>
-                  <img
-                    src={asset(c.img)}
-                    alt={c.alt}
-                    width="640"
-                    height="400"
-                    loading="lazy"
-                    decoding="async"
-                    style={{ width: "100%", height: 210, objectFit: "cover" }}
-                  />
-                  <span className="card-ic brand" aria-hidden="true" style={{ position: "absolute", left: 20, bottom: -22, boxShadow: "var(--shadow-md)" }}>
-                    <Icon width={22} height={22} strokeWidth={1.7} />
-                  </span>
+              <li className={`cat-card cat-card--${i + 1} r`} id={c.id} key={c.id}>
+                <div className="cat-vis" aria-hidden="true">
+                  <Mock />
                 </div>
-                <div style={{ padding: "30px 24px 26px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-                  <h3>{c.title}</h3>
-                  <p style={{ flex: 1 }}>{c.desc}</p>
-                  <a className="link-arrow" href={c.href}>
-                    Ver opções<span aria-hidden="true"><ArrowRight width={16} height={16} /></span>
-                  </a>
+                <div className="cat-body">
+                  <div className="cat-head">
+                    <span className="cat-ic"><Icon size={16} strokeWidth={1.5} /></span>
+                    <h3>{c.title}</h3>
+                  </div>
+                  <p>{c.desc}</p>
                 </div>
-              </article>
+              </li>
             );
           })}
-        </div>
+        </ul>
+
+        <p className="cat-note">Fale com a Nexa e receba as opções que fazem sentido para você.</p>
       </div>
     </section>
   );

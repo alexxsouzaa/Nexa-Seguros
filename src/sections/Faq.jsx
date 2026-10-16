@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { UserRound, Plus, MessageCircleQuestion, ChevronDown } from "lucide-react";
 
 const FAQS = [
   {
@@ -48,43 +49,92 @@ const FAQS = [
   }
 ];
 
+function FaqItem({ item, open, onToggle }) {
+  const inner = useRef(null);
+  const [h, setH] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = inner.current;
+    if (!el) return;
+    const update = () => setH(el.scrollHeight);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    window.addEventListener("resize", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return (
+    <div className={open ? "faq-item is-open" : "faq-item"}>
+      <h3 className="faq-h">
+        <button
+          className="faq-q"
+          type="button"
+          aria-expanded={open}
+          id={`faq-q${item.id}`}
+          aria-controls={`faq-a${item.id}`}
+          onClick={onToggle}
+        >
+          <span>{item.q}</span>
+          <ChevronDown className="faq-chev" size={16} strokeWidth={1.5} aria-hidden="true" />
+        </button>
+      </h3>
+      <div
+        className="faq-a"
+        id={`faq-a${item.id}`}
+        role="region"
+        aria-labelledby={`faq-q${item.id}`}
+        style={{ height: open ? h : 0 }}
+      >
+        <div className="faq-a-inner" ref={inner}>
+          <p>{item.a}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Faq() {
-  const [open, setOpen] = useState(null);
+  const [openLeft, setOpenLeft] = useState(null);
+  const [openRight, setOpenRight] = useState(null);
+  const left = FAQS.slice(0, 5);
+  const right = FAQS.slice(5);
 
   return (
     <section className="section" id="duvidas">
       <div className="container">
         <div className="section-head center r">
+          <div className="faq-icons" aria-hidden="true">
+            <span className="qa-ic-lg"><UserRound size={24} strokeWidth={1.5} /></span>
+            <span className="qa-ic-mid"><Plus size={18} strokeWidth={2} /></span>
+            <span className="qa-ic-lg"><MessageCircleQuestion size={24} strokeWidth={1.5} /></span>
+          </div>
           <h2>Perguntas frequentes</h2>
         </div>
 
-        <div className="acc-wrap">
-          <div className="acc r">
-            {FAQS.map((item) => {
-              const expanded = open === item.id;
-              return (
-                <div className="acc-item" key={item.id}>
-                  <h3 style={{ margin: 0, fontSize: "1rem" }}>
-                    <button
-                      className="acc-q"
-                      type="button"
-                      aria-expanded={expanded}
-                      id={`faq-q${item.id}`}
-                      aria-controls={`faq-a${item.id}`}
-                      onClick={() => setOpen(expanded ? null : item.id)}
-                    >
-                      {item.q}
-                      <span className="acc-ic" aria-hidden="true"></span>
-                    </button>
-                  </h3>
-                  <div className={expanded ? "acc-a open" : "acc-a"} id={`faq-a${item.id}`} role="region" aria-labelledby={`faq-q${item.id}`}>
-                    <div>
-                      <p>{item.a}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+        <div className="faq-grid r">
+          <div className="faq-col">
+            {left.map((item) => (
+              <FaqItem
+                key={item.id}
+                item={item}
+                open={openLeft === item.id}
+                onToggle={() => setOpenLeft(openLeft === item.id ? null : item.id)}
+              />
+            ))}
+          </div>
+          <div className="faq-col">
+            {right.map((item) => (
+              <FaqItem
+                key={item.id}
+                item={item}
+                open={openRight === item.id}
+                onToggle={() => setOpenRight(openRight === item.id ? null : item.id)}
+              />
+            ))}
           </div>
         </div>
       </div>
