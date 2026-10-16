@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { asset, WA_NUMBER } from "../lib/site.js";
-import { trackQuoteStart, trackQuoteSubmit, trackWhatsAppOpen } from "../lib/analytics.js";
+import { trackQuoteStart, trackQuoteSubmit, trackCtaClick, trackWhatsAppOpen } from "../lib/analytics.js";
 import {
   Sparkles, Plus, MessageCircle, ArrowUp, Check, FileText, Link2,
   LayoutList, Banknote, MessageSquareText, Brain, UserCheck
@@ -216,6 +216,8 @@ function Demo() {
 export default function Simulator() {
   const [error, setError] = useState("");
   const [quoteStarted, setQuoteStarted] = useState(false);
+  const [confirming, setConfirming] = useState(false);
+  const [quoteData, setQuoteData] = useState(null);
   useFrameScale();
 
   function handleFormChange(e) {
@@ -287,15 +289,31 @@ export default function Simulator() {
       quantidade: data.get("quantidade") || "",
     });
 
+    setQuoteData({
+      nome: data.get("nome") || "",
+      whatsapp: data.get("whatsapp") || "",
+      cidade: data.get("cidade") || "",
+      quantidade: data.get("quantidade") || "",
+      idade: data.get("idade") || "",
+      tipo: data.get("tipo") || "",
+      perfil: data.get("perfil") || "",
+    });
+    setConfirming(true);
+    return;
+  }
+
+  function openWhatsApp() {
+    if (!quoteData) return;
+    trackWhatsAppOpen("cotacao");
     const msg =
       "Olá, Nexa! Quero receber opções de plano.%0A%0A" +
-      "Nome: " + encodeURIComponent((data.get("nome") || "").toString()) + "%0A" +
-      "WhatsApp: " + encodeURIComponent((data.get("whatsapp") || "").toString()) + "%0A" +
-      "Cidade: " + encodeURIComponent((data.get("cidade") || "").toString()) + "%0A" +
-      "Quantidade de pessoas: " + encodeURIComponent((data.get("quantidade") || "").toString()) + "%0A" +
-      "Idade: " + encodeURIComponent((data.get("idade") || "").toString()) + "%0A" +
-      "Tipo: " + encodeURIComponent((data.get("tipo") || "").toString()) + "%0A" +
-      "Perfil: " + encodeURIComponent((data.get("perfil") || "").toString());
+      "Nome: " + encodeURIComponent(quoteData.nome) + "%0A" +
+      "WhatsApp: " + encodeURIComponent(quoteData.whatsapp) + "%0A" +
+      "Cidade: " + encodeURIComponent(quoteData.cidade) + "%0A" +
+      "Quantidade de pessoas: " + encodeURIComponent(quoteData.quantidade) + "%0A" +
+      "Idade: " + encodeURIComponent(quoteData.idade) + "%0A" +
+      "Tipo: " + encodeURIComponent(quoteData.tipo) + "%0A" +
+      "Perfil: " + encodeURIComponent(quoteData.perfil);
 
     const href = "https://wa.me/" + WA_NUMBER + "?text=" + msg;
     window.location.href = href;
@@ -358,114 +376,143 @@ export default function Simulator() {
               sem custo e sem compromisso.
             </p>
 
-            <form id="quoteForm" noValidate onSubmit={handleSubmit} onChange={handleFormChange}>
-              <div className="field">
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  id="nome"
-                  name="nome"
-                  autoComplete="name"
-                  placeholder="Como podemos te chamar?"
-                  maxLength="70"
-                  required
-                />
-              </div>
-
-              <div className="field-row">
-                <div className="field">
-                  <label htmlFor="whatsapp">WhatsApp</label>
-                  <input
-                    type="tel"
-                    id="whatsapp"
-                    name="whatsapp"
-                    autoComplete="tel"
-                    inputMode="numeric"
-                    placeholder="(71) 99999-9999"
-                    maxLength="15"
-                    onChange={handlePhoneChange}
-                    required
-                  />
+            {confirming ? (
+              <div className="sim-confirm" role="alertdialog" aria-modal="true" aria-labelledby="sim-confirm-title">
+                <h3 id="sim-confirm-title" className="sim-fc-title">Confira antes de enviar</h3>
+                <p className="sim-fc-lead">
+                  Revise seus dados. Ao confirmar, você será direto ao WhatsApp da Nexa com a cotação.
+                </p>
+                <ul className="sim-confirm-list">
+                  <li><strong>Nome:</strong> {quoteData.nome}</li>
+                  <li><strong>WhatsApp:</strong> {quoteData.whatsapp}</li>
+                  <li><strong>Cidade:</strong> {quoteData.cidade}</li>
+                  <li><strong>Pessoas:</strong> {quoteData.quantidade}</li>
+                  <li><strong>Idade:</strong> {quoteData.idade}</li>
+                  <li><strong>Tipo:</strong> {quoteData.tipo}</li>
+                  <li><strong>Perfil:</strong> {quoteData.perfil}</li>
+                </ul>
+                <div className="sim-confirm-actions">
+                  <button type="button" className="btn btn-ghost" onClick={() => setConfirming(false)}>
+                    Editar dados
+                  </button>
+                  <button type="button" className="btn btn-primary btn-lg btn-block" onClick={openWhatsApp}>
+                    Confirmar e enviar no WhatsApp
+                  </button>
                 </div>
+                <p className="form-legal">
+                  Seus dados são usados apenas para montar a cotação e não são compartilhados com terceiros.
+                </p>
+              </div>
+            ) : (
+              <form id="quoteForm" noValidate onSubmit={handleSubmit} onChange={handleFormChange}>
                 <div className="field">
-                  <label htmlFor="cidade">Cidade</label>
+                  <label htmlFor="nome">Nome</label>
                   <input
                     type="text"
-                    id="cidade"
-                    name="cidade"
-                    autoComplete="address-level2"
-                    placeholder="Camaçari"
-                    maxLength="60"
+                    id="nome"
+                    name="nome"
+                    autoComplete="name"
+                    placeholder="Como podemos te chamar?"
+                    maxLength="70"
                     required
                   />
                 </div>
+
+                <div className="field-row">
+                  <div className="field">
+                    <label htmlFor="whatsapp">WhatsApp</label>
+                    <input
+                      type="tel"
+                      id="whatsapp"
+                      name="whatsapp"
+                      autoComplete="tel"
+                      inputMode="numeric"
+                      placeholder="(71) 99999-9999"
+                      maxLength="15"
+                      onChange={handlePhoneChange}
+                      required
+                    />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="cidade">Cidade</label>
+                    <input
+                      type="text"
+                      id="cidade"
+                      name="cidade"
+                      autoComplete="address-level2"
+                      placeholder="Camaçari"
+                      maxLength="60"
+                      required
+                    />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="quantidade">Quantidade de pessoas beneficiárias</label>
+                    <input
+                      type="number"
+                      id="quantidade"
+                      name="quantidade"
+                      inputMode="numeric"
+                      min="1"
+                      max="100"
+                      placeholder="Ex.: 4"
+                      maxLength="3"
+                      required
+                    />
+                  </div>
+                </div>
+
                 <div className="field">
-                  <label htmlFor="quantidade">Quantidade de pessoas beneficiárias</label>
+                  <label htmlFor="idade">Idade do titular / média dos beneficiários</label>
                   <input
                     type="number"
-                    id="quantidade"
-                    name="quantidade"
+                    id="idade"
+                    name="idade"
+                    min="0"
+                    max="120"
                     inputMode="numeric"
-                    min="1"
-                    max="100"
-                    placeholder="Ex.: 4"
+                    placeholder="Ex.: 34"
                     maxLength="3"
                     required
                   />
                 </div>
-              </div>
 
-              <div className="field">
-                <label htmlFor="idade">Idade do titular / média dos beneficiários</label>
-                <input
-                  type="number"
-                  id="idade"
-                  name="idade"
-                  min="0"
-                  max="120"
-                  inputMode="numeric"
-                  placeholder="Ex.: 34"
-                  maxLength="3"
-                  required
-                />
-              </div>
+                <fieldset className="field">
+                  <legend>Tipo de plano</legend>
+                  <div className="chips">
+                    {TIPOS.map((tipo, i) => (
+                      <label className="chip" key={tipo}>
+                        <input type="radio" name="tipo" value={tipo} />
+                        <span>{tipo}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
 
-              <fieldset className="field">
-                <legend>Tipo de plano</legend>
-                <div className="chips">
-                  {TIPOS.map((tipo, i) => (
-                    <label className="chip" key={tipo}>
-                      <input type="radio" name="tipo" value={tipo} required={i === 0} />
-                      <span>{tipo}</span>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
+                <fieldset className="field">
+                  <legend>Perfil</legend>
+                  <div className="chips">
+                    {PERFIS.map((perfil, i) => (
+                      <label className="chip" key={perfil}>
+                        <input type="radio" name="perfil" value={perfil} />
+                        <span>{perfil}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
 
-              <fieldset className="field">
-                <legend>Perfil</legend>
-                <div className="chips">
-                  {PERFIS.map((perfil, i) => (
-                    <label className="chip" key={perfil}>
-                      <input type="radio" name="perfil" value={perfil} required={i === 0} />
-                      <span>{perfil}</span>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
+                <p className="form-error" id="formError" role="alert" hidden={!error}>
+                  {error || "Preencha os campos obrigatórios para continuar."}
+                </p>
 
-              <p className="form-error" id="formError" role="alert" hidden={!error}>
-                {error || "Preencha os campos obrigatórios para continuar."}
-              </p>
+                <button className="btn btn-primary btn-lg btn-block" type="submit">
+                  Quero receber opções
+                </button>
 
-              <button className="btn btn-primary btn-lg btn-block" type="submit">
-                Quero receber opções
-              </button>
-
-              <p className="form-legal">
-                Ao enviar, você será direto ao WhatsApp da Nexa com os dados preenchidos.
-              </p>
-            </form>
+                <p className="form-legal">
+                  Ao enviar, você será direto ao WhatsApp da Nexa com os dados preenchidos.
+                </p>
+              </form>
+            )}
           </div>
         </div>
       </div>

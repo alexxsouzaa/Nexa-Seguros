@@ -68,17 +68,13 @@ export default function Footer() {
         </nav>
       </div>
 
-      <div className="container footer-bottom">
-        <div className="footer-contacts" aria-label="Contatos oficiais">
-          <a href="https://wa.me/5571981494527" target="_blank" rel="noopener">
-            WhatsApp: (71) 98149-4527
-          </a>
-          <span aria-hidden="true">·</span>
-          <span>CNPJ: a preencher</span>
-          <span aria-hidden="true">·</span>
-          <span>E-mail: a preencher</span>
-        </div>
-        <p>© {YEAR} Nexa Seguros · Assessoria em planos de saúde e odontológicos · Camaçari, BA</p>
+        <div className="container footer-bottom">
+          <div className="footer-contacts" aria-label="Contatos oficiais">
+            <a href="https://wa.me/5571981494527" target="_blank" rel="noopener">
+              WhatsApp: (71) 98149-4527
+            </a>
+          </div>
+          <p>© {YEAR} Nexa Seguros · Assessoria em planos de saúde e odontológicos · Camaçari, BA</p>
         <a className="to-top" href="#inicio">
           Voltar ao topo
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

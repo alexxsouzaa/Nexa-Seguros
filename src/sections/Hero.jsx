@@ -52,7 +52,7 @@ export default function Hero() {
             </a>
             <a
               className="btn btn-ghost"
-              href={waLink("Olá, quero ajuda para escolher meu plano")}
+              href={waLink(encodeURIComponent("Olá, quero ajuda para escolher meu plano"))}
               target="_blank"
               rel="noopener"
               onClick={() => trackWhatsAppOpen("hero")}
