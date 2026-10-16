@@ -14,10 +14,17 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 export const asset = (p) => BASE + p;
 
 export const NAV_LINKS = [
-  { href: "#planos", label: "Planos" },
-  { href: "#empresas", label: "Para empresas" },
-  { href: "#processo", label: "Como funciona" },
+  { href: "#inicio", label: "Início" },
+  { href: "#produtos", label: "Produtos" },
+  { href: "#precos", label: "Preços" },
   { href: "#duvidas", label: "Dúvidas" }
+];
+
+export const FOOTER_PRODUCT_LINKS = [
+  { href: "#cotador", label: "Cotador" },
+  { href: "#crm", label: "CRM" },
+  { href: "#koterzap", label: "WhatsApp" },
+  { href: "#gestao", label: "Gestão" }
 ];
 
 export const FOOTER_PLAN_LINKS = [
@@ -29,8 +36,15 @@ export const FOOTER_PLAN_LINKS = [
 
 export const FOOTER_INST_LINKS = [
   { href: "#sobre", label: "Sobre" },
+  { href: "#depoimentos", label: "Avaliações" },
   { href: "#duvidas", label: "Dúvidas" },
-  { href: "#contato", label: "Contato" }
+  { href: "#contato", label: "Contato" },
+  { href: "#ajuda", label: "Central de ajuda" }
+];
+
+export const FOOTER_LEGAL_LINKS = [
+  { href: "/legal.html#privacidade", label: "Termos de Uso" },
+  { href: "/legal.html#termos", label: "Política de Privacidade" }
 ];
 
 export const YEAR = new Date().getFullYear();

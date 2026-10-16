@@ -138,12 +138,21 @@ export default function Nav({ minimal = false }) {
           )}
 
           <div className="nav-actions">
+            {!minimal && (
+              <a
+                className="btn btn-ghost nav-login"
+                href="#login"
+                data-od-id={ids.login}
+              >
+                Entrar
+              </a>
+            )}
             <a
               className="btn btn-primary nav-cta"
               href={minimal ? "/#simulador" : "#simulador"}
               data-od-id={ids.cta}
             >
-              Pedir cotação
+              Criar conta grátis
             </a>
 
             {!minimal && (
@@ -175,8 +184,11 @@ export default function Nav({ minimal = false }) {
                 {link.label}
               </a>
             ))}
+            <a className="btn btn-ghost" href="#login" onClick={() => setOpen(false)}>
+              Entrar
+            </a>
             <a className="btn btn-primary" href="#simulador" onClick={() => setOpen(false)}>
-              Pedir cotação
+              Criar conta grátis
             </a>
           </nav>
         </div>

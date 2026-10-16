@@ -1,23 +1,23 @@
 import ImgSlot from "../components/ImgSlot.jsx";
-import { asset } from "../lib/site.js";
+import { asset, waLink } from "../lib/site.js";
 
 export default function Hero() {
   return (
     <section className="hero" id="inicio" data-od-id="hero">
       <div className="container hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow eyebrow-light r">Assessoria em planos de saúde e odontológicos</p>
-          <h1 className="r">Seu cuidado começa com a escolha certa.</h1>
+          <p className="eyebrow eyebrow-light r">4500+ Corretores e Consultores</p>
+          <h1 className="r">A ferramenta definitiva do corretor de seguros.</h1>
           <p className="lead lead-dark r">
-            Compare planos de saúde e odontológicos para você, sua família ou sua empresa.
+            Da cotação à comissão no caixa, todo o trabalho da corretora em uma só plataforma.
           </p>
 
           <div className="hero-ctas r">
-            <a className="btn btn-light btn-lg" href="#simulador">
-              Encontrar meu plano
+            <a className="btn btn-primary btn-lg" href="#simulador">
+              Criar conta grátis
             </a>
-            <a className="btn btn-outline-light btn-lg" href="#contato">
-              Falar com um especialista
+            <a className="btn btn-light btn-lg" href={waLink("Olá, quero ajuda para escolher meu plano")} target="_blank" rel="noopener">
+              Falar no WhatsApp
             </a>
           </div>
         </div>

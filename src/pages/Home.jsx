@@ -12,6 +12,9 @@ import Plans from "../sections/Plans.jsx";
 import Simulator from "../sections/Simulator.jsx";
 import About from "../sections/About.jsx";
 import Faq from "../sections/Faq.jsx";
+import Features from "../sections/Features.jsx";
+import Pricing from "../sections/Pricing.jsx";
+import Testimonials from "../sections/Testimonials.jsx";
 import CtaFinal from "../sections/CtaFinal.jsx";
 
 export default function Home() {
@@ -38,6 +41,9 @@ export default function Home() {
         <Plans />
         <Simulator />
         <About />
+        <Features />
+        <Pricing />
+        <Testimonials />
         <Faq />
         <CtaFinal />
       </main>
