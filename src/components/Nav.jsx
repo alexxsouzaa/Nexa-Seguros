@@ -144,8 +144,8 @@ export default function Nav({ minimal = false }) {
                   <div className="nav-drop-panel" role="menu">
                     <div className="dd-header">
                       <span className="dd-kicker">Nexa Seguros</span>
-                      <h3 className="dd-title">Escolha seu plano</h3>
-                      <p className="dd-sub">Planos de saúde, odonto e empresarial.</p>
+                      <h2 className="dd-title">Escolha seu plano</h2>
+                      <p className="dd-sub">Planos de saúde, odonto e empresarial com cobertura nacional.</p>
                     </div>
                     <div className="dd-grid">
                       {PRODUCT_LINKS.map((p) => {
@@ -159,10 +159,10 @@ export default function Nav({ minimal = false }) {
                             onClick={() => setDrop(false)}
                           >
                             <span className="dd-ic" aria-hidden="true">
-                              <Icon width={20} height={20} strokeWidth={1.8} />
+                              <Icon width={22} height={22} strokeWidth={1.6} />
                             </span>
                             <div className="dd-text">
-                              <strong>{p.label}</strong>
+                              <span className="dd-name">{p.label}</span>
                               <span className="dd-desc">{DROP_DESC[p.key] || ""}</span>
                             </div>
                             <span className="dd-arrow">›</span>
@@ -170,7 +170,7 @@ export default function Nav({ minimal = false }) {
                         );
                       })}
                     </div>
-                    <div className="dd-divider" />
+                    <hr className="dd-divider" />
                     <div className="dd-legal">
                       <Link to="/privacidade" className="dd-link" onClick={() => setDrop(false)}>Política de Privacidade</Link>
                       <Link to="/termos" className="dd-link" onClick={() => setDrop(false)}>Termos de Uso</Link>

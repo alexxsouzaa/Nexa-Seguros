@@ -225,42 +225,43 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 /* dropdown Produtos (mega-menu estilo Koter) */
 .nav-drop { position: relative; overflow: visible; }
 .nav-drop-panel {
-  position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
-  width: min(720px, 92vw); background: var(--surface);
-  border: 1px solid var(--border); border-radius: 2rem;
-  box-shadow: var(--shadow-lg); padding: 24px 28px 28px;
+  position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+  width: min(860px, 94vw); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 2.5rem;
+  box-shadow: var(--shadow-lg); padding: 32px 40px 36px;
   z-index: 50;
-  max-height: 82vh;
+  max-height: 84vh;
   overflow-y: auto;
-  animation: drop-in 0.35s var(--ease-out);
+  animation: drop-in 0.4s var(--ease-out);
 }
-@keyframes drop-in { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } }
+@keyframes drop-in { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } }
 
-.dd-header { margin-bottom: 16px; }
-.dd-kicker { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: var(--brand-strong); text-transform: uppercase; margin-bottom: 6px; }
-.dd-title { margin: 0 0 4px; font-size: 18px; font-weight: 700; color: var(--inst); font-family: var(--font-display); }
-.dd-sub { margin: 0; font-size: 14px; color: var(--fg-muted); }
+.dd-header { margin-bottom: 28px; }
+.dd-kicker { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: var(--brand-strong); text-transform: uppercase; margin-bottom: 8px; }
+.dd-title { margin: 0 0 8px; font-size: 24px; font-weight: 700; color: var(--inst); font-family: var(--font-display); letter-spacing: -0.01em; }
+.dd-sub { margin: 0; font-size: 15px; color: var(--fg-muted); line-height: 1.5; }
 
-.dd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+.dd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
 .dd-item {
-  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
-  border: 1px solid var(--border-soft); border-radius: 1.5rem; text-decoration: none; color: var(--fg);
-  background: var(--bg); transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  display: flex; align-items: flex-start; gap: 16px; padding: 20px;
+  border: 1px solid var(--border-soft); border-radius: 1.75rem; text-decoration: none; color: var(--fg);
+  background: var(--bg); transition: transform 0.2s var(--ease-out), border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
 }
-.dd-item:hover { background: var(--bg-2); border-color: var(--border); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
-.dd-ic { width: 40px; height: 40px; border-radius: 1rem; display: grid; place-items: center; background: var(--soft); color: var(--brand-text); flex: none; }
-.dd-ic svg { width: 20px; height: 20px; }
-.dd-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
-.dd-text strong { font-size: 15px; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dd-text .dd-desc { font-size: 12.5px; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dd-arrow { font-size: 14px; color: var(--fg-muted); flex: none; }
+.dd-item:hover { background: var(--bg-2); border-color: var(--border); box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+.dd-ic { width: 48px; height: 48px; border-radius: 1.25rem; display: grid; place-items: center; background: var(--soft); color: var(--brand-text); flex: none; flex-shrink: 0; }
+.dd-ic svg { width: 22px; height: 22px; }
+.dd-text { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.dd-text .dd-name { font-size: 15px; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.01em; }
+.dd-text .dd-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.4; white-space: normal; overflow: visible; text-overflow: unset; }
+.dd-arrow { font-size: 14px; color: var(--fg-muted); flex: none; transition: transform 0.2s ease; }
+.dd-item:hover .dd-arrow { transform: translateX(4px); }
 
-.dd-divider { height: 1px; background: var(--border-soft); margin: 16px 0; border: 0; }
-.dd-legal { display: flex; flex-direction: column; gap: 8px; }
+.dd-divider { height: 1px; background: var(--border-soft); margin: 0 0 24px; border: 0; }
+.dd-legal { display: flex; flex-direction: column; gap: 10px; }
 .dd-legal .dd-link {
-  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
-  border-radius: 1rem; text-decoration: none; color: var(--fg);
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  border-radius: 1.25rem; text-decoration: none; color: var(--fg);
   transition: background-color 0.15s ease;
   font-size: 14px; font-weight: 500;
 }
@@ -279,7 +280,7 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .nav-burger:hover { background: var(--bg-2); }
 @media (min-width: 768px) { .nav-burger { width: 36px; height: 36px; } }
 
-/* Tablet/desktop: show mobile submenu on open */
+/* Tablet/desktop: hide mobile submenu */
 @media (min-width: 768px) {
   .mm-sub { display: none; }
 }
