@@ -222,26 +222,53 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .nav-actions .btn { min-height: 40px; padding: 0 20px; font-size: 14px; font-weight: 400; border-radius: var(--radius-4xl); transition: opacity 0.15s ease, scale 0.15s ease, background-color 0.15s ease; }
 .nav-actions .btn:active { transform: scale(0.97); }
 
-/* dropdown Produtos */
-.nav-drop { position: relative; }
+/* dropdown Produtos (mega-menu estilo Koter) */
+.nav-drop { position: relative; overflow: visible; }
 .nav-drop-panel {
-  position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
-  min-width: 340px; background: var(--surface);
-  border: 1px solid var(--border); border-radius: 1.5rem;
-  box-shadow: var(--shadow-lg); padding: 12px;
-  display: grid; gap: 4px;
-  animation: drop-in 0.22s var(--ease-out);
+  position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+  width: min(720px, 92vw); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 2rem;
+  box-shadow: var(--shadow-lg); padding: 24px 28px 28px;
+  z-index: 50;
+  max-height: 82vh;
+  overflow-y: auto;
+  animation: drop-in 0.35s var(--ease-out);
 }
-@keyframes drop-in { from { opacity: 0; transform: translateX(-50%) translateY(-6px); } }
-.nav-drop-panel a {
-  display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+@keyframes drop-in { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } }
+
+.dd-header { margin-bottom: 16px; }
+.dd-kicker { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: var(--brand-strong); text-transform: uppercase; margin-bottom: 6px; }
+.dd-title { margin: 0 0 4px; font-size: 18px; font-weight: 700; color: var(--inst); font-family: var(--font-display); }
+.dd-sub { margin: 0; font-size: 14px; color: var(--fg-muted); }
+
+.dd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+.dd-item {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  border: 1px solid var(--border-soft); border-radius: 1.5rem; text-decoration: none; color: var(--fg);
+  background: var(--bg); transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  cursor: pointer;
+}
+.dd-item:hover { background: var(--bg-2); border-color: var(--border); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.dd-ic { width: 40px; height: 40px; border-radius: 1rem; display: grid; place-items: center; background: var(--soft); color: var(--brand-text); flex: none; }
+.dd-ic svg { width: 20px; height: 20px; }
+.dd-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.dd-text strong { font-size: 15px; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dd-text .dd-desc { font-size: 12.5px; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dd-arrow { font-size: 14px; color: var(--fg-muted); flex: none; }
+
+.dd-divider { height: 1px; background: var(--border-soft); margin: 16px 0; border: 0; }
+.dd-legal { display: flex; flex-direction: column; gap: 8px; }
+.dd-legal .dd-link {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
   border-radius: 1rem; text-decoration: none; color: var(--fg);
   transition: background-color 0.15s ease;
+  font-size: 14px; font-weight: 500;
 }
-.nav-drop-panel a:hover { background: var(--bg-2); }
-.nav-drop-panel .dd-ic { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--soft); color: var(--brand-text); flex: none; }
-.nav-drop-panel a strong { font-size: 14px; font-weight: 500; }
-.nav-drop-panel a small { display: block; font-size: 12.5px; color: var(--fg-muted); font-weight: 400; margin-top: 1px; }
+.dd-legal .dd-link:hover { background: var(--bg-2); }
+
+/* Mobile sheet submenu */
+.mm-sub { display: none; flex-direction: column; gap: 4px; padding-left: 16px; margin-top: 8px; border-left: 1px solid var(--border-soft); }
+.mm-sub a { padding: 8px 0; font-size: 14px; }
 
 .nav-burger {
   display: none; width: 44px; height: 44px; border: 1px solid transparent;
@@ -251,6 +278,12 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 }
 .nav-burger:hover { background: var(--bg-2); }
 @media (min-width: 768px) { .nav-burger { width: 36px; height: 36px; } }
+
+/* Tablet/desktop: show mobile submenu on open */
+@media (min-width: 768px) {
+  .mm-sub { display: none; }
+}
+
 
 /* Mobile sheet */
 .sheet-backdrop { position: fixed; inset: 0; z-index: 110; background: var(--scrim); animation: fade-in 0.2s ease; }

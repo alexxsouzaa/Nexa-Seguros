@@ -10,6 +10,13 @@ const ICONS = {
   operadoras: ShieldCheck,
 };
 
+const DROP_DESC = {
+  saude: "Cobertura médica para você e sua família.",
+  odonto: "Planos odontológicos com rede credenciada.",
+  empresa: "Seguro empresarial para proteger seu negócio.",
+  operadoras: "Conheça as operadoras parceiras da Nexa.",
+};
+
 export default function Nav({ minimal = false }) {
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
@@ -108,15 +115,15 @@ export default function Nav({ minimal = false }) {
       <header className="nav" id="nav">
         <div className="nav-inner">
           <Link to="/" className="brand" aria-label="Nexa Seguros, início">
-              <img
-                className="brand-logo"
-                src={asset("/logo_light.png")}
-                alt="Nexa Seguros"
-                width="400"
-                height="214"
-                decoding="async"
-              />
-            </Link>
+            <img
+              className="brand-logo"
+              src={asset("/logo_light.png")}
+              alt="Nexa Seguros"
+              width="400"
+              height="214"
+              decoding="async"
+            />
+          </Link>
 
           {!minimal && (
             <nav className="nav-links" aria-label="Principal">
@@ -135,40 +142,40 @@ export default function Nav({ minimal = false }) {
                 </button>
                 {drop && (
                   <div className="nav-drop-panel" role="menu">
-                    {PRODUCT_LINKS.map((p) => (
-                      <a
-                        key={p.href}
-                        href={p.href}
-                        role="menuitem"
-                        onClick={() => setDrop(false)}
-                      >
-                        <span className="dd-ic" aria-hidden="true">
-                          <Icon width={18} height={18} strokeWidth={1.8} />
-                        </span>
-                        <span>
-                          <strong>{p.label}</strong>
-                        </span>
-                      </a>
-                    ))}
-                    <div style={{ borderTop: "1px solid var(--border-soft)", marginTop: 8, paddingTop: 8 }} />
-                    <Link to="/privacidade" role="menuitem" onClick={() => setDrop(false)}>
-                      <span className="dd-ic" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--brand-text)" }}><path d="M8 8h12v12H8z" /><path d="M8 8L12 12" /><path d="M12 12L16 8" /></svg>
-                      </span>
-                      <span>Política de Privacidade</span>
-                    </Link>
-                    <Link to="/termos" role="menuitem" onClick={() => setDrop(false)}>
-                      <span className="dd-ic" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--brand-text)" }}><path d="M8 8h12v12H8z" /><path d="M8 8L12 12" /><path d="M12 12L16 8" /></svg>
-                      </span>
-                      <span>Termos de Uso</span>
-                    </Link>
-                    <Link to="/lgpd" role="menuitem" onClick={() => setDrop(false)}>
-                      <span className="dd-ic" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--brand-text)" }}><path d="M8 8h12v12H8z" /><path d="M8 8L12 12" /><path d="M12 12L16 8" /></svg>
-                      </span>
-                      <span>LGPD</span>
-                    </Link>
+                    <div className="dd-header">
+                      <span className="dd-kicker">Nexa Seguros</span>
+                      <h3 className="dd-title">Escolha seu plano</h3>
+                      <p className="dd-sub">Planos de saúde, odonto e empresarial.</p>
+                    </div>
+                    <div className="dd-grid">
+                      {PRODUCT_LINKS.map((p) => {
+                        const Icon = ICONS[p.key];
+                        return (
+                          <a
+                            key={p.href}
+                            href={p.href}
+                            className="dd-item"
+                            role="menuitem"
+                            onClick={() => setDrop(false)}
+                          >
+                            <span className="dd-ic" aria-hidden="true">
+                              <Icon width={20} height={20} strokeWidth={1.8} />
+                            </span>
+                            <div className="dd-text">
+                              <strong>{p.label}</strong>
+                              <span className="dd-desc">{DROP_DESC[p.key] || ""}</span>
+                            </div>
+                            <span className="dd-arrow">›</span>
+                          </a>
+                        );
+                      })}
+                    </div>
+                    <div className="dd-divider" />
+                    <div className="dd-legal">
+                      <Link to="/privacidade" className="dd-link" onClick={() => setDrop(false)}>Política de Privacidade</Link>
+                      <Link to="/termos" className="dd-link" onClick={() => setDrop(false)}>Termos de Uso</Link>
+                      <Link to="/lgpd" className="dd-link" onClick={() => setDrop(false)}>LGPD</Link>
+                    </div>
                   </div>
                 )}
               </div>
