@@ -118,8 +118,25 @@ export default function Faq() {
   const left = FAQS.slice(0, 5);
   const right = FAQS.slice(5);
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": FAQS.map((item) => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a,
+      },
+    })),
+  };
+
   return (
     <section className="section" id="duvidas">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="container">
         <div className="section-head center r">
           <div className="faq-icons" aria-hidden="true">

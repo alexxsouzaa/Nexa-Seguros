@@ -158,7 +158,7 @@ export default function Nav({ minimal = false }) {
           <div className="nav-right">
             {!minimal && (
               <div className="nav-actions">
-                <a className="btn btn-primary" href="#simulador">{minimal ? "Simular agora" : "Criar conta grátis"}</a>
+                <a className="btn btn-primary" href="#simulador">{minimal ? "Simular agora" : "Cotação gratuita"}</a>
               </div>
             )}
             {!minimal && (
