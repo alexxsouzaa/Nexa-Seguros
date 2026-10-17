@@ -10,7 +10,7 @@ vi.mock("../lib/analytics.js", () => ({
 }));
 
 vi.mock("../sections/Simulator.jsx", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("../sections/Simulator.jsx")>();
+  const actual = await importOriginal();
   return {
     ...actual,
     useFrameScale: vi.fn(),
@@ -32,8 +32,9 @@ describe("Simulator", () => {
     expect(screen.getByRole("button", { name: /Quero receber opções/i })).toBeInTheDocument();
   });
 
-  it("não envia o formulário sem preencher campos obrigatórios", () => {
-    const { trackQuoteSubmit } = vi.importMock("../lib/analytics.js");
+  it("não envia o formulário sem preencher campos obrigatórios", async () => {
+    const analytics = await vi.importMock("../lib/analytics.js");
+    const { trackQuoteSubmit } = analytics;
     render(<Simulator />);
     const button = screen.getByRole("button", { name: /Quero receber opções/i });
     fireEvent.click(button);

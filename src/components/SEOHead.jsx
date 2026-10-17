@@ -15,8 +15,13 @@ export default function SEOHead({
   path = "/",
   image = "/og-image.png",
   type = "website",
+  robots = "index,follow",
 }) {
   const canonical = CANONICAL_BASE + (path === "/" ? "" : path);
+  const alternates = [
+    { hrefLang: "pt-BR", href: canonical },
+    { hrefLang: "x-default", href: canonical },
+  ];
 
   useEffect(() => {
     document.title = seoTitle(title);
@@ -41,7 +46,20 @@ export default function SEOHead({
       el.content = content;
     };
 
+    const setLink = (rel, href, attrs = {}) => {
+      let el = document.querySelector(`link[rel="${rel}"]${attrs.hrefLang ? `[hreflang="${attrs.hrefLang}"]` : ""}`);
+      if (!el) {
+        el = document.createElement("link");
+        el.rel = rel;
+        if (attrs.hrefLang) el.hreflang = attrs.hrefLang;
+        document.head.appendChild(el);
+      }
+      el.href = href;
+    };
+
     setMeta("description", description);
+    setMeta("robots", robots);
+    setMeta("language", "pt-BR");
     setProp("og:title", seoTitle(title));
     setProp("og:description", description);
     setProp("og:type", type);
@@ -51,10 +69,13 @@ export default function SEOHead({
     setProp("og:image:width", "1200");
     setProp("og:image:height", "630");
     setProp("og:image:alt", SITE_NAME);
+    setProp("og:locale", "pt_BR");
     setProp("twitter:card", "summary_large_image");
     setProp("twitter:title", seoTitle(title));
     setProp("twitter:description", description);
     setProp("twitter:image", CANONICAL_BASE + image);
+
+    alternates.forEach((a) => setLink("alternate", a.href, { hrefLang: a.hrefLang }));
 
     const link = document.querySelector('link[rel="canonical"]');
     if (link) link.href = canonical;
@@ -76,7 +97,7 @@ export default function SEOHead({
       scriptLocal.textContent = JSON.stringify(LOCAL_BUSINESS_SCHEMA);
       document.head.appendChild(scriptLocal);
     }
-  }, [title, description, path, image, type]);
+  }, [title, description, path, image, type, robots, canonical]);
 
   return null;
 }

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useReveal } from "../hooks/useReveal.js";
+import SEOHead from "../components/SEOHead.jsx";
 import Nav from "../components/Nav.jsx";
 import Footer from "../components/Footer.jsx";
 import WhatsAppFloat from "../components/WhatsAppFloat.jsx";
@@ -17,15 +17,13 @@ import CtaFinal from "../sections/CtaFinal.jsx";
 export default function Home() {
   useReveal();
 
-  useEffect(() => {
-    document.title =
-      "Nexa Seguros | Assessoria em Planos de Saúde e Odontológicos em Camaçari";
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) canonical.setAttribute("href", "https://www.nexaseguros.com.br/");
-  }, []);
-
   return (
     <>
+      <SEOHead
+        title="Nexa Seguros | Assessoria em Planos de Saúde e Odontológicos em Camaçari"
+        description="A Nexa Seguros faz assessoria em planos de saúde e odontológicos em Camaçari para ajudar você, sua família ou sua empresa a comparar opções e escolher com confiança. Solicite uma cotação gratuita."
+        path="/"
+      />
       <a className="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
       <Nav />
 

@@ -32,8 +32,9 @@ describe("Hero", () => {
     expect(link).toHaveAttribute("target", "_blank");
   });
 
-  it("chama trackCtaClick ao clicar no CTA de cotação", () => {
-    const { trackCtaClick } = vi.importMock("../lib/analytics.js");
+  it("chama trackCtaClick ao clicar no CTA de cotação", async () => {
+    const analytics = await vi.importMock("../lib/analytics.js");
+    const { trackCtaClick } = analytics;
     render(<Hero />);
     const link = screen.getByRole("link", { name: /Solicitar cotação gratuita/i });
     fireEvent.click(link);

@@ -1,27 +1,19 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useReveal } from "../hooks/useReveal.js";
+import SEOHead from "../components/SEOHead.jsx";
 import Nav from "../components/Nav.jsx";
 import { YEAR } from "../lib/site.js";
 
 export default function Legal() {
   useReveal();
 
-  useEffect(() => {
-    document.title = "Política de privacidade e Termos de uso | Nexa Seguros";
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) {
-      meta.setAttribute(
-        "content",
-        "Documentos legais da Nexa Seguros: política de privacidade e termos de uso para cotações de planos de saúde e odontológicos em Camaçari, BA."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) canonical.setAttribute("href", "https://www.nexaseguros.com.br/legal.html");
-  }, []);
-
   return (
     <>
+      <SEOHead
+        title="Política de privacidade e Termos de uso | Nexa Seguros"
+        description="Documentos legais da Nexa Seguros: política de privacidade e termos de uso para cotações de planos de saúde e odontológicos em Camaçari, BA."
+        path="/legal"
+      />
       <a className="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
       <Nav minimal />
 
