@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, Building2, Heart, ShieldCheck, Smile, ArrowRight } from "lucide-react";
+import { ChevronDown, Building2, Heart, ShieldCheck, Smile, ArrowRight, Calculator } from "lucide-react";
 import { PRODUCT_LINKS, asset } from "../lib/site.js";
 
 const ICONS = {
@@ -141,58 +141,42 @@ export default function Nav({ minimal = false }) {
                   <ChevronDown className="chev" />
                 </button>
                 {drop && (
-                  <div className="nav-drop-panel" role="menu">
-                    <div className="dd-header">
-                      <span className="dd-kicker">Nexa Seguros</span>
-                      <h2 className="dd-title">Escolha seu plano</h2>
-                      <p className="dd-sub">Planos de saúde, odonto e empresarial com cobertura nacional.</p>
-                    </div>
+                  <div className="nav-drop-panel">
                     <div className="dd-body">
-                      <ul className="dd-grid" role="none">
+                      <ul className="dd-list">
                         {PRODUCT_LINKS.map((p) => {
                           const Icon = ICONS[p.key];
                           return (
-                            <li key={p.href} role="none">
+                            <li key={p.href}>
                               <a
                                 href={p.href}
                                 className="dd-item"
-                                role="menuitem"
                                 onClick={() => setDrop(false)}
                               >
                                 <span className="dd-ic" aria-hidden="true">
-                                  <Icon width={22} height={22} strokeWidth={1.6} />
+                                  <Icon width={16} height={16} strokeWidth={1.8} />
                                 </span>
                                 <span className="dd-text">
                                   <span className="dd-name">{p.label}</span>
                                   <span className="dd-desc">{DROP_DESC[p.key] || ""}</span>
                                 </span>
-                                <span className="dd-arrow" aria-hidden="true">›</span>
+                                <ArrowRight className="dd-arrow" width={16} height={16} strokeWidth={2} aria-hidden="true" />
                               </a>
                             </li>
                           );
                         })}
                       </ul>
-                      <aside className="dd-aside" aria-label="Cotador de planos">
+                      <a className="dd-aside" href="/#cotador" onClick={() => setDrop(false)}>
+                        <span className="dd-aside-ic" aria-hidden="true">
+                          <Calculator width={18} height={18} strokeWidth={1.8} />
+                        </span>
                         <span className="dd-badge">Cotador</span>
-                        <h3 className="dd-aside-title">Descubra o plano ideal em 1 minuto</h3>
-                        <p className="dd-aside-text">
-                          Responda 3 perguntas e receba as melhores ofertas das operadoras parceiras.
-                        </p>
-                        <a
-                          className="btn btn-primary dd-aside-cta"
-                          href="#simulador"
-                          onClick={() => setDrop(false)}
-                        >
-                          Simular agora
+                        <span className="dd-aside-title">Descubra o plano ideal em 1 minuto</span>
+                        <span className="dd-aside-cta">
+                          Ver o Cotador
                           <ArrowRight width={16} height={16} strokeWidth={2} aria-hidden="true" />
-                        </a>
-                      </aside>
-                    </div>
-                    <hr className="dd-divider" />
-                    <div className="dd-legal">
-                      <Link to="/privacidade" className="dd-link" onClick={() => setDrop(false)}>Política de Privacidade</Link>
-                      <Link to="/termos" className="dd-link" onClick={() => setDrop(false)}>Termos de Uso</Link>
-                      <Link to="/lgpd" className="dd-link" onClick={() => setDrop(false)}>LGPD</Link>
+                        </span>
+                      </a>
                     </div>
                   </div>
                 )}
