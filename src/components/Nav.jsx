@@ -165,8 +165,8 @@ export default function Nav({ minimal = false }) {
                           const Icon = ICONS[p.key];
                           return (
                             <li key={p.href}>
-                              <a
-                                href={p.href}
+                              <Link
+                                to={`/${p.href}`}
                                 className="dd-item"
                                 onClick={() => setDrop(false)}
                               >
@@ -178,12 +178,12 @@ export default function Nav({ minimal = false }) {
                                   <span className="dd-desc">{DROP_DESC[p.key] || ""}</span>
                                 </span>
                                 <ArrowRight className="dd-arrow" width={16} height={16} strokeWidth={2} aria-hidden="true" />
-                              </a>
+                              </Link>
                             </li>
                           );
                         })}
                       </ul>
-                      <a className="dd-aside" href="#simulador" onClick={() => setDrop(false)}>
+                      <Link className="dd-aside" to="/#simulador" onClick={() => setDrop(false)}>
                         <span className="dd-aside-ic" aria-hidden="true">
                           <Calculator width={18} height={18} strokeWidth={1.8} />
                         </span>
@@ -193,20 +193,20 @@ export default function Nav({ minimal = false }) {
                           Ver o Cotador
                           <ArrowRight width={16} height={16} strokeWidth={2} aria-hidden="true" />
                         </span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 )}
               </div>
-              <a href="#precos" className="nav-link">Preços</a>
-              <a href="#duvidas" className="nav-link">Dúvidas</a>
+              <Link to="/#precos" className="nav-link">Preços</Link>
+              <Link to="/#duvidas" className="nav-link">Dúvidas</Link>
             </nav>
           )}
 
           <div className="nav-right">
             {!minimal && (
               <div className="nav-actions">
-                <a className="btn btn-primary" href="#simulador">{minimal ? "Simular agora" : "Cotação gratuita"}</a>
+                <Link className="btn btn-primary" to="/#simulador">{minimal ? "Simular agora" : "Cotação gratuita"}</Link>
               </div>
             )}
             {!minimal && (
@@ -250,20 +250,20 @@ export default function Nav({ minimal = false }) {
               {mmProd && (
                 <div className="mm-sub">
                   {PRODUCT_LINKS.map((p) => (
-                    <a key={p.href} href={p.href} onClick={() => setOpen(false)} className="mm-link">
+                    <Link key={p.href} to={`/${p.href}`} onClick={() => setOpen(false)} className="mm-link">
                       {p.label}
-                    </a>
+                    </Link>
                   ))}
                   <Link to="/privacidade" onClick={() => setOpen(false)} className="mm-link">Política de Privacidade</Link>
                   <Link to="/termos" onClick={() => setOpen(false)} className="mm-link">Termos de Uso</Link>
                   <Link to="/lgpd" onClick={() => setOpen(false)} className="mm-link">LGPD</Link>
                 </div>
               )}
-              <a href="#precos" onClick={() => setOpen(false)} className="mm-link">Preços</a>
-              <a href="#duvidas" onClick={() => setOpen(false)} className="mm-link">Dúvidas</a>
+              <Link to="/#precos" onClick={() => setOpen(false)} className="mm-link">Preços</Link>
+              <Link to="/#duvidas" onClick={() => setOpen(false)} className="mm-link">Dúvidas</Link>
               <div className="mm-actions">
-                <a className="btn btn-ghost" href="#contato" onClick={() => setOpen(false)}>Entrar</a>
-                <a className="btn btn-primary" href="#simulador" onClick={() => setOpen(false)}>Criar conta grátis</a>
+                <Link className="btn btn-ghost" to="/#contato" onClick={() => setOpen(false)}>Entrar</Link>
+                <Link className="btn btn-primary" to="/#simulador" onClick={() => setOpen(false)}>Criar conta grátis</Link>
               </div>
             </nav>
           </div>
