@@ -13,9 +13,9 @@ export function waLink(text) {
 export const YEAR = new Date().getFullYear();
 
 export const PRODUCT_LINKS = [
-  { key: "saude", label: "Plano de saúde", href: "#plano-saude" },
-  { key: "odonto", label: "Plano odontológico", href: "#plano-odontologico" },
-  { key: "empresa", label: "Plano empresarial", href: "#plano-empresarial" },
+  { key: "saude", label: "Plano de saúde", href: "#solucoes" },
+  { key: "odonto", label: "Plano odontológico", href: "#odontologico" },
+  { key: "empresa", label: "Plano empresarial", href: "#empresas" },
   { key: "operadoras", label: "Operadoras", href: "#operadoras" },
 ];
 

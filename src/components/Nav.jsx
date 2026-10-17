@@ -183,7 +183,7 @@ export default function Nav({ minimal = false }) {
                           );
                         })}
                       </ul>
-                      <a className="dd-aside" href="/#cotador" onClick={() => setDrop(false)}>
+                      <a className="dd-aside" href="#simulador" onClick={() => setDrop(false)}>
                         <span className="dd-aside-ic" aria-hidden="true">
                           <Calculator width={18} height={18} strokeWidth={1.8} />
                         </span>
