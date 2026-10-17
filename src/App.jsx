@@ -1,6 +1,9 @@
 import { lazy, Suspense, useEffect, useRef } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home.jsx";
+import Privacidade from "./pages/Privacidade.jsx";
+import Termos from "./pages/Termos.jsx";
+import Lgpd from "./pages/Lgpd.jsx";
 
 const Legal = lazy(() => import("./pages/Legal.jsx"));
 
@@ -53,6 +56,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/legal.html" element={<Legal />} />
+          <Route path="/privacidade" element={<Privacidade />} />
+          <Route path="/termos" element={<Termos />} />
+          <Route path="/lgpd" element={<Lgpd />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
