@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, Building2, Heart, ShieldCheck, Smile } from "lucide-react";
+import { ChevronDown, Building2, Heart, ShieldCheck, Smile, ArrowRight } from "lucide-react";
 import { PRODUCT_LINKS, asset } from "../lib/site.js";
 
 const ICONS = {
@@ -147,28 +147,46 @@ export default function Nav({ minimal = false }) {
                       <h2 className="dd-title">Escolha seu plano</h2>
                       <p className="dd-sub">Planos de saúde, odonto e empresarial com cobertura nacional.</p>
                     </div>
-                    <div className="dd-grid">
-                      {PRODUCT_LINKS.map((p) => {
-                        const Icon = ICONS[p.key];
-                        return (
-                          <a
-                            key={p.href}
-                            href={p.href}
-                            className="dd-item"
-                            role="menuitem"
-                            onClick={() => setDrop(false)}
-                          >
-                            <span className="dd-ic" aria-hidden="true">
-                              <Icon width={22} height={22} strokeWidth={1.6} />
-                            </span>
-                            <div className="dd-text">
-                              <span className="dd-name">{p.label}</span>
-                              <span className="dd-desc">{DROP_DESC[p.key] || ""}</span>
-                            </div>
-                            <span className="dd-arrow">›</span>
-                          </a>
-                        );
-                      })}
+                    <div className="dd-body">
+                      <ul className="dd-grid" role="none">
+                        {PRODUCT_LINKS.map((p) => {
+                          const Icon = ICONS[p.key];
+                          return (
+                            <li key={p.href} role="none">
+                              <a
+                                href={p.href}
+                                className="dd-item"
+                                role="menuitem"
+                                onClick={() => setDrop(false)}
+                              >
+                                <span className="dd-ic" aria-hidden="true">
+                                  <Icon width={22} height={22} strokeWidth={1.6} />
+                                </span>
+                                <span className="dd-text">
+                                  <span className="dd-name">{p.label}</span>
+                                  <span className="dd-desc">{DROP_DESC[p.key] || ""}</span>
+                                </span>
+                                <span className="dd-arrow" aria-hidden="true">›</span>
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <aside className="dd-aside" aria-label="Cotador de planos">
+                        <span className="dd-badge">Cotador</span>
+                        <h3 className="dd-aside-title">Descubra o plano ideal em 1 minuto</h3>
+                        <p className="dd-aside-text">
+                          Responda 3 perguntas e receba as melhores ofertas das operadoras parceiras.
+                        </p>
+                        <a
+                          className="btn btn-primary dd-aside-cta"
+                          href="#simulador"
+                          onClick={() => setDrop(false)}
+                        >
+                          Simular agora
+                          <ArrowRight width={16} height={16} strokeWidth={2} aria-hidden="true" />
+                        </a>
+                      </aside>
                     </div>
                     <hr className="dd-divider" />
                     <div className="dd-legal">
