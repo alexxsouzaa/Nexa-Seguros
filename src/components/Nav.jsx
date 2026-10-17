@@ -22,7 +22,21 @@ export default function Nav({ minimal = false }) {
   const [drop, setDrop] = useState(false);
   const [mmProd, setMmProd] = useState(false);
   const dropRef = useRef(null);
+  const dropTimer = useRef(null);
   const sheetRef = useRef(null);
+
+  const openDrop = () => {
+    if (dropTimer.current) clearTimeout(dropTimer.current);
+    setDrop(true);
+  };
+  const closeDrop = () => {
+    if (dropTimer.current) clearTimeout(dropTimer.current);
+    dropTimer.current = setTimeout(() => setDrop(false), 140);
+  };
+
+  useEffect(() => () => {
+    if (dropTimer.current) clearTimeout(dropTimer.current);
+  }, []);
 
   useEffect(() => {
     if (minimal) return;
@@ -128,13 +142,16 @@ export default function Nav({ minimal = false }) {
           {!minimal && (
             <nav className="nav-links" aria-label="Principal">
               <Link to="/" className="nav-link">Início</Link>
-              <div className="nav-drop" ref={dropRef}>
+              <div
+                className="nav-drop"
+                ref={dropRef}
+                onMouseEnter={openDrop}
+                onMouseLeave={closeDrop}
+              >
                 <button
                   type="button"
                   aria-expanded={drop}
                   aria-haspopup="true"
-                  onMouseEnter={() => setDrop(true)}
-                  onMouseLeave={() => setDrop(false)}
                   onClick={() => setDrop((v) => !v)}
                 >
                   Produtos
