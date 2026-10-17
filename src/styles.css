@@ -201,7 +201,8 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 @media (min-width: 768px) { .brand-logo { height: 32px; } }
 
 .nav-links { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; }
-.nav-links > a, .nav-links .nav-drop > button {
+.nav-links > a, .nav-links .nav-drop > button,
+.nav-link {
   font-family: var(--font-body);
   font-size: 14px; font-weight: 500; color: color-mix(in srgb, var(--fg) 70%, transparent);
   text-decoration: none; padding: 6px 12px; border-radius: var(--radius-pill);
@@ -268,8 +269,10 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .sheet-close { width: 44px; height: 44px; border: 1px solid transparent; background: transparent; border-radius: var(--radius-4xl); cursor: pointer; display: grid; place-items: center; color: var(--fg); transition: background-color 0.15s ease; }
 .sheet-close:hover { background: var(--bg-2); }
 .sheet nav { display: flex; flex-direction: column; gap: 2px; }
-.sheet nav > a, .sheet .mm-btn { padding: 14px 12px; font-size: 16px; font-weight: 500; text-decoration: none; color: var(--fg); border-radius: 14px; background: none; border: 0; text-align: left; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-.sheet nav > a:hover, .sheet .mm-btn:hover { background: var(--bg-2); }
+.sheet nav > a, .sheet .mm-btn, .mm-link {
+  padding: 14px 12px; font-size: 16px; font-weight: 500; text-decoration: none; color: var(--fg); border-radius: 14px; background: none; border: 0; text-align: left; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.sheet nav > a:hover, .sheet .mm-btn:hover, .mm-link:hover { background: var(--bg-2); }
 .sheet .mm-sub { padding-left: 12px; display: flex; flex-direction: column; }
 .sheet .mm-sub a { padding: 11px 12px; font-size: 15px; color: var(--fg-2); text-decoration: none; border-radius: 12px; }
 .sheet .mm-sub a:hover { background: var(--bg-2); }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ChevronDown, Building2, Heart, ShieldCheck, Smile } from "lucide-react";
 import { PRODUCT_LINKS, asset } from "../lib/site.js";
 
@@ -106,7 +107,7 @@ export default function Nav({ minimal = false }) {
     <>
       <header className="nav" id="nav">
         <div className="nav-inner">
-          <a className="brand" href={minimal ? "/" : "#inicio"} aria-label="Nexa Seguros, início">
+          <Link to="/" className="brand" aria-label="Nexa Seguros, início">
               <img
                 className="brand-logo"
                 src={asset("/logo_light.png")}
@@ -115,11 +116,11 @@ export default function Nav({ minimal = false }) {
                 height="214"
                 decoding="async"
               />
-          </a>
+            </Link>
 
           {!minimal && (
             <nav className="nav-links" aria-label="Principal">
-              <a href="#inicio">Início</a>
+              <Link to="/" className="nav-link">Início</Link>
               <div className="nav-drop" ref={dropRef}>
                 <button
                   type="button"
@@ -134,24 +135,45 @@ export default function Nav({ minimal = false }) {
                 </button>
                 {drop && (
                   <div className="nav-drop-panel" role="menu">
-                    {PRODUCT_LINKS.map((p) => {
-                      const Icon = ICONS[p.key] || Heart;
-                      return (
-                        <a key={p.href} href={p.href} role="menuitem" onClick={() => setDrop(false)}>
-                          <span className="dd-ic" aria-hidden="true">
-                            <Icon width={18} height={18} strokeWidth={1.8} />
-                          </span>
-                          <span>
-                            <strong>{p.label}</strong>
-                          </span>
-                        </a>
-                      );
-                    })}
+                    {PRODUCT_LINKS.map((p) => (
+                      <a
+                        key={p.href}
+                        href={p.href}
+                        role="menuitem"
+                        onClick={() => setDrop(false)}
+                      >
+                        <span className="dd-ic" aria-hidden="true">
+                          <Icon width={18} height={18} strokeWidth={1.8} />
+                        </span>
+                        <span>
+                          <strong>{p.label}</strong>
+                        </span>
+                      </a>
+                    ))}
+                    <div style={{ borderTop: "1px solid var(--border-soft)", marginTop: 8, paddingTop: 8 }} />
+                    <Link to="/privacidade" role="menuitem" onClick={() => setDrop(false)}>
+                      <span className="dd-ic" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--brand-text)" }}><path d="M8 8h12v12H8z" /><path d="M8 8L12 12" /><path d="M12 12L16 8" /></svg>
+                      </span>
+                      <span>Política de Privacidade</span>
+                    </Link>
+                    <Link to="/termos" role="menuitem" onClick={() => setDrop(false)}>
+                      <span className="dd-ic" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--brand-text)" }}><path d="M8 8h12v12H8z" /><path d="M8 8L12 12" /><path d="M12 12L16 8" /></svg>
+                      </span>
+                      <span>Termos de Uso</span>
+                    </Link>
+                    <Link to="/lgpd" role="menuitem" onClick={() => setDrop(false)}>
+                      <span className="dd-ic" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--brand-text)" }}><path d="M8 8h12v12H8z" /><path d="M8 8L12 12" /><path d="M12 12L16 8" /></svg>
+                      </span>
+                      <span>LGPD</span>
+                    </Link>
                   </div>
                 )}
               </div>
-              <a href="#precos">Preços</a>
-              <a href="#duvidas">Dúvidas</a>
+              <a href="#precos" className="nav-link">Preços</a>
+              <a href="#duvidas" className="nav-link">Dúvidas</a>
             </nav>
           )}
 
@@ -194,7 +216,7 @@ export default function Nav({ minimal = false }) {
               </button>
             </div>
             <nav aria-label="Navegação móvel">
-              <a href="#inicio" onClick={() => setOpen(false)}>Início</a>
+              <Link to="/" onClick={() => setOpen(false)} className="mm-link">Início</Link>
               <button type="button" className="mm-btn" aria-expanded={mmProd} onClick={() => setMmProd((v) => !v)}>
                 Produtos
                 <ChevronDown style={{ width: "14px", height: "14px", transform: mmProd ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }} />
@@ -202,14 +224,17 @@ export default function Nav({ minimal = false }) {
               {mmProd && (
                 <div className="mm-sub">
                   {PRODUCT_LINKS.map((p) => (
-                    <a key={p.href} href={p.href} onClick={() => setOpen(false)}>
+                    <a key={p.href} href={p.href} onClick={() => setOpen(false)} className="mm-link">
                       {p.label}
                     </a>
                   ))}
+                  <Link to="/privacidade" onClick={() => setOpen(false)} className="mm-link">Política de Privacidade</Link>
+                  <Link to="/termos" onClick={() => setOpen(false)} className="mm-link">Termos de Uso</Link>
+                  <Link to="/lgpd" onClick={() => setOpen(false)} className="mm-link">LGPD</Link>
                 </div>
               )}
-              <a href="#precos" onClick={() => setOpen(false)}>Preços</a>
-              <a href="#duvidas" onClick={() => setOpen(false)}>Dúvidas</a>
+              <a href="#precos" onClick={() => setOpen(false)} className="mm-link">Preços</a>
+              <a href="#duvidas" onClick={() => setOpen(false)} className="mm-link">Dúvidas</a>
               <div className="mm-actions">
                 <a className="btn btn-ghost" href="#contato" onClick={() => setOpen(false)}>Entrar</a>
                 <a className="btn btn-primary" href="#simulador" onClick={() => setOpen(false)}>Criar conta grátis</a>
