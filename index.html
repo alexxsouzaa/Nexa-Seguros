@@ -10,6 +10,26 @@
   <link rel="icon" type="image/png" sizes="256x256" href="%BASE_URL%favicon.png" />
   <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
 
+  <!-- Google tag (gtag.js) - Consent Mode v2.
+       O ID precisa acompanhar GA4_ID em src/lib/site.js.
+       O consentimento comeca "denied": sem cookie e sem identificador ate o
+       visitante aceitar. src/lib/analytics.js faz o "consent update". -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+      wait_for_update: 500
+    });
+    gtag("js", new Date());
+    gtag("config", "G-D4DK0VBMLY", { send_page_view: false });
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D4DK0VBMLY"></script>
+
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:site_name" content="Nexa Seguros" />

@@ -1,8 +1,13 @@
-/* Nexa Seguros - mensuração de eventos (Google Analytics 4)
+/* Nexa Seguros - mensuração de eventos (Google Analytics 4 + Consent Mode v2)
  *
- * PRIVACIDADE / LGPD: o GA4 só é carregado DEPOIS que o visitante aceita o
- * banner de cookies. Sem consentimento nenhum script externo é injetado e
- * nenhum evento é enviado.
+ * PRIVACIDADE / LGPD: a tag da Google é carregada pelo index.html já com todos
+ * os sinais de consentimento em "denied", então nenhum cookie é gravado e
+ * nenhum identificador é usado antes do visitante aceitar o banner. O aceite é
+ * aplicado aqui via gtag("consent", "update", ...).
+ *
+ * O modo "denied" não desliga a tag: o Google recebe apenas sinais anônimos e
+ * sem cookie (cookieless pings). Isso permite a detecção da tag e a modelagem
+ * de conversões sem violar a LGPD.
  *
  * Não coletamos dados sensíveis (CPF, dados médicos, documentos). Enviamos
  * apenas nome do evento, página de origem e metadados agregados (tipo de
@@ -41,16 +46,7 @@ export function setConsent(value) {
   } catch {
     /* storage indisponível: a escolha vale pelo menos nesta sessão */
   }
-  if (value !== "granted") disableGA4();
-}
-
-/* Desliga a medição e impede novos envios (recusa ou revogação do consentimento). */
-function disableGA4() {
-  ready = false;
-  if (typeof window !== "undefined" && hasGA4) {
-    /* Opt-out oficial do gtag: o Google para de coletar imediatamente. */
-    window["ga-disable-" + GA4_ID] = true;
-  }
+  applyGoogleConsent(value === "granted");
 }
 
 /* Reabre o banner ("Preferências de cookies" no rodapé). */
@@ -61,30 +57,31 @@ export function openConsentPreferences() {
   window.dispatchEvent(new Event(CONSENT_EVENT));
 }
 
-/* ---------- Google Analytics 4 ---------- */
+/* ---------- Google Analytics 4 (Consent Mode v2) ---------- */
 
+/* A tag (gtag.js) já vem do index.html com o consentimento em "denied".
+ * Aqui só sincronizamos o estado salvo e liberamos o envio de eventos. */
 export function initGA4() {
   if (typeof window === "undefined" || !hasGA4 || ready) return;
-  if (!hasAnalyticsConsent()) return;
   ready = true;
-  if (hasGA4) window["ga-disable-" + GA4_ID] = false;
+  applyGoogleConsent(hasAnalyticsConsent());
+}
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag() {
-    window.dataLayer.push(arguments);
-  };
-  window.gtag("js", new Date());
-  window.gtag("config", GA4_ID, { send_page_view: false });
-
-  const s = document.createElement("script");
-  s.async = true;
-  s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID;
-  document.head.appendChild(s);
+/* Com "granted" o GA4 grava cookies; com "denied" segue sem cookie nenhum. */
+function applyGoogleConsent(granted) {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  const state = granted ? "granted" : "denied";
+  window.gtag("consent", "update", {
+    ad_storage: state,
+    ad_user_data: state,
+    ad_personalization: state,
+    analytics_storage: state,
+  });
 }
 
 /* Page views de SPA: chamado a cada troca de rota (App.jsx). */
 export function trackPageView(path) {
-  if (!ready) return;
+  if (!ready || typeof window === "undefined") return;
   window.gtag("config", GA4_ID, { page_path: path, page_title: document.title });
 }
 
@@ -93,7 +90,7 @@ export function sendEvent(name, payload = {}) {
     // eslint-disable-next-line no-console
     console.log("[NEXA_EVENT]", name, payload);
   }
-  if (!ready) return;
+  if (!ready || typeof window === "undefined") return;
   window.gtag("event", name, payload);
 }
 

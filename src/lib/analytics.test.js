@@ -7,13 +7,24 @@ function loadAnalytics(ga4Id) {
   return import("./analytics.js");
 }
 
-const CONSENT_KEY = "nexa_cookie_consent";
-const GA_SCRIPT = 'script[src*="googletagmanager"]';
-const dataLayerCalls = () => Array.from(window.dataLayer).map((a) => Array.from(a));
+/* Reproduz o que o index.html faz: cria o dataLayer e o gtag. */
+function installGtag() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+}
 
-describe("analytics (GA4 + consentimento LGPD)", () => {
+const calls = () => Array.from(window.dataLayer || []).map((a) => Array.from(a));
+const lastConsent = () =>
+  calls()
+    .filter((c) => c[0] === "consent")
+    .pop();
+
+const CONSENT_KEY = "nexa_cookie_consent";
+
+describe("analytics (GA4 + Consent Mode v2)", () => {
   beforeEach(() => {
-    document.head.innerHTML = "";
     localStorage.clear();
     delete window.dataLayer;
     delete window.gtag;
@@ -24,110 +35,109 @@ describe("analytics (GA4 + consentimento LGPD)", () => {
     vi.resetModules();
   });
 
-  it("nao carrega o gtag.js quando nao ha ID de medição", async () => {
+  it("nao envia nada quando nao ha ID de medição", async () => {
+    installGtag();
     const { initGA4, trackWhatsAppOpen } = await loadAnalytics("");
-    localStorage.setItem(CONSENT_KEY, "granted");
     initGA4();
     trackWhatsAppOpen("cotacao");
 
-    expect(document.querySelector(GA_SCRIPT)).toBeNull();
-    expect(window.gtag).toBeUndefined();
+    expect(calls()).toHaveLength(0);
   });
 
-  it("NAO carrega o GA4 sem consentimento do visitante", async () => {
-    const { initGA4, trackWhatsAppOpen } = await loadAnalytics("G-TEST123");
+  it("comeca em 'denied' quando o visitante ainda nao decidiu", async () => {
+    installGtag();
+    const { initGA4, hasAnalyticsConsent } = await loadAnalytics("G-TEST123");
     initGA4();
-    trackWhatsAppOpen("cotacao");
 
-    expect(document.querySelector(GA_SCRIPT)).toBeNull();
-    expect(window.dataLayer).toBeUndefined();
+    expect(hasAnalyticsConsent()).toBe(false);
+    const c = lastConsent();
+    expect(c[1]).toBe("update");
+    expect(c[2].analytics_storage).toBe("denied");
+    expect(c[2].ad_storage).toBe("denied");
+    expect(c[2].ad_user_data).toBe("denied");
+    expect(c[2].ad_personalization).toBe("denied");
   });
 
-  it("carrega o script do GA4 quando ha consentimento", async () => {
-    const { initGA4 } = await loadAnalytics("G-TEST123");
+  it("libera o GA4 quando o visitante ja havia aceitado", async () => {
+    installGtag();
+    const { initGA4, hasAnalyticsConsent } = await loadAnalytics("G-TEST123");
     localStorage.setItem(CONSENT_KEY, "granted");
     initGA4();
 
-    const s = document.querySelector(GA_SCRIPT);
-    expect(s).not.toBeNull();
-    expect(s.async).toBe(true);
-    expect(s.src).toContain("G-TEST123");
+    expect(hasAnalyticsConsent()).toBe(true);
+    expect(lastConsent()[2].analytics_storage).toBe("granted");
   });
 
-  it("nao duplica o script se initGA4 for chamado duas vezes", async () => {
-    const { initGA4 } = await loadAnalytics("G-TEST123");
-    localStorage.setItem(CONSENT_KEY, "granted");
-    initGA4();
-    initGA4();
-
-    expect(document.querySelectorAll(GA_SCRIPT).length).toBe(1);
-  });
-
-  it("setConsent('granted') libera o GA4 imediatamente", async () => {
+  it("setConsent('granted') atualiza o consentimento na hora", async () => {
+    installGtag();
     const { initGA4, setConsent, hasAnalyticsConsent } = await loadAnalytics("G-TEST123");
-
     initGA4();
     expect(hasAnalyticsConsent()).toBe(false);
-    expect(document.querySelector(GA_SCRIPT)).toBeNull();
 
     setConsent("granted");
-    initGA4();
     expect(hasAnalyticsConsent()).toBe(true);
-    expect(document.querySelector(GA_SCRIPT)).not.toBeNull();
+    expect(lastConsent()[2].analytics_storage).toBe("granted");
   });
 
-  it("setConsent('denied') mantem o GA4 desligado", async () => {
-    const { initGA4, setConsent, hasAnalyticsConsent } = await loadAnalytics("G-TEST123");
-    setConsent("denied");
+  it("setConsent('denied') revoga o consentimento", async () => {
+    installGtag();
+    const { initGA4, setConsent } = await loadAnalytics("G-TEST123");
+    localStorage.setItem(CONSENT_KEY, "granted");
     initGA4();
 
-    expect(hasAnalyticsConsent()).toBe(false);
-    expect(document.querySelector(GA_SCRIPT)).toBeNull();
+    setConsent("denied");
+    expect(lastConsent()[2].analytics_storage).toBe("denied");
+  });
+
+  it("nao envia eventos antes do initGA4", async () => {
+    installGtag();
+    const { trackWhatsAppOpen } = await loadAnalytics("G-TEST123");
+    trackWhatsAppOpen("cotacao");
+
+    expect(calls()).toHaveLength(0);
   });
 
   it("envia a conversão principal (whatsapp_open) para o dataLayer", async () => {
+    installGtag();
     const { initGA4, trackWhatsAppOpen } = await loadAnalytics("G-TEST123");
-    localStorage.setItem(CONSENT_KEY, "granted");
     initGA4();
     trackWhatsAppOpen("cotacao");
 
     expect(
-      dataLayerCalls().some(
+      calls().some(
         (c) => c[0] === "event" && c[1] === "whatsapp_open" && c[2].context === "cotacao"
       )
     ).toBe(true);
   });
 
   it("envia quote_start, quote_submit e cta_click para o dataLayer", async () => {
+    installGtag();
     const { initGA4, trackQuoteStart, trackQuoteSubmit, trackCtaClick } =
       await loadAnalytics("G-TEST123");
-    localStorage.setItem(CONSENT_KEY, "granted");
     initGA4();
 
     trackQuoteStart();
     trackQuoteSubmit({ tipo: "saude" });
     trackCtaClick("cta_hero_principal", "#cotacao");
 
-    const calls = dataLayerCalls();
-    expect(calls.some((c) => c[0] === "event" && c[1] === "quote_start")).toBe(true);
+    const c = calls();
+    expect(c.some((x) => x[0] === "event" && x[1] === "quote_start")).toBe(true);
     expect(
-      calls.some((c) => c[0] === "event" && c[1] === "quote_submit" && c[2].tipo === "saude")
+      c.some((x) => x[0] === "event" && x[1] === "quote_submit" && x[2].tipo === "saude")
     ).toBe(true);
     expect(
-      calls.some(
-        (c) => c[0] === "event" && c[1] === "cta_click" && c[2].cta === "cta_hero_principal"
-      )
+      c.some((x) => x[0] === "event" && x[1] === "cta_click" && x[2].cta === "cta_hero_principal")
     ).toBe(true);
   });
 
   it("registra a page_view a cada troca de rota (SPA)", async () => {
+    installGtag();
     const { initGA4, trackPageView } = await loadAnalytics("G-TEST123");
-    localStorage.setItem(CONSENT_KEY, "granted");
     initGA4();
     trackPageView("/privacidade");
 
     expect(
-      dataLayerCalls().some(
+      calls().some(
         (c) => c[0] === "config" && c[1] === "G-TEST123" && c[2].page_path === "/privacidade"
       )
     ).toBe(true);
