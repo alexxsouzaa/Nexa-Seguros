@@ -47,6 +47,12 @@ export const asset = (p) => BASE + p;
 /* Canonical e URLs públicas */
 export const CANONICAL_BASE = "https://www.nexaseguros.com.br";
 
+/* Google Analytics 4 - ID de medição da propriedade "Nexa Seguros".
+ * Formato: G-XXXXXXXXXX (Visão geral > Fluxos de dados > Web).
+ * Deixe em branco ("") para manter a medição desativada.
+ */
+export const GA4_ID = "G-D4DK0VBMLY";
+
 /* SEO helpers */
 export function seoTitle(pageTitle) {
   return pageTitle + " | Nexa Seguros";
@@ -66,10 +72,7 @@ export const ORGANIZATION_SCHEMA = {
   "name": "Nexa Seguros",
   "url": CANONICAL_BASE,
   "logo": CANONICAL_BASE + "/logo.png",
-  "sameAs": [
-    "https://www.instagram.com/nexaseguros",
-    "https://www.youtube.com/@nexaseguros",
-  ],
+  "sameAs": ["https://www.instagram.com/nexa_seguro"],
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+5571981494527",

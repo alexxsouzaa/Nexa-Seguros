@@ -38,7 +38,10 @@ describe("Paginas legais (layout replicado do Koter)", () => {
 
     // Rodape (novo nestas paginas) e alvo do "Voltar ao topo"
     expect(document.querySelector(".footer")).toBeInTheDocument();
-    expect(document.querySelector(".to-top")).toHaveAttribute("href", "#inicio");
+    const toTop = document.querySelector(".to-top");
+    expect(toTop).toBeInTheDocument();
+    expect(toTop.textContent).toContain("Voltar ao topo");
+    expect(toTop).toHaveAttribute("href", "#inicio");
     expect(document.getElementById("inicio")).toBeInTheDocument();
   });
 

@@ -4,8 +4,21 @@ import Home from "./pages/Home.jsx";
 import Privacidade from "./pages/Privacidade.jsx";
 import Termos from "./pages/Termos.jsx";
 import Lgpd from "./pages/Lgpd.jsx";
+import CookieConsent from "./components/CookieConsent.jsx";
+import { trackPageView } from "./lib/analytics.js";
 
 const Legal = lazy(() => import("./pages/Legal.jsx"));
+
+/* Registra uma page_view do GA4 a cada troca de rota (SPA). */
+function PageViewTracker() {
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    trackPageView(pathname + search);
+  }, [pathname, search]);
+
+  return null;
+}
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -49,8 +62,10 @@ function ScrollManager() {
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <ScrollManager />
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <PageViewTracker />
+        <ScrollManager />
+        <CookieConsent />
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />
