@@ -20,19 +20,19 @@ export const PRODUCT_LINKS = [
 ];
 
 export const FOOTER_PRODUCT_LINKS = [
-  { label: "Plano de saúde individual", href: "#plano-saude-individual" },
-  { label: "Plano de saúde familiar", href: "#plano-saude-familiar" },
-  { label: "Plano de saúde empresarial", href: "#plano-saude-empresarial" },
-  { label: "Plano odontológico", href: "#plano-odontologico" },
+  { label: "Plano de saúde individual", href: "/#solucoes" },
+  { label: "Plano de saúde familiar", href: "/#solucoes" },
+  { label: "Plano de saúde empresarial", href: "/#solucoes" },
+  { label: "Plano odontológico", href: "/#odontologico" },
 ];
 
 export const FOOTER_PLAN_LINKS = [
-  { label: "Amil", href: "#amil" },
-  { label: "Bradesco Seguros", href: "#bradesco" },
-  { label: "SulAmérica", href: "#sulamerica" },
-  { label: "Porto Seguro", href: "#porto" },
-  { label: "Intermédica", href: "#intermedica" },
-  { label: "NotreDame Intermédica", href: "#notredame" },
+  { label: "Amil", href: "/#operadoras" },
+  { label: "Bradesco Seguros", href: "/#operadoras" },
+  { label: "SulAmérica", href: "/#operadoras" },
+  { label: "Porto Seguro", href: "/#operadoras" },
+  { label: "Intermédica", href: "/#operadoras" },
+  { label: "NotreDame Intermédica", href: "/#operadoras" },
 ];
 
 export const FOOTER_LEGAL_LINKS = [

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { ChevronDown, Building2, Heart, ShieldCheck, Smile, ArrowRight, Calculator } from "lucide-react";
 import { PRODUCT_LINKS, asset } from "../lib/site.js";
 
@@ -124,6 +124,37 @@ export default function Nav({ minimal = false }) {
     };
   }, [minimal]);
 
+  useEffect(() => {
+    if (minimal || !open) return;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    const focusable = Array.from(sheet.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter((el) => !el.hasAttribute("disabled"));
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const prev = document.activeElement;
+    try { first.focus(); } catch {}
+    function onKey(e) {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      document.removeEventListener("keydown", onKey, true);
+      try { if (prev && typeof prev.focus === "function") prev.focus(); } catch {}
+    };
+  }, [open, minimal]);
+
   return (
     <>
       <header className="nav" id="nav">
@@ -141,7 +172,7 @@ export default function Nav({ minimal = false }) {
 
           {!minimal && (
             <nav className="nav-links" aria-label="Principal">
-              <Link to="/" className="nav-link">Início</Link>
+              <NavLink to="/" className={({isActive}) => isActive && window.location.pathname === '/' ? 'nav-link active' : 'nav-link'}>Início</NavLink>
               <div
                 className="nav-drop"
                 ref={dropRef}
@@ -232,7 +263,7 @@ export default function Nav({ minimal = false }) {
       {!minimal && open && (
         <>
           <div className="sheet-backdrop" onClick={() => setOpen(false)} />
-          <div ref={sheetRef} className="sheet" id="mobileSheet" role="dialog" aria-modal="true">
+          <div ref={sheetRef} className="sheet" id="mobileSheet" role="dialog" aria-modal="true" aria-label="Menu principal">
             <div className="sheet-head">
               <img className="brand-logo" src={asset("/logo_light.png")} alt="Nexa Seguros" width="400" height="214" decoding="async" />
               <button className="sheet-close" onClick={() => setOpen(false)} aria-label="Fechar menu">
@@ -262,8 +293,8 @@ export default function Nav({ minimal = false }) {
               <Link to="/#precos" onClick={() => setOpen(false)} className="mm-link">Preços</Link>
               <Link to="/#duvidas" onClick={() => setOpen(false)} className="mm-link">Dúvidas</Link>
               <div className="mm-actions">
-                <Link className="btn btn-ghost" to="/#contato" onClick={() => setOpen(false)}>Entrar</Link>
-                <Link className="btn btn-primary" to="/#simulador" onClick={() => setOpen(false)}>Criar conta grátis</Link>
+                <Link className="btn btn-ghost" to="/#contato" onClick={() => setOpen(false)}>Falar no WhatsApp</Link>
+                <Link className="btn btn-primary" to="/#simulador" onClick={() => setOpen(false)}>Cotação gratuita</Link>
               </div>
             </nav>
           </div>

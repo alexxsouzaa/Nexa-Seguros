@@ -6,11 +6,10 @@ export default function Lgpd() {
     <LegalLayout>
       <SEOHead
         title="LGPD | Nexa Seguros"
-        description="LGPD da Nexa Seguros: seus direitos sobre dados pessoais, acesso, correção e exclusão. Assessoria em planos de saúde e odontológicos em Camaçari, BA."
+        description="Informações sobre o tratamento de dados pessoais pela Nexa Seguros em conformidade com a Lei Geral de Proteção de Dados."
         path="/lgpd"
         robots="index,follow"
       />
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
 
       <section className="legal-hero">
         <div className="container">

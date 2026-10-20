@@ -10,7 +10,6 @@ export default function Privacidade() {
         path="/privacidade"
         robots="index,follow"
       />
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
 
       <section className="legal-hero">
         <div className="container">

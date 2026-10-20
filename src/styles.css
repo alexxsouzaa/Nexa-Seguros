@@ -153,8 +153,8 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .btn:disabled { cursor: not-allowed; opacity: 0.6; }
 .btn-lg { padding: 15px 28px; font-size: 16px; min-height: 52px; }
 .btn-block { width: 100%; }
-.btn-primary { background: var(--btn-bg); color: var(--btn-fg); box-shadow: var(--shadow-sm); }
-.btn-primary:hover { background: var(--btn-bg-hover); }
+.btn-primary { background: var(--brand-strong); color: #fff; box-shadow: var(--shadow-sm); }
+.btn-primary:hover { background: var(--brand); color: #fff; }
 .btn-ghost { background: transparent; color: var(--fg); border-color: var(--border); }
 .btn-ghost:hover { background: var(--bg-2); border-color: var(--fg-muted); }
 .btn-light { background: var(--white); color: var(--inst); }
@@ -163,8 +163,7 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .btn-outline-light:hover { background: var(--white-10); border-color: var(--white-70); }
 
 /* Botao CTA do Koter: pill com seta que desliza */
-.btn-slide { position: relative; padding-left: 24px; padding-right: 52px; overflow: hidden; transition: padding 0.5s var(--ease-out), background 0.2s ease; }
-.btn-slide:hover { padding-left: 52px; padding-right: 24px; }
+.btn-slide { position: relative; padding-left: 24px; padding-right: 52px; overflow: hidden; transition: background 0.2s ease; }
 .btn-slide .btn-slide-ic {
   position: absolute; top: 50%; transform: translateY(-50%);
   right: 7px; width: 36px; height: 36px; border-radius: 50%;
@@ -870,7 +869,7 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .sim-qsub { display: block; font-size: 12px; color: var(--fg-muted); }
 .sim-qval { flex: none; text-align: right; }
 .sim-qprice { display: block; font-family: var(--font-display); font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--fg); }
-.sim-qbadge { display: inline-block; margin-top: 2px; padding: 2px 8px; border-radius: 999px; background: var(--soft); color: var(--brand-strong); font-size: 10px; font-weight: 600; }
+.sim-qbadge { display: inline-block; margin-top: 2px; padding: 2px 8px; border-radius: 999px; background: var(--soft); color: var(--inst); font-size: 10px; font-weight: 600; }
 
 /* Selos */
 .sim-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
@@ -1217,7 +1216,7 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
 body { overflow-x: hidden; }
 * { -webkit-tap-highlight-color: transparent; }
 
-a, button, [role="button"], input, select, textarea {
+button, [role="button"], input, select, textarea {
   min-height: 44px;
   min-width: 44px;
 }
@@ -1226,7 +1225,7 @@ input, select, textarea { font-size: 16px; }
 
 /* espacamento extra em telas muito estreitas */
 @media (max-width: 374px) {
-  .container, .container-narrow { width: 100% - 24px; }
+  .container, .container-narrow { width: calc(100% - 24px); }
   .hero { padding-inline: 12px; }
   .nav-inner { padding-inline: 12px; }
   .footer { padding-inline: 12px; }
@@ -1237,6 +1236,11 @@ input, select, textarea { font-size: 16px; }
 @media (max-width: 479px) {
   .sim-panel { width: min(400px, 100% - 24px); }
 }
+
+@media (max-width: 479px) {
+  .field input { font-size: 16px; }
+}
+input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="search"], select, textarea { font-size: 16px; }
 
 /* Confirmação pré-WhatsApp do simulador */
 .sim-confirm {
@@ -1290,7 +1294,7 @@ input, select, textarea { font-size: 16px; }
   width: min(560px, calc(100vw - 32px));
   padding: 20px;
   border-radius: 1.5rem;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border-soft);
   box-shadow: 0 18px 48px rgba(26, 71, 56, 0.14);
   animation: cookie-in 0.28s var(--ease-out);

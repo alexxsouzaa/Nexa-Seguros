@@ -6,11 +6,10 @@ export default function Termos() {
     <LegalLayout>
       <SEOHead
         title="Termos de Uso | Nexa Seguros"
-        description="Conheça os termos de uso do site da Nexa Seguros. Assessoria em planos de saúde e odontológicos em Camaçari, BA. Cotação gratuita e sem compromisso."
+        description="Termos e condições de uso do site Nexa Seguros. Assessoria em planos de saúde e odontológicos em Camaçari, BA."
         path="/termos"
         robots="index,follow"
       />
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
 
       <section className="legal-hero">
         <div className="container">
