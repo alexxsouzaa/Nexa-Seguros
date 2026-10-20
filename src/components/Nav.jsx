@@ -167,6 +167,7 @@ export default function Nav({ minimal = false }) {
               width="400"
               height="214"
               decoding="async"
+              fetchpriority="high"
             />
           </Link>
 
