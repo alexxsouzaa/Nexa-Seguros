@@ -43,8 +43,7 @@ function readCookie(name) {
 function writeCookie(name, value, days) {
   if (typeof document === "undefined") return;
   const maxAge = days * 24 * 60 * 60;
-  const secure = typeof location !== "undefined" && location.protocol === "https:" ? "; Secure" : "";
-  document.cookie = name + "=" + encodeURIComponent(value) + "; max-age=" + maxAge + "; path=/; SameSite=Lax" + secure;
+  document.cookie = name + "=" + encodeURIComponent(value) + "; max-age=" + maxAge + "; path=/; SameSite=Lax";
 }
 
 export function getVisitorSeed() {

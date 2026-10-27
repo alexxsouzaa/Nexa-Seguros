@@ -157,21 +157,18 @@ export default function Nav({ minimal = false }) {
 
   return (
     <>
-      <header className="nav" id="nav" style={{ viewTransitionName: "nav" }}>
+      <header className="nav" id="nav">
         <div className="nav-inner">
           <Link to="/" className="brand" aria-label="Nexa Seguros, início">
-            <picture>
-              <source src={asset("/logo_light.webp")} type="image/webp" width="400" height="214" />
-              <img
-                className="brand-logo"
-                src={asset("/logo_light.png")}
-                alt="Nexa Seguros"
-                width="400"
-                height="214"
-                decoding="async"
-                fetchpriority="high"
-              />
-            </picture>
+            <img
+              className="brand-logo"
+              src={asset("/logo_light.png")}
+              alt="Nexa Seguros"
+              width="400"
+              height="214"
+              decoding="async"
+              fetchpriority="high"
+            />
           </Link>
 
           {!minimal && (

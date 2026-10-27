@@ -10,8 +10,8 @@ export default function Legal() {
   return (
     <>
       <SEOHead
-        title="Política de privacidade e Termos de uso | Nexa Seguros"
-        description="Documentos legais da Nexa Seguros: política de privacidade e termos de uso para cotações de planos de saúde e odontológicos em Camaçari, BA."
+        title="PolÃ­tica de privacidade e Termos de uso | Nexa Seguros"
+        description="Documentos legais da Nexa Seguros: polÃ­tica de privacidade e termos de uso para cotaÃ§Ãµes de planos de saÃºde e odontolÃ³gicos em CamaÃ§ari, BA."
         path="/legal"
       />
       <Nav minimal />
@@ -20,10 +20,10 @@ export default function Legal() {
         <section className="legal-hero" data-od-id="legal-hero">
           <div className="container">
             <p className="eyebrow">Documentos</p>
-            <h1>Política de privacidade e Termos de uso</h1>
+            <h1>PolÃ­tica de privacidade e Termos de uso</h1>
             <p className="legal-meta">
-              Última atualização: outubro de 2026. Estes documentos valem para o site
-              www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros em Camaçari,
+              Ãšltima atualizaÃ§Ã£o: outubro de 2026. Estes documentos valem para o site
+              www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros em CamaÃ§ari,
               BA.
             </p>
           </div>
@@ -31,72 +31,72 @@ export default function Legal() {
 
         <section className="legal-section" id="privacidade" data-od-id="legal-privacidade">
           <div className="container">
-            <h2>Política de privacidade</h2>
+            <h2>PolÃ­tica de privacidade</h2>
             <p>
-              A Nexa Seguros respeita sua privacidade. Esta política explica, em linguagem simples,
-              quais dados coletamos e como usamos, conforme a Lei Geral de Proteção de Dados (LGPD).
+              A Nexa Seguros respeita sua privacidade. Esta polÃ­tica explica, em linguagem simples,
+              quais dados coletamos e como usamos, conforme a Lei Geral de ProteÃ§Ã£o de Dados (LGPD).
             </p>
 
             <h3>Quem somos</h3>
             <p>
-              A Nexa Seguros faz assessoria em planos de saúde e odontológicos em Camaçari, BA.
-              Atuamos como intermediários entre você e as operadoras: não fabricamos planos nem
+              A Nexa Seguros faz assessoria em planos de saÃºde e odontolÃ³gicos em CamaÃ§ari, BA.
+              Atuamos como intermediÃ¡rios entre vocÃª e as operadoras: nÃ£o fabricamos planos nem
               calculamos valores oficiais.
             </p>
 
             <h3>Dados que coletamos</h3>
             <ul>
               <li>
-                No formulário de cotação: nome, WhatsApp, cidade, idade, tipo de plano e perfil
+                No formulÃ¡rio de cotaÃ§Ã£o: nome, WhatsApp, cidade, idade, tipo de plano e perfil
                 (individual/familiar ou empresarial).
               </li>
               <li>
-                Em conversas pelo WhatsApp ou e-mail: as informações que você compartilhar sobre
+                Em conversas pelo WhatsApp ou e-mail: as informaÃ§Ãµes que vocÃª compartilhar sobre
                 seu contexto e suas necessidades.
               </li>
             </ul>
 
             <h3>Como usamos</h3>
             <p>
-              Usamos esses dados exclusivamente para atender à sua solicitação: montar um
-              comparativo de planos, encaminhar sua cotação e acompanhar o processo de contratação.
-              Também usamos métricas agregadas, sem identificação pessoal, para melhorar o
+              Usamos esses dados exclusivamente para atender Ã  sua solicitaÃ§Ã£o: montar um
+              comparativo de planos, encaminhar sua cotaÃ§Ã£o e acompanhar o processo de contrataÃ§Ã£o.
+              TambÃ©m usamos mÃ©tricas agregadas, sem identificaÃ§Ã£o pessoal, para melhorar o
               atendimento.
             </p>
 
             <h3>Base legal e consentimento</h3>
             <p>
-              Ao enviar o formulário ou iniciar uma conversa, você consente com o uso dos dados para
-              essa finalidade (art. 7º, I, da LGPD). Você pode revogar o consentimento ou pedir a
-              exclusão dos seus dados a qualquer momento, pelos canais abaixo.
+              Ao enviar o formulÃ¡rio ou iniciar uma conversa, vocÃª consente com o uso dos dados para
+              essa finalidade (art. 7Âº, I, da LGPD). VocÃª pode revogar o consentimento ou pedir a
+              exclusÃ£o dos seus dados a qualquer momento, pelos canais abaixo.
             </p>
 
             <h3>Compartilhamento</h3>
             <p>
-              Não vendemos e não compartilhamos seus dados com terceiros para marketing. O acesso é
-              restrito à nossa equipe. Só enviamos suas informações a uma operadora quando você
-              pede uma cotação oficial com ela.
+              NÃ£o vendemos e nÃ£o compartilhamos seus dados com terceiros para marketing. O acesso Ã©
+              restrito Ã  nossa equipe. SÃ³ enviamos suas informaÃ§Ãµes a uma operadora quando vocÃª
+              pede uma cotaÃ§Ã£o oficial com ela.
             </p>
 
             <h3>Guarda dos dados</h3>
             <p>
-              Mantemos os dados apenas enquanto houver relação ativa com você ou exigência legal.
-              Após esse período, são excluídos ou anonimizados. Comunicações são protegidas em
-              trânsito e armazenadas de forma acessível somente à equipe.
+              Mantemos os dados apenas enquanto houver relaÃ§Ã£o ativa com vocÃª ou exigÃªncia legal.
+              ApÃ³s esse perÃ­odo, sÃ£o excluÃ­dos ou anonimizados. ComunicaÃ§Ãµes sÃ£o protegidas em
+              trÃ¢nsito e armazenadas de forma acessÃ­vel somente Ã  equipe.
             </p>
 
             <h3>Seus direitos</h3>
             <p>
-              Você pode solicitar, a qualquer momento: acesso aos dados, correção, exclusão,
-              portabilidade, informação sobre compartilhamento e revogação do consentimento. Para
+              VocÃª pode solicitar, a qualquer momento: acesso aos dados, correÃ§Ã£o, exclusÃ£o,
+              portabilidade, informaÃ§Ã£o sobre compartilhamento e revogaÃ§Ã£o do consentimento. Para
               isso, fale com a gente pelos canais de contato abaixo.
             </p>
 
             <h3>Contato</h3>
             <p>
-              Dúvidas sobre esta política ou sobre seus dados: WhatsApp (pelo botão do site), e-mail
-              contato@nexaseguros.com.br ou diretamente na nossa página inicial. Respondemos o mais
-              rápido possível, em horário comercial.
+              DÃºvidas esta polÃ­tica ou sobre seus dados: WhatsApp (pelo botÃ£o do site), e-mail
+              contato@nexaseguros.com.br ou diretamente na nossa pÃ¡gina inicial. Respondemos o mais
+              rÃ¡pido possÃ­vel, em horÃ¡rio comercial.
             </p>
           </div>
         </section>
@@ -105,52 +105,52 @@ export default function Legal() {
           <div className="container">
             <h2>Termos de uso</h2>
             <p>
-              Ao usar o site da Nexa Seguros, você concorda com estes termos. Este é o nosso
-              compromisso, em linguagem clara, de como funciona o serviço.
+              Ao usar o site da Nexa Seguros, vocÃª concorda com estes termos. Este Ã© o nosso
+              compromisso, em linguagem clara, de como funciona o serviÃ§o.
             </p>
 
             <h3>O que fazemos</h3>
             <p>
-              A Nexa não é uma operadora: fazemos assessoria para você comparar planos de saúde e
-              odontológicos das operadoras do mercado e escolher a opção mais adequada ao seu
-              perfil. Indicações feitas por nós nunca substituem as condições oficiais da operadora.
+              A Nexa nÃ£o Ã© uma operadora: fazemos assessoria para vocÃª comparar planos de saÃºde e
+              odontolÃ³gicos das operadoras do mercado e escolher a opÃ§Ã£o mais adequada ao seu
+              perfil. IndicaÃ§Ãµes feitas por nÃ³s nunca substituem as condiÃ§Ãµes oficiais da operadora.
             </p>
 
-            <h3>Cotações e valores</h3>
+            <h3>CotaÃ§Ãµes e valores</h3>
             <p>
-              Valores e condições exibidos no site são ilustrativos durante a preparação dos cards
-              de planos e servem para orientação. O valor oficial de cada plano depende de perfil,
-              idade, região e modalidade, e é confirmado apenas na cotação efetiva junto à
-              operadora. Nenhuma condição apresentada aqui representa contratação.
+              Valores e condiÃ§Ãµes exibidos no site sÃ£o ilustrativos durante a preparaÃ§Ã£o dos cards
+              de planos e servem para orientaÃ§Ã£o. O valor oficial de cada plano depende de perfil,
+              idade, regiÃ£o e modalidade, e Ã© confirmado apenas na cotaÃ§Ã£o efetiva junto Ã 
+              operadora. Nenhuma condiÃ§Ã£o apresentada aqui representa contrataÃ§Ã£o.
             </p>
 
             <h3>Suas responsabilidades</h3>
             <p>
-              Ao preencher o formulário ou conversar conosco, informe dados corretos e atuais.
-              Informações incompletas podem inviabilizar ou atrasar a cotação. Você é responsável
-              pelo uso adequado das informações de contato fornecidas.
+              Ao preencher o formulÃ¡rio ou conversar conosco, informe dados corretos e atuais.
+              InformaÃ§Ãµes incompletas podem inviabilizar ou atrasar a cotaÃ§Ã£o. VocÃª Ã© responsÃ¡vel
+              pelo uso adequado das informaÃ§Ãµes de contato fornecidas.
             </p>
 
             <h3>Links externos</h3>
             <p>
               Nosso site pode conter links para WhatsApp, Instagram, e-mail e sites de operadoras.
-              Cada serviço externo tem seus próprios termos e política de privacidade; a Nexa não é
-              responsável pelo conteúdo ou tratamento de dados desses ambientes.
+              Cada serviÃ§o externo tem seus prÃ³prios termos e polÃ­tica de privacidade; a Nexa nÃ£o Ã©
+              responsÃ¡vel pelo conteÃºdo ou tratamento de dados desses ambientes.
             </p>
 
-            <h3>Propriedade do conteúdo</h3>
+            <h3>Propriedade do conteÃºdo</h3>
             <p>
-              Textos, marca, identidade visual e elementos do site pertencem à Nexa Seguros. Não é
-              permitido copiar, reproduzir ou usar esse conteúdo para fins comerciais sem
-              autorização.
+              Textos, marca, identidade visual e elementos do site pertencem Ã  Nexa Seguros. NÃ£o Ã©
+              permitido copiar, reproduzir ou usar esse conteÃºdo para fins comerciais sem
+              autorizaÃ§Ã£o.
             </p>
 
-            <h3>Alterações e lei aplicável</h3>
+            <h3>AlteraÃ§Ãµes e lei aplicÃ¡vel</h3>
             <p>
-              Estes termos podem ser atualizados para refletir mudanças legais ou no serviço. A
-              versão atual estará sempre disponível nesta página, com a data de atualização.
-              Regem-se pelas leis da República Federativa do Brasil, com foro na comarca de
-              Camaçari, BA.
+              Estes termos podem ser atualizados para refletir mudanÃ§as legais ou no serviÃ§o. A
+              versÃ£o atual estarÃ¡ sempre disponÃ­vel nesta pÃ¡gina, com a data de atualizaÃ§Ã£o.
+              Regem-se pelas leis da RepÃºblica Federativa do Brasil, com foro na comarca de
+              CamaÃ§ari, BA.
             </p>
           </div>
         </section>
@@ -159,10 +159,10 @@ export default function Legal() {
       <footer className="footer footer-legalback" data-od-id="footer-legal">
         <div className="container footer-bottom">
           <p>
-            © <span id="year">{YEAR}</span> Nexa Seguros - Camaçari, BA.
+            Â© <span id="year">{YEAR}</span> Nexa Seguros - CamaÃ§ari, BA.
           </p>
           <Link className="link-arrow" to="/">
-            Voltar para a página inicial<span aria-hidden="true"> →</span>
+            Voltar para a pÃ¡gina inicial<span aria-hidden="true"> â†’</span>
           </Link>
         </div>
       </footer>

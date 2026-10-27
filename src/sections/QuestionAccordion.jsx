@@ -69,14 +69,14 @@ function Mock({ type }) {
         <p className="qa-vlabel qa-mt">Planos mais buscados</p>
         <ul className="qa-vlist">
           <li className="qa-vrow">
-            <span className="qa-vav"><img src={OP.hapvida} alt="" width="32" height="32" /></span>
+            <span className="qa-vav"><img src={OP.hapvida} alt="" /></span>
             <span className="qa-vrowtxt">
               <span className="qa-vrowname">Hapvida</span>
               <span className="qa-vrowsub">a partir de R$ 398,60</span>
             </span>
           </li>
           <li className="qa-vrow">
-            <span className="qa-vav"><img src={OP.bradesco} alt="" width="32" height="32" /></span>
+            <span className="qa-vav"><img src={OP.bradesco} alt="" /></span>
             <span className="qa-vrowtxt">
               <span className="qa-vrowname">Bradesco Saúde</span>
               <span className="qa-vrowsub">a partir de R$ 512,90</span>

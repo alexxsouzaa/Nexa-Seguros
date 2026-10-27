@@ -51,10 +51,7 @@ const CARDS = [
 function LogoPill({ src }) {
   return (
     <div className="oper-pill">
-      <picture>
-        <source src={asset(src.replace(".png", ".webp"))} type="image/webp" width="160" height="48" />
-        <img src={asset(src)} alt="" loading="lazy" decoding="async" width="160" height="48" aria-hidden="true" />
-      </picture>
+              <img src={asset(src)} alt="" loading="lazy" decoding="async" width="160" height="48" aria-hidden="true" />
     </div>
   );
 }
@@ -64,10 +61,7 @@ function OverlayCard() {
     <div className="oper-ov" aria-hidden="true">
       <div className="oper-ov-head">
         <span className="oper-ov-logo">
-            <picture>
-              <source src={asset("/img/logos/bradesco.webp")} type="image/webp" width="160" height="48" />
-              <img src={asset("/img/logos/bradesco.png")} alt="" loading="lazy" decoding="async" width="160" height="48" />
-            </picture>
+            <img src={asset("/img/logos/bradesco.png")} alt="" loading="lazy" decoding="async" width="160" height="48" />
         </span>
         <span className="oper-ov-ctx">PME · 3 vidas</span>
       </div>
@@ -110,10 +104,7 @@ function CardMock({ type }) {
             <i><b /><b /><b /></i>
           </span>
           <span className="mc-op">
-            <picture>
-              <source src={asset("/img/logos/bradesco.webp")} type="image/webp" width="160" height="48" />
-              <img src={asset("/img/logos/bradesco.png")} alt="" loading="lazy" decoding="async" width="160" height="48" />
-            </picture>
+            <img src={asset("/img/logos/bradesco.png")} alt="" loading="lazy" decoding="async" width="160" height="48" />
           </span>
         </div>
         <span className="mc-price">
