@@ -16,18 +16,21 @@ const SOCIAL = [
 
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" style={{ viewTransitionName: "footer" }}>
       <div className="container footer-grid">
         <div className="footer-brand">
-          <img
-            className="brand-logo"
-            src={asset("/logo_dark.png")}
-            alt="Nexa Seguros"
-            width="400"
-            height="214"
-            loading="lazy"
-            decoding="async"
-          />
+          <picture>
+            <source src={asset("/logo_dark.webp")} type="image/webp" width="400" height="214" />
+            <img
+              className="brand-logo"
+              src={asset("/logo_dark.png")}
+              alt="Nexa Seguros"
+              width="400"
+              height="214"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <p>Assessoria em planos de saúde e odontológicos. Cuidando de você e da sua empresa.</p>
           <div className="footer-social">
             {SOCIAL.map((s) => (
@@ -70,21 +73,21 @@ export default function Footer() {
 
         <div className="container footer-bottom">
           <div className="footer-contacts" aria-label="Contatos oficiais">
-            <a href="https://wa.me/5571981494527" target="_blank" rel="noopener">
+            <a href="https://wa.me/5571981494527" target="_blank" rel="noopener noreferrer">
               WhatsApp: (71) 98149-4527
             </a>
           </div>
           <p>© {YEAR} Nexa Seguros · Assessoria em planos de saúde e odontológicos · Camaçari, BA</p>
-        <button type="button" className="footer-cookie" onClick={() => openConsentPreferences()}>
-          Preferências de cookies
-        </button>
-        <a className="to-top" href="#inicio">
-          Voltar ao topo
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M12 19V5M5 12l7-7 7 7" />
-          </svg>
-        </a>
-      </div>
+          <button type="button" className="footer-cookie" onClick={() => openConsentPreferences()}>
+            Preferências de cookies
+          </button>
+          <a className="to-top" href="#inicio">
+            Voltar ao topo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </a>
+        </div>
     </footer>
   );
 }

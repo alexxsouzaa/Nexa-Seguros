@@ -97,7 +97,7 @@ function Quote() {
         {QUOTE.map((r) => (
           <div className="sim-qrow" key={r.name}>
             <span className="sim-qlogo">
-              <img src={asset(r.logo)} alt="" loading="lazy" decoding="async" />
+              <img src={asset(r.logo)} alt="" width="96" height="36" loading="lazy" decoding="async" />
             </span>
             <span className="sim-qmeta">
               <span className="sim-qname">{r.name}</span>
@@ -155,7 +155,7 @@ function useFrameScale() {
     const update = () => {
       items.forEach(({ sc, frame, design }) => {
         const w = sc.clientWidth;
-        if (w > 0) frame.style.setProperty("--sim-scale", String(w / design));
+        if (w > 0) frame.style.setProperty("--sim-scale", String(Math.max(w / design, 0.6)));
       });
     };
 
@@ -323,14 +323,14 @@ export default function Simulator() {
     <section className="section sim" id="simulador" data-od-id="secao-simulador">
       <div className="container">
         <div className="sim-head r">
-          <div className="sim-icons" aria-hidden="true">
-            <span className="sim-ic"><Sparkles size={24} strokeWidth={1.5} /></span>
-            <span className="sim-ic-mid"><Plus size={18} strokeWidth={2} /></span>
-            <span className="sim-ic"><MessageCircle size={24} strokeWidth={1.5} /></span>
+          <div className="sim-steps" aria-label="Passos da cotação">
+            <span className="sim-step"><span className="sim-step-num">1</span><span className="sim-step-txt">Peça a cotação</span></span>
+            <span className="sim-step"><span className="sim-step-num">2</span><span className="sim-step-txt">Revise os dados</span></span>
+            <span className="sim-step"><span className="sim-step-num">3</span><span className="sim-step-txt">Envie no WhatsApp</span></span>
           </div>
-          <h2>Encontre uma opção que faça sentido para você.</h2>
+          <h2 className="sim-title">Peça a cotação. Revise. Envie.</h2>
           <p className="section-sub">
-            A Nexa entende o seu perfil, compara as operadoras e monta a cotação no WhatsApp.
+            A Nexa entende o seu perfil, compara as operadoras e monta a cotação pronta para você.
             Nada vai para a frente sem você aprovar.
           </p>
         </div>
@@ -358,7 +358,7 @@ export default function Simulator() {
               <span className="sim-fc-logos">
                 {QUOTE.map((r) => (
                   <span className="sim-fc-logo" key={r.name}>
-                    <img src={asset(r.logo)} alt="" loading="lazy" decoding="async" />
+                    <img src={asset(r.logo)} alt="" width="48" height="48" loading="lazy" decoding="async" />
                   </span>
                 ))}
               </span>

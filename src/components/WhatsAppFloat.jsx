@@ -9,7 +9,7 @@ export default function WhatsAppFloat() {
         className="wa-float"
         href={waLink(WA_FLOAT_TEXT)}
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         aria-label="Falar com a Nexa no WhatsApp"
         data-od-id="whatsapp-flutuante"
         onClick={() => trackWhatsAppOpen("flutuante")}

@@ -68,12 +68,12 @@ export default function App() {
         <CookieConsent />
       <Suspense fallback={null}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/legal" element={<Legal />} />
-          <Route path="/legal.html" element={<Legal />} />
-          <Route path="/privacidade" element={<Privacidade />} />
-          <Route path="/termos" element={<Termos />} />
-          <Route path="/lgpd" element={<Lgpd />} />
+          <Route path="/" element={<Home viewTransition />} />
+          <Route path="/legal" element={<Legal viewTransition />} />
+          <Route path="/legal.html" element={<Legal viewTransition />} />
+          <Route path="/privacidade" element={<Privacidade viewTransition />} />
+          <Route path="/termos" element={<Termos viewTransition />} />
+          <Route path="/lgpd" element={<Lgpd viewTransition />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
