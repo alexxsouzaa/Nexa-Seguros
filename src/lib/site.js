@@ -1,5 +1,7 @@
 /* Nexa Seguros - dados compartilhados do site */
 
+import { DEFAULT_SITE_URL } from "../../site.config.js";
+
 /* Número oficial da Nexa (formato 55 + DDD + número) */
 export const WA_NUMBER = "5571981494527";
 
@@ -44,8 +46,10 @@ export const FOOTER_LEGAL_LINKS = [
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 export const asset = (p) => BASE + p;
 
-/* Canonical e URLs públicas */
-export const CANONICAL_BASE = "https://www.nexaseguros.com.br";
+/* Canonical e URLs públicas.
+ * A URL vem do .env (VITE_SITE_URL) para acompanhar o deploy real
+ * (GitHub Pages hoje, domínio próprio depois). */
+export const CANONICAL_BASE = (import.meta.env.VITE_SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, "");
 
 /* Google Analytics 4 - ID de medição da propriedade "Nexa Seguros".
  * Formato: G-XXXXXXXXXX (Visão geral > Fluxos de dados > Web).
@@ -55,7 +59,8 @@ export const GA4_ID = "G-D4DK0VBMLY";
 
 /* SEO helpers */
 export function seoTitle(pageTitle) {
-  return pageTitle + " | Nexa Seguros";
+  const base = String(pageTitle || "").replace(/\s*\|\s*Nexa Seguros\s*$/i, "").trim();
+  return base.endsWith("Nexa Seguros") ? base : base + " | Nexa Seguros";
 }
 
 export function seoDescription(desc) {
@@ -71,7 +76,7 @@ export const ORGANIZATION_SCHEMA = {
   "@type": "Organization",
   "name": "Nexa Seguros",
   "url": CANONICAL_BASE,
-  "logo": CANONICAL_BASE + "/logo.png",
+  "logo": CANONICAL_BASE + "/logo_light.png",
   "sameAs": ["https://www.instagram.com/nexa_seguro"],
   "contactPoint": {
     "@type": "ContactPoint",

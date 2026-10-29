@@ -1,13 +1,10 @@
 /* Nexa Seguros - mensuração de eventos (Google Analytics 4 + Consent Mode v2)
  *
- * PRIVACIDADE / LGPD: a tag da Google é carregada pelo index.html já com todos
- * os sinais de consentimento em "denied", então nenhum cookie é gravado e
- * nenhum identificador é usado antes do visitante aceitar o banner. O aceite é
- * aplicado aqui via gtag("consent", "update", ...).
+ * PRIVACIDADE / LGPD: nenhuma requisição é feita ao Google antes do visitante
+ * aceitar o banner. O script gtag.js é injetado sob demanda por loadGA4(), já
+ * com consentimento "granted" para analytics_storage.
  *
- * O modo "denied" não desliga a tag: o Google recebe apenas sinais anônimos e
- * sem cookie (cookieless pings). Isso permite a detecção da tag e a modelagem
- * de conversões sem violar a LGPD.
+ * Sem aceite: nada é carregado, nada é enviado, nenhum cookie é gravado.
  *
  * Não coletamos dados sensíveis (CPF, dados médicos, documentos). Enviamos
  * apenas nome do evento, página de origem e metadados agregados (tipo de
@@ -19,8 +16,11 @@ import { GA4_ID } from "./site.js";
 const isDev = import.meta.env.DEV;
 const hasGA4 = typeof GA4_ID === "string" && GA4_ID.trim() !== "";
 const CONSENT_KEY = "nexa_cookie_consent";
+const SCRIPT_ID = "nexa-ga4";
 
+/* GA4 carregado e configurado nesta sessão. */
 let ready = false;
+let scriptRequested = false;
 /* Fallback em memória para navegadores que bloqueiam o localStorage. */
 let consentMemory = null;
 
@@ -46,7 +46,8 @@ export function setConsent(value) {
   } catch {
     /* storage indisponível: a escolha vale pelo menos nesta sessão */
   }
-  applyGoogleConsent(value === "granted");
+  if (value === "granted") loadGA4();
+  else applyGoogleConsent(false);
 }
 
 /* Reabre o banner ("Preferências de cookies" no rodapé). */
@@ -59,12 +60,45 @@ export function openConsentPreferences() {
 
 /* ---------- Google Analytics 4 (Consent Mode v2) ---------- */
 
-/* A tag (gtag.js) já vem do index.html com o consentimento em "denied".
- * Aqui só sincronizamos o estado salvo e liberamos o envio de eventos. */
+/* Aplica o consentimento salvo. Sem aceite, não faz nada (nem rede, nem cookie). */
 export function initGA4() {
-  if (typeof window === "undefined" || !hasGA4 || ready) return;
+  if (typeof window === "undefined" || !hasGA4) return;
+  if (!hasAnalyticsConsent()) return;
+  loadGA4();
+}
+
+function ensureGtag() {
+  window.dataLayer = window.dataLayer || [];
+  if (typeof window.gtag !== "function") {
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+      wait_for_update: 500,
+    });
+  }
+}
+
+function loadGA4() {
+  if (typeof window === "undefined" || typeof document === "undefined" || !hasGA4) return;
+  ensureGtag();
+  applyGoogleConsent(true);
+  if (ready) return;
   ready = true;
-  applyGoogleConsent(hasAnalyticsConsent());
+  window.gtag("config", GA4_ID, { send_page_view: false });
+
+  if (scriptRequested) return;
+  scriptRequested = true;
+  const script = document.createElement("script");
+  script.id = SCRIPT_ID;
+  script.async = true;
+  script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA4_ID);
+  document.head.appendChild(script);
 }
 
 /* Com "granted" o GA4 grava cookies; com "denied" segue sem cookie nenhum. */
@@ -81,7 +115,7 @@ function applyGoogleConsent(granted) {
 
 /* Page views de SPA: chamado a cada troca de rota (App.jsx). */
 export function trackPageView(path) {
-  if (!ready || typeof window === "undefined") return;
+  if (!ready || !hasAnalyticsConsent() || typeof window === "undefined") return;
   window.gtag("config", GA4_ID, { page_path: path, page_title: document.title });
 }
 
@@ -90,7 +124,7 @@ export function sendEvent(name, payload = {}) {
     // eslint-disable-next-line no-console
     console.log("[NEXA_EVENT]", name, payload);
   }
-  if (!ready || typeof window === "undefined") return;
+  if (!ready || !hasAnalyticsConsent() || typeof window === "undefined") return;
   window.gtag("event", name, payload);
 }
 
