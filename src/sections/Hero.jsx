@@ -28,7 +28,7 @@ export default function Hero() {
               ))}
             </div>
             <p>
-              <span className="hl">+450</span> clientes
+              <span className="hl">+437</span> clientes
               <br />atendidos na Bahia.
             </p>
           </div>

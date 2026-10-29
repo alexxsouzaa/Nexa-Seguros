@@ -42,11 +42,11 @@ export default function Testimonials() {
         <dl className="stat-grid r">
           <div className="stat">
             <dt>Clientes atendidos</dt>
-            <dd>450+</dd>
+            <dd>437+</dd>
           </div>
           <div className="stat">
             <dt>Cotações por mês</dt>
-            <dd>90+</dd>
+            <dd>76+</dd>
           </div>
           <div className="stat">
             <dt>Avaliação pelo WhatsApp</dt>
