@@ -300,7 +300,8 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 
 /* Mobile sheet submenu */
 .mm-sub { display: none; flex-direction: column; gap: 4px; padding-left: 16px; margin-top: 8px; border-left: 1px solid var(--border-soft); }
-.mm-sub a { padding: 8px 0; font-size: 14px; }
+.mm-sub a { padding: 8px 0; font-size: 14px; transition: color 0.15s ease, background-color 0.15s ease; }
+.mm-sub a:hover { background: var(--bg-2); color: var(--fg); }
 
 .nav-burger {
   display: none; width: 44px; height: 44px; border: 1px solid transparent;

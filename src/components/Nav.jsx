@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { ChevronDown, Building2, Heart, ShieldCheck, Smile, ArrowRight, Calculator } from "lucide-react";
-import { PRODUCT_LINKS, asset } from "../lib/site.js";
+import { NavLink, Link, useLocation } from "react-router-dom";
+import { ChevronDown, Building2, Heart, ShieldCheck, Smile, ArrowRight, Calculator, MessageCircle } from "lucide-react";
+import { PRODUCT_LINKS, asset, waLink, WA_CTA_TEXT } from "../lib/site.js";
 
 const ICONS = {
   saude: Heart,
@@ -17,13 +17,26 @@ const DROP_DESC = {
   operadoras: "Conheça as operadoras parceiras da Nexa.",
 };
 
+const MOBILE_LEGAL = [
+  { label: "Privacidade", to: "/privacidade" },
+  { label: "Termos", to: "/termos" },
+  { label: "LGPD", to: "/lgpd" },
+];
+
 export default function Nav({ minimal = false }) {
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
   const [mmProd, setMmProd] = useState(false);
+  const { pathname, hash } = useLocation();
   const dropRef = useRef(null);
   const dropTimer = useRef(null);
   const sheetRef = useRef(null);
+
+  const closeMenu = () => {
+    setOpen(false);
+    setMmProd(false);
+  };
+  const onHome = pathname === "/";
 
   const openDrop = () => {
     if (dropTimer.current) clearTimeout(dropTimer.current);
@@ -55,7 +68,7 @@ export default function Nav({ minimal = false }) {
     if (minimal) return;
     function onKey(e) {
       if (e.key === "Escape") {
-        if (open) setOpen(false);
+        if (open) closeMenu();
         setDrop(false);
       }
     }
@@ -63,7 +76,7 @@ export default function Nav({ minimal = false }) {
       if (drop && dropRef.current && !dropRef.current.contains(e.target)) setDrop(false);
     }
     function onResize() {
-      if (window.innerWidth > 767) setOpen(false);
+      if (window.innerWidth > 767) closeMenu();
     }
     document.addEventListener("keydown", onKey);
     document.addEventListener("click", onClick);
@@ -87,32 +100,35 @@ export default function Nav({ minimal = false }) {
   }, [open, minimal]);
 
   useEffect(() => {
-    if (minimal) return;
+    if (minimal || !open) return;
     const sheet = sheetRef.current;
     if (!sheet) return;
     let startX = 0;
     let startY = 0;
+    let dx = 0;
     let isTracking = false;
     const onTouchStart = (e) => {
       const t = e.touches[0];
       startX = t.clientX;
       startY = t.clientY;
+      dx = 0;
       isTracking = true;
+      sheet.style.transition = "none";
     };
     const onTouchMove = (e) => {
       if (!isTracking) return;
       const t = e.touches[0];
-      const dx = t.clientX - startX;
+      dx = t.clientX - startX;
       const dy = Math.abs(t.clientY - startY);
-      if (dx < -30 && dy < 80) {
-        sheet.style.transform = `translateX(${Math.max(dx, -120)}px)`;
-        sheet.style.transition = "none";
+      if (dx < -10 && dy < 80) {
+        sheet.style.transform = `translateX(${Math.max(dx, -160)}px)`;
       }
     };
     const onTouchEnd = () => {
       isTracking = false;
       sheet.style.transition = "";
       sheet.style.transform = "";
+      if (dx < -70) closeMenu();
     };
     sheet.addEventListener("touchstart", onTouchStart, { passive: true });
     sheet.addEventListener("touchmove", onTouchMove, { passive: true });
@@ -122,7 +138,7 @@ export default function Nav({ minimal = false }) {
       sheet.removeEventListener("touchmove", onTouchMove);
       sheet.removeEventListener("touchend", onTouchEnd);
     };
-  }, [minimal]);
+  }, [minimal, open]);
 
   useEffect(() => {
     if (minimal || !open) return;
@@ -148,11 +164,41 @@ export default function Nav({ minimal = false }) {
         }
       }
     }
-    document.addEventListener("keydown", onKey, true);
+    document.addEventListener("keydown", onKey, { passive: false });
     return () => {
-      document.removeEventListener("keydown", onKey, true);
+      document.removeEventListener("keydown", onKey, { passive: false });
       try { if (prev && typeof prev.focus === "function") prev.focus(); } catch {}
     };
+  }, [open, minimal]);
+
+  /* Fecha o menu ao clicar em qualquer link interno ou fora do sheet. */
+  useEffect(() => {
+    if (minimal || !open) return;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    function onClick(e) {
+      const target = e.target;
+      if (target === sheet || target === document.querySelector(".sheet-backdrop")) {
+        closeMenu();
+        return;
+      }
+      const link = target.closest("a.mm-link, .sheet-close");
+      if (link) {
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          /* Clica em ancoragem: fecha o menu e rola a página */
+          closeMenu();
+          return;
+        }
+        /* Links normais: fecha o menu */
+        closeMenu();
+        return;
+      }
+      /* Clica fora de tudo dentro do menu: fecha */
+      closeMenu();
+    }
+    document.addEventListener("click", onClick, { passive: false });
+    return () => document.removeEventListener("click", onClick, { passive: false });
   }, [open, minimal]);
 
   return (
@@ -238,8 +284,11 @@ export default function Nav({ minimal = false }) {
           <div className="nav-right">
             {!minimal && (
               <div className="nav-actions">
-                <Link className="btn btn-primary" to="/#simulador">{minimal ? "Simular agora" : "Cotação gratuita"}</Link>
+                <Link className="btn btn-primary" to="/#simulador">Cotação gratuita</Link>
               </div>
+            )}
+            {!minimal && (
+              <Link className="btn btn-primary nav-cta-m" to="/#simulador">Cotação</Link>
             )}
             {!minimal && (
               <button
@@ -249,6 +298,7 @@ export default function Nav({ minimal = false }) {
                 aria-label={open ? "Fechar menu" : "Abrir menu"}
                 aria-expanded={open}
                 aria-controls="mobileSheet"
+                aria-haspopup="dialog"
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" color="currentColor" aria-hidden="true">
                   <path d="M4 5L16 5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
@@ -282,13 +332,13 @@ export default function Nav({ minimal = false }) {
               {mmProd && (
                 <div className="mm-sub">
                   {PRODUCT_LINKS.map((p) => (
-                    <Link key={p.href} to={`/${p.href}`} onClick={() => setOpen(false)} className="mm-link">
+                    <Link key={p.href} to={`/${p.href}`} onClick={closeMenu} className="mm-link">
                       {p.label}
                     </Link>
                   ))}
-                  <Link to="/privacidade" onClick={() => setOpen(false)} className="mm-link">Política de Privacidade</Link>
-                  <Link to="/termos" onClick={() => setOpen(false)} className="mm-link">Termos de Uso</Link>
-                  <Link to="/lgpd" onClick={() => setOpen(false)} className="mm-link">LGPD</Link>
+                  <Link to="/privacidade" onClick={closeMenu} className="mm-link">Política de Privacidade</Link>
+                  <Link to="/termos" onClick={closeMenu} className="mm-link">Termos de Uso</Link>
+                  <Link to="/lgpd" onClick={closeMenu} className="mm-link">LGPD</Link>
                 </div>
               )}
               <Link to="/#precos" onClick={() => setOpen(false)} className="mm-link">Preços</Link>
