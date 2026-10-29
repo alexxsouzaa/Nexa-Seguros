@@ -51,4 +51,32 @@ describe("Simulator", () => {
     const nomeInput = screen.getByLabelText(/Nome/i);
     expect(nomeInput).toHaveAttribute("aria-invalid", "true");
   });
+
+  it("abre a confirmação com foco no título e fecha com Escape", () => {
+    render(<Simulator />);
+
+    fireEvent.change(screen.getByLabelText(/Nome/i), { target: { value: "Ana" } });
+    fireEvent.change(screen.getByLabelText(/WhatsApp/i), { target: { value: "71999999999" } });
+    fireEvent.change(screen.getByLabelText(/Cidade/i), { target: { value: "Camaçari" } });
+    fireEvent.change(screen.getByLabelText(/Quantidade de pessoas beneficiárias/i), {
+      target: { value: "3" },
+    });
+    fireEvent.change(screen.getByLabelText(/Idade do titular/i), { target: { value: "34" } });
+    fireEvent.click(screen.getByLabelText("Saúde"));
+    fireEvent.click(screen.getByLabelText("Individual/Familiar"));
+
+    fireEvent.click(screen.getByRole("button", { name: /Quero receber opções/i }));
+
+    const dialog = screen.getByRole("dialog", { name: /Confira antes de enviar/i });
+    expect(dialog).not.toHaveAttribute("aria-modal");
+    expect(dialog).toHaveTextContent("Ana");
+    expect(document.activeElement).toBe(screen.getByText(/Confira antes de enviar/i));
+
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(document.activeElement).toBe(
+      screen.getByRole("button", { name: /Quero receber opções/i })
+    );
+  });
 });

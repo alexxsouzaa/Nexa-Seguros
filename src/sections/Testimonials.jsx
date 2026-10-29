@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Pause, Play } from "lucide-react";
 import { getRotatingReviews } from "../lib/reviews.js";
 
 const STAR_PATH =
@@ -26,6 +27,7 @@ function Stars({ rating = 5 }) {
 
 export default function Testimonials() {
   const [reviews] = useState(() => getRotatingReviews(12));
+  const [paused, setPaused] = useState(false);
 
   return (
     <section className="section" id="depoimentos">
@@ -52,7 +54,7 @@ export default function Testimonials() {
           </div>
         </dl>
 
-        <div className="marquee-wrap r">
+        <div className={"marquee-wrap r" + (paused ? " is-paused" : "")}>
           <div className="marquee">
             {[...reviews, ...reviews].map((r, i) => (
               <article className="review-card" key={i} aria-hidden={i >= reviews.length}>
@@ -65,6 +67,18 @@ export default function Testimonials() {
               </article>
             ))}
           </div>
+        </div>
+
+        <div className="anim-bar">
+          <button
+            type="button"
+            className="anim-btn"
+            aria-pressed={paused}
+            onClick={() => setPaused((v) => !v)}
+          >
+            {paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+            {paused ? "Retomar movimento" : "Pausar movimento"}
+          </button>
         </div>
       </div>
     </section>

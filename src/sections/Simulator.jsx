@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { asset, WA_NUMBER } from "../lib/site.js";
 import { trackQuoteStart, trackQuoteSubmit, trackCtaClick, trackWhatsAppOpen } from "../lib/analytics.js";
 import {
@@ -218,7 +218,36 @@ export default function Simulator() {
   const [quoteStarted, setQuoteStarted] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [quoteData, setQuoteData] = useState(null);
+  const confirmRef = useRef(null);
+  const submitRef = useRef(null);
+  const wasConfirming = useRef(false);
   useFrameScale();
+
+  /* Painel de confirmação: leva o foco para o título (leitores de tela anunciam
+   * o resumo) e devolve o foco ao botão de envio quando o visitante edita. */
+  useEffect(() => {
+    if (confirming) {
+      wasConfirming.current = true;
+      const title = confirmRef.current && confirmRef.current.querySelector("#sim-confirm-title");
+      if (title) title.focus();
+    } else if (wasConfirming.current) {
+      wasConfirming.current = false;
+      if (submitRef.current) submitRef.current.focus();
+    }
+  }, [confirming]);
+
+  /* Escape fecha o painel (volta para o formulário sem perder os dados). */
+  useEffect(() => {
+    if (!confirming) return;
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setConfirming(false);
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [confirming]);
 
   function handleFormChange(e) {
     const el = e.target;
@@ -377,9 +406,15 @@ export default function Simulator() {
             </p>
 
             {confirming ? (
-              <div className="sim-confirm" role="alertdialog" aria-modal="true" aria-labelledby="sim-confirm-title">
-                <h3 id="sim-confirm-title" className="sim-fc-title">Confira antes de enviar</h3>
-                <p className="sim-fc-lead">
+              <div
+                className="sim-confirm"
+                role="dialog"
+                aria-labelledby="sim-confirm-title"
+                aria-describedby="sim-confirm-desc"
+                ref={confirmRef}
+              >
+                <h3 id="sim-confirm-title" className="sim-fc-title" tabIndex={-1}>Confira antes de enviar</h3>
+                <p className="sim-fc-lead" id="sim-confirm-desc">
                   Revise seus dados. Ao confirmar, você será direto ao WhatsApp da Nexa com a cotação.
                 </p>
                 <ul className="sim-confirm-list">
@@ -504,7 +539,7 @@ export default function Simulator() {
                   {error || "Preencha os campos obrigatórios para continuar."}
                 </p>
 
-                <button className="btn btn-primary btn-lg btn-block" type="submit">
+                <button className="btn btn-primary btn-lg btn-block" type="submit" ref={submitRef}>
                   Quero receber opções
                 </button>
 

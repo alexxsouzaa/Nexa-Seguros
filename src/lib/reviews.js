@@ -31,28 +31,16 @@ export const REVIEWS = [
   { text: "Achei o plano perfeito pro meu perfil. Atendimento impecável!", name: "Débora Ramos" }
 ];
 
-const COOKIE = "nexa_rv";
-const COOKIE_DAYS = 30;
-
-function readCookie(name) {
-  if (typeof document === "undefined") return null;
-  const match = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]+)"));
-  return match ? decodeURIComponent(match[1]) : null;
-}
-
-function writeCookie(name, value, days) {
-  if (typeof document === "undefined") return;
-  const maxAge = days * 24 * 60 * 60;
-  document.cookie = name + "=" + encodeURIComponent(value) + "; max-age=" + maxAge + "; path=/; SameSite=Lax";
-}
+/* Semente do visitante apenas em memória: não gravamos cookie sem consentimento.
+ * O embaralhamento muda a cada carregamento da página, o que é irrelevante
+ * para a exibição dos depoimentos. */
+let visitorSeed = null;
 
 export function getVisitorSeed() {
-  let seed = readCookie(COOKIE);
-  if (!seed) {
-    seed = Math.random().toString(36).slice(2) + Date.now().toString(36);
-    writeCookie(COOKIE, seed, COOKIE_DAYS);
+  if (!visitorSeed) {
+    visitorSeed = Math.random().toString(36).slice(2) + Date.now().toString(36);
   }
-  return seed;
+  return visitorSeed;
 }
 
 function hashString(str) {

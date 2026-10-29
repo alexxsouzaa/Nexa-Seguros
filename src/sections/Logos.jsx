@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { asset } from "../lib/site.js";
-import { HeartPulse, Stethoscope, Plus, Check, Clock, LoaderCircle, ShieldCheck } from "lucide-react";
+import { HeartPulse, Stethoscope, Plus, Check, Clock, LoaderCircle, ShieldCheck, Pause, Play } from "lucide-react";
 
 const LOGOS = [
   "/img/logos/amil.png",
@@ -161,6 +162,8 @@ function CardMock({ type }) {
 }
 
 export default function Logos() {
+  const [paused, setPaused] = useState(false);
+
   return (
     <section className="section oper" id="operadoras">
       <div className="container">
@@ -177,7 +180,7 @@ export default function Logos() {
           </p>
         </div>
 
-        <div className="oper-panel r">
+        <div className={"oper-panel r" + (paused ? " is-paused" : "")}>
           <div className="oper-rows" aria-hidden="true">
             {ROWS.map((row, ri) => (
               <div key={ri} className={"oper-row" + (row.hideSm ? " hide-sm" : "")}>
@@ -196,6 +199,18 @@ export default function Logos() {
           <div className="oper-overlay">
             <OverlayCard />
           </div>
+        </div>
+
+        <div className="anim-bar">
+          <button
+            type="button"
+            className="anim-btn"
+            aria-pressed={paused}
+            onClick={() => setPaused((v) => !v)}
+          >
+            {paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+            {paused ? "Retomar movimento" : "Pausar movimento"}
+          </button>
         </div>
 
         <p className="oper-caption r">Saúde e odontológico, pessoa física, PME e adesão.</p>
