@@ -1,24 +1,24 @@
 /* =========================================================
    Nexa Seguros - styles.css
    Estrutura/layout/animacoes replicados do Koter.app
-   Marca: brand-spec.md (verde) · Light/Dark · Glass controlado
+   Marca: brand-spec.md (azul/índigo) · Light/Dark · Glass controlado
    ========================================================= */
 
 /* ---------- 1. TOKENS ---------- */
 
 :root {
   color-scheme: light;
-  --bg: #FAFDF7;
-  --bg-2: #F2FAEA;
-  --soft: #D0EDE3;
-  --hl: #92D8BE;
-  --pos: #B2F9CA;
-  --pos-strong: #7BE0AC;
-  --brand: #1AA077;
-  --brand-strong: #157A5A;
-  --inst: #1A4738;
-  --deep: #0E2A22;
-  --ink: #070908;
+  --bg: #FAFAFA;
+  --bg-2: #F1F3FC;
+  --soft: #DDE3FA;
+  --hl: #AEBDF3;
+  --pos: #D7E4FF;
+  --pos-strong: #9CC0FF;
+  --brand: #4260E6;
+  --brand-strong: #1B22A7;
+  --inst: #1B22A7;
+  --deep: #101668;
+  --ink: #0D0D0D;
   --surface: var(--white);
   --surface-raised: var(--white);
   --white: #FFFFFF;
@@ -40,28 +40,28 @@
   --wa-bubble: #DCF8C6;
   --wa-bubble-fg: #1F2D1F;
 
-  --fg: #10231C;
-  --fg-2: #2C463C;
-  --fg-muted: #63736C;
-  --border: rgba(16, 35, 28, 0.10);
-  --border-soft: rgba(16, 35, 28, 0.06);
+  --fg: #0D0D0D;
+  --fg-2: #2B2B2B;
+  --fg-muted: #5F5F5F;
+  --border: rgba(13, 13, 13, 0.10);
+  --border-soft: rgba(13, 13, 13, 0.06);
 
   --brand-text: var(--brand-strong);
   --btn-bg: var(--brand);
   --btn-fg: var(--white);
   --btn-bg-hover: var(--brand-strong);
 
-  --glass-bg: rgba(250, 253, 247, 0.72);
-  --glass-border: rgba(16, 35, 28, 0.08);
+  --glass-bg: rgba(250, 250, 250, 0.72);
+  --glass-border: rgba(13, 13, 13, 0.08);
   --glass-hi: rgba(255, 255, 255, 0.85);
-  --shadow-sm: 0 1px 2px rgba(16, 35, 28, 0.05);
-  --shadow-md: 0 8px 30px rgba(16, 35, 28, 0.07);
-  --shadow-lg: 0 20px 50px rgba(16, 35, 28, 0.10);
-  --brand-45: rgba(26, 160, 119, 0.45);
-  --brand-16: rgba(26, 160, 119, 0.16);
-  --scrim: rgba(7, 9, 8, 0.40);
-  --ink-30: rgba(7, 9, 8, 0.30);
-  --ink-24: rgba(7, 9, 8, 0.24);
+  --shadow-sm: 0 1px 2px rgba(13, 13, 13, 0.05);
+  --shadow-md: 0 8px 30px rgba(13, 13, 13, 0.07);
+  --shadow-lg: 0 20px 50px rgba(13, 13, 13, 0.10);
+  --brand-45: rgba(66, 96, 230, 0.45);
+  --brand-16: rgba(66, 96, 230, 0.16);
+  --scrim: rgba(13, 13, 13, 0.40);
+  --ink-30: rgba(13, 13, 13, 0.30);
+  --ink-24: rgba(13, 13, 13, 0.24);
 
   --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
@@ -450,7 +450,7 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 }
 .cat-vis::before {
   content: ""; position: absolute; inset: 0; z-index: 0;
-  background-color: var(--cat-base, #06231B);
+  background-color: var(--cat-base, #0B1140);
   background-image: var(--cat-noise), var(--cat-g1), var(--cat-g2), var(--cat-g3);
   background-size: 140px 140px, auto, auto, auto;
   background-repeat: repeat, no-repeat, no-repeat, no-repeat;
@@ -458,22 +458,22 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .cat-vis::after { content: ""; position: absolute; inset: 0; z-index: 0; background: rgba(0, 0, 0, 0.32); }
 
 .cat-card--1 .cat-vis {
-  --cat-base: #06231B;
-  --cat-g1: radial-gradient(42% 58% at 20% 25%, rgba(26, 160, 119, 0.85), transparent 72%);
-  --cat-g2: radial-gradient(40% 52% at 82% 72%, rgba(146, 216, 190, 0.55), transparent 72%);
-  --cat-g3: radial-gradient(30% 40% at 62% 8%, rgba(26, 71, 56, 0.7), transparent 72%);
+  --cat-base: #0B1140;
+  --cat-g1: radial-gradient(42% 58% at 20% 25%, rgba(66, 96, 230, 0.85), transparent 72%);
+  --cat-g2: radial-gradient(40% 52% at 82% 72%, rgba(174, 189, 243, 0.55), transparent 72%);
+  --cat-g3: radial-gradient(30% 40% at 62% 8%, rgba(27, 34, 167, 0.7), transparent 72%);
 }
 .cat-card--2 .cat-vis {
-  --cat-base: #062A1E;
-  --cat-g1: radial-gradient(50% 66% at 24% 30%, rgba(31, 184, 134, 0.85), transparent 72%);
-  --cat-g2: radial-gradient(42% 56% at 78% 80%, rgba(16, 120, 90, 0.8), transparent 72%);
-  --cat-g3: radial-gradient(24% 34% at 72% 16%, rgba(146, 216, 190, 0.5), transparent 72%);
+  --cat-base: #0D1447;
+  --cat-g1: radial-gradient(50% 66% at 24% 30%, rgba(66, 96, 230, 0.9), transparent 72%);
+  --cat-g2: radial-gradient(42% 56% at 78% 80%, rgba(27, 34, 167, 0.8), transparent 72%);
+  --cat-g3: radial-gradient(24% 34% at 72% 16%, rgba(174, 189, 243, 0.5), transparent 72%);
 }
 .cat-card--3 .cat-vis {
-  --cat-base: #0A2A24;
-  --cat-g1: radial-gradient(110% 45% at 50% 0%, rgba(26, 160, 119, 0.9), transparent 72%);
-  --cat-g2: radial-gradient(36% 44% at 10% 90%, rgba(20, 88, 72, 0.75), transparent 72%);
-  --cat-g3: radial-gradient(36% 44% at 90% 90%, rgba(146, 216, 190, 0.5), transparent 72%);
+  --cat-base: #101668;
+  --cat-g1: radial-gradient(110% 45% at 50% 0%, rgba(66, 96, 230, 0.9), transparent 72%);
+  --cat-g2: radial-gradient(36% 44% at 10% 90%, rgba(27, 34, 167, 0.75), transparent 72%);
+  --cat-g3: radial-gradient(36% 44% at 90% 90%, rgba(174, 189, 243, 0.5), transparent 72%);
 }
 
 .cat-mock { position: relative; z-index: 1; width: 100%; padding: 20px; border: 0.5px solid var(--border); border-bottom: 0; border-radius: 1.5rem 1.5rem 0 0; background: var(--bg); }
@@ -854,8 +854,8 @@ main:focus, section:focus { outline: none; box-shadow: none; }
 .sim-bmsg { flex: 1; min-width: 0; padding-top: 2px; font-size: 15px; line-height: 1.55; color: var(--fg); margin: 0; }
 
 /* Cotacao */
-.sim-quote { flex: 1; min-height: 0; margin: 0 16px; padding: 16px; border-radius: 24px; overflow: hidden; background: var(--bg-2); background-image: radial-gradient(circle, rgba(7,9,8,0.08) 1px, transparent 1px); background-size: 18px 18px; }
-.sim-quote-col { flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 32px; background: var(--bg-2); background-image: radial-gradient(circle, rgba(7,9,8,0.08) 1px, transparent 1px); background-size: 18px 18px; }
+.sim-quote { flex: 1; min-height: 0; margin: 0 16px; padding: 16px; border-radius: 24px; overflow: hidden; background: var(--bg-2); background-image: radial-gradient(circle, rgba(13,13,13,0.08) 1px, transparent 1px); background-size: 18px 18px; }
+.sim-quote-col { flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 32px; background: var(--bg-2); background-image: radial-gradient(circle, rgba(13,13,13,0.08) 1px, transparent 1px); background-size: 18px 18px; }
 .sim-quote-in { display: flex; flex-direction: column; }
 .sim-qhead { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
 .sim-qtitle { margin: 0; font-family: var(--font-display); font-size: 18px; font-weight: 500; color: var(--fg); }
@@ -1296,7 +1296,7 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="number"]
   border-radius: 1.5rem;
   background: var(--surface);
   border: 1px solid var(--border-soft);
-  box-shadow: 0 18px 48px rgba(26, 71, 56, 0.14);
+  box-shadow: 0 18px 48px rgba(27, 34, 167, 0.14);
   animation: cookie-in 0.28s var(--ease-out);
 }
 .cookie h2 {

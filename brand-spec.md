@@ -6,19 +6,21 @@ Fonte: briefing do usuário (paleta, tipografia e direção visual fornecidas in
 
 | Token | Hex | Uso |
 |-------|-----|-----|
-| `--bg` | `#FAFDF7` | Fundo principal claro |
-| `--bg-2` | `#F2FAEA` | Superfícies secundárias |
-| `--soft` | `#D0EDE3` | Elementos suaves, backgrounds |
-| `--hl` | `#92D8BE` | Destaque secundário |
-| `--pos` | `#B2F9CA` | Destaque / estado positivo |
-| `--brand` | `#1AA077` | Cor de ação principal |
-| `--inst` | `#1A4738` | Verde escuro institucional |
-| `--ink` | `#070908` | Texto / fundo escuro |
+| `--bg` | `#FAFAFA` | Fundo principal claro |
+| `--bg-2` | `#F1F3FC` | Superfícies secundárias (tinta azul) |
+| `--soft` | `#DDE3FA` | Elementos suaves, backgrounds |
+| `--hl` | `#AEBDF3` | Destaque secundário |
+| `--pos` | `#D7E4FF` | Destaque / estado positivo |
+| `--brand` | `#4260E6` | Cor de ação principal |
+| `--brand-strong` | `#1B22A7` | Azul profundo institucional |
+| `--inst` | `#1B22A7` | Fundo institucional / rodapé |
+| `--deep` | `#101668` | Painéis escuros derivados |
+| `--ink` | `#0D0D0D` | Texto / fundo escuro |
 | `--surface` | `#FFFFFF` | Cards, contraste |
 
-Dark: `#070908` (bg) + `#1A4738` (institucional) com superfícies um pouco mais claras; elementos em `#1AA077`, `#92D8BE`, `#B2F9CA`. Nunca misturar tokens entre temas.
+Paleta canônica: `#1B22A7`, `#4260E6`, `#FAFAFA`, `#0D0D0D`, `#FFFFFF`. Tons intermediários (`--bg-2`, `--soft`, `--hl`, `--pos`, `--deep`) são derivados do azul da marca. WhatsApp (`#25D366`) e estrelas (`#FBBC04`) permanecem semânticos.
 
-Regra de equilíbrio: verde em ações e destaques, **nunca** em grandes áreas chapadas (exceto a seção institucional de empresas, que usa `#1A4738` de propósito).
+Regra de equilíbrio: azul em ações e destaques, **nunca** em grandes áreas chapadas (exceto a seção institucional de empresas, que usa `#1B22A7` de propósito).
 
 ## Tipografia (Google Fonts)
 
