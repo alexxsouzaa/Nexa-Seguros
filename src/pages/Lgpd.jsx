@@ -17,8 +17,7 @@ export default function Lgpd() {
           <h1>LGPD - Lei Geral de Proteção de Dados</h1>
           <p className="legal-meta">
             Última atualização: outubro de 2026. Este documento vale para o site
-            www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros em Camaçari,
-            BA.
+            www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros na Bahia.
           </p>
         </div>
       </section>

@@ -69,7 +69,7 @@ export function seoDescription(desc) {
 
 export const SITE_NAME = "Nexa Seguros";
 export const SITE_DESCRIPTION =
-  "Assessoria em planos de saúde e odontológicos em Camaçari, BA. Compare opções de planos de saúde e odontológicos com orientação personalizada. Solicite uma cotação gratuita.";
+  "Assessoria em planos de saúde e odontológicos na Bahia. Compare opções de planos de saúde e odontológicos com orientação personalizada. Solicite uma cotação gratuita.";
 
 export const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
@@ -86,7 +86,6 @@ export const ORGANIZATION_SCHEMA = {
   },
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Camaçari",
     "addressRegion": "BA",
     "addressCountry": "BR",
   },
@@ -103,15 +102,9 @@ export const LOCAL_BUSINESS_SCHEMA = {
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "",
-    "addressLocality": "Camaçari",
     "addressRegion": "BA",
     "postalCode": "",
     "addressCountry": "BR",
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": -12.6867,
-    "longitude": -38.3288,
   },
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
@@ -120,9 +113,8 @@ export const LOCAL_BUSINESS_SCHEMA = {
     "closes": "18:00",
   },
   "areaServed": {
-    "@type": "City",
-    "name": "Camaçari",
-    "addressRegion": "BA",
+    "@type": "State",
+    "name": "Bahia",
     "addressCountry": "BR",
   },
   "knowsAbout": [

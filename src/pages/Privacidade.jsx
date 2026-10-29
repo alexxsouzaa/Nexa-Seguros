@@ -6,7 +6,7 @@ export default function Privacidade() {
     <LegalLayout>
       <SEOHead
         title="Política de Privacidade | Nexa Seguros"
-        description="Saiba como a Nexa Seguros coleta, usa e protege seus dados pessoais conforme a LGPD. Assessoria em planos de saúde e odontológicos em Camaçari, BA."
+        description="Saiba como a Nexa Seguros coleta, usa e protege seus dados pessoais conforme a LGPD. Assessoria em planos de saúde e odontológicos na Bahia."
         path="/privacidade"
         robots="index,follow"
       />
@@ -17,8 +17,7 @@ export default function Privacidade() {
           <h1>Política de privacidade</h1>
           <p className="legal-meta">
             Última atualização: outubro de 2026. Este documento vale para o site
-            www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros em Camaçari,
-            BA.
+            www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros na Bahia.
           </p>
         </div>
       </section>
@@ -27,7 +26,7 @@ export default function Privacidade() {
         <div className="container">
           <h2>Quem somos</h2>
           <p>
-            A Nexa Seguros faz assessoria em planos de saúde e odontológicos em Camaçari, BA.
+            A Nexa Seguros faz assessoria em planos de saúde e odontológicos na Bahia.
             Atuamos como intermediários entre você e as operadoras: não fabricamos planos nem
             calculamos valores oficiais.
           </p>

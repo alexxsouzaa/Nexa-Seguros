@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <>
       <SEOHead
-        title="Assessoria em Planos de Saúde e Odontológicos em Camaçari"
-        description="A Nexa Seguros faz assessoria em planos de saúde e odontológicos em Camaçari para ajudar você, sua família ou sua empresa a comparar opções e escolher com confiança. Solicite uma cotação gratuita."
+        title="Assessoria em Planos de Saúde e Odontológicos na Bahia"
+        description="A Nexa Seguros faz assessoria em planos de saúde e odontológicos na Bahia para ajudar você, sua família ou sua empresa a comparar opções e escolher com confiança. Solicite uma cotação gratuita."
         path="/"
       />
       <a className="skip-link" href="#conteudo">Pular para o conteúdo principal</a>

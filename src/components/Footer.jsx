@@ -74,7 +74,7 @@ export default function Footer() {
               WhatsApp: (71) 98149-4527
             </a>
           </div>
-          <p>© {YEAR} Nexa Seguros · Assessoria em planos de saúde e odontológicos · Camaçari, BA</p>
+          <p>© {YEAR} Nexa Seguros · Assessoria em planos de saúde e odontológicos · Bahia</p>
         <button type="button" className="footer-cookie" onClick={() => openConsentPreferences()}>
           Preferências de cookies
         </button>

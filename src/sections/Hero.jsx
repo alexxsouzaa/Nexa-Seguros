@@ -28,8 +28,8 @@ export default function Hero() {
               ))}
             </div>
             <p>
-              <span className="hl">+3.500</span> clientes
-              <br />atendidos em todo o Brasil.
+              <span className="hl">+450</span> clientes
+              <br />atendidos na Bahia.
             </p>
           </div>
 

@@ -6,7 +6,7 @@ export default function Termos() {
     <LegalLayout>
       <SEOHead
         title="Termos de Uso | Nexa Seguros"
-        description="Termos e condições de uso do site Nexa Seguros. Assessoria em planos de saúde e odontológicos em Camaçari, BA."
+        description="Termos e condições de uso do site Nexa Seguros. Assessoria em planos de saúde e odontológicos na Bahia."
         path="/termos"
         robots="index,follow"
       />
@@ -17,8 +17,7 @@ export default function Termos() {
           <h1>Termos de uso</h1>
           <p className="legal-meta">
             Última atualização: outubro de 2026. Estes termos valem para o uso do site
-            www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros em Camaçari,
-            BA.
+            www.nexaseguros.com.br e para o atendimento realizado pela Nexa Seguros na Bahia.
           </p>
         </div>
       </section>
@@ -89,7 +88,7 @@ export default function Termos() {
           <p>
             Estes termos podem ser atualizados para refletir mudanças legais ou no serviço. A versão
             atual estará sempre disponível nesta página, com a data de atualização. Regem-se pelas
-            leis da República Federativa do Brasil, com foro na comarca de Camaçari, BA.
+            leis da República Federativa do Brasil, com foro competente no Estado da Bahia.
           </p>
         </div>
       </section>

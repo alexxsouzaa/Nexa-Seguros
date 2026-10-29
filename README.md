@@ -1,6 +1,6 @@
 # Nexa Seguros
 
-Site institucional da **Nexa Seguros** (assessoria em planos de saúde e odontológicos em Camaçari/BA). Fiel ao layout original, com foco em conversão para cotação via WhatsApp e conformidade com LGPD.
+Site institucional da **Nexa Seguros** (assessoria em planos de saúde e odontológicos na Bahia). Fiel ao layout original, com foco em conversão para cotação via WhatsApp e conformidade com LGPD.
 
 ## Tecnologias
 

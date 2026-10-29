@@ -57,7 +57,7 @@ describe("Simulator", () => {
 
     fireEvent.change(screen.getByLabelText(/Nome/i), { target: { value: "Ana" } });
     fireEvent.change(screen.getByLabelText(/WhatsApp/i), { target: { value: "71999999999" } });
-    fireEvent.change(screen.getByLabelText(/Cidade/i), { target: { value: "Camaçari" } });
+    fireEvent.change(screen.getByLabelText(/Cidade/i), { target: { value: "Salvador" } });
     fireEvent.change(screen.getByLabelText(/Quantidade de pessoas beneficiárias/i), {
       target: { value: "3" },
     });

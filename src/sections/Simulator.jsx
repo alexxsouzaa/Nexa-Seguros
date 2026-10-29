@@ -18,8 +18,8 @@ const TIPOS = ["Saúde", "Odontológico", "Saúde + Odontológico"];
 const PERFIS = ["Individual/Familiar", "Empresarial"];
 
 const CHAT = [
-  { role: "user", text: "Quais planos cobrem Camaçari?" },
-  { role: "bot", text: "Encontrei 12 planos de 6 operadoras para Camaçari." },
+  { role: "user", text: "Quais planos atendem na Bahia?" },
+  { role: "bot", text: "Encontrei 12 planos de 6 operadoras com atendimento na Bahia." },
   { role: "user", text: "Qual a carência do plano da Amil?" },
   { role: "bot", text: "Na Amil, a carência é de 180 dias, com redução em urgência e emergência." },
   { role: "user", text: "Monta uma cotação: família, 4 vidas." },
@@ -33,7 +33,7 @@ const QUOTE = [
 ];
 
 const FEATURES = [
-  { Icon: Sparkles, h: "Cotação no chat.", p: '"Plano família, 4 vidas em Camaçari" vira 3 opções comparadas, prontas para enviar.' },
+  { Icon: Sparkles, h: "Cotação no chat.", p: '"Plano família, 4 vidas na Bahia" vira 3 opções comparadas, prontas para enviar.' },
   { Icon: LayoutList, h: "Comparativo lado a lado.", p: "Preço, rede e carência de cada operadora na mesma tela, sem planilha." },
   { Icon: Banknote, h: "Preço direto da operadora.", p: "O valor vem atualizado da operadora parceira, sem surpresa na contratação." },
   { Icon: MessageSquareText, h: "Explico cada detalhe.", p: "Carência, coparticipação e rede em linguagem simples, sem letras miúdas." },
@@ -90,7 +90,7 @@ function Quote() {
     <div className="sim-quote-in">
       <div className="sim-qhead">
         <p className="sim-qtitle">Plano família · 4 vidas</p>
-        <p className="sim-qcity">Camaçari</p>
+        <p className="sim-qcity">Bahia</p>
       </div>
 
       <div className="sim-qrows">
@@ -475,7 +475,7 @@ export default function Simulator() {
                       id="cidade"
                       name="cidade"
                       autoComplete="address-level2"
-                      placeholder="Camaçari"
+                      placeholder="Sua cidade"
                       maxLength="60"
                       required
                     />
